@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bookmaker.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Bookmaker.Models
 
         public string Name { get; set; }
 
-        public string Type { get; set; }
+        public LeagueType Type { get; set; }
 
         public string Country { get; set; }
 

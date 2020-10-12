@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace Bookmaker.ApiFootball.Responses.Leagues
 {
-    public class AllLeaguesResponseContainer
+    public class LeaguesResponseHolder
     {
-        [JsonProperty("api")]
-        public AllLeaguesResponse AllLeaguesResponse { get; set; }
+        [JsonProperty("results")]
+        public int Results { get; set; }
+
+        [JsonProperty("leagues")]
+        public List<LeagueResponse> Leagues { get; set; }
     }
 }
