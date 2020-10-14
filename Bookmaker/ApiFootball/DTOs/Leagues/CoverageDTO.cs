@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Bookmaker.ApiFootball.Responses.Leagues
+namespace Bookmaker.ApiFootball.DTOs.Leagues
 {
-    public class CoverageResponse
+    public class CoverageDTO
     {
         [JsonProperty("standings")]
         public bool CoverageStandings { get; set; }
@@ -25,7 +25,7 @@ namespace Bookmaker.ApiFootball.Responses.Leagues
         public bool Odds { get; set; }
 
         [JsonProperty("fixtures")]
-        public FixturesResponse Fixtures { get; set; }
+        public FixturesDTO Fixtures { get; set; }
 
 
     }

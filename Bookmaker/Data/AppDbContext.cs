@@ -12,5 +12,7 @@ namespace Bookmaker.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<League> Leagues { get; set; }
+
+        public DbSet<Country> Countries { get; set; }
     }
 }

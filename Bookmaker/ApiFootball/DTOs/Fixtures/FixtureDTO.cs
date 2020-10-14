@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bookmaker.ApiFootball.Responses.Fixtures
+namespace Bookmaker.ApiFootball.DTOs.Fixtures
 {
-    public class FixtureResponse
+    public class FixtureDTO
     {
         [JsonProperty("fixture_id")]
         public int FixtureId { get; set; }
@@ -15,7 +15,7 @@ namespace Bookmaker.ApiFootball.Responses.Fixtures
         public int LeagueId { get; set; }
 
         [JsonProperty("league")]
-        public LeagueResponse League { get; set; }
+        public LeagueDTO League { get; set; }
 
         [JsonProperty("event_date")]
         public string EventDate { get; set; }
@@ -48,10 +48,10 @@ namespace Bookmaker.ApiFootball.Responses.Fixtures
         public string Referee { get; set; }
 
         [JsonProperty("homeTeam")]
-        public TeamResponse HomeTeam { get; set; }
+        public TeamDTO HomeTeam { get; set; }
 
         [JsonProperty("awayTeam")]
-        public TeamResponse AwayTeam { get; set; }
+        public TeamDTO AwayTeam { get; set; }
 
         [JsonProperty("goalsHomeTeam")]
         public int GoalsHomeTeam { get; set; }
@@ -60,6 +60,6 @@ namespace Bookmaker.ApiFootball.Responses.Fixtures
         public int GoalsAwayTeam { get; set; }
 
         [JsonProperty("score")]
-        public ScoreResponse Score { get; set; }
+        public ScoreDTO Score { get; set; }
     }
 }
