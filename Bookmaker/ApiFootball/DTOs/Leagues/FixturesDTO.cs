@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Bookmaker.ApiFootball.Responses.Leagues
+namespace Bookmaker.ApiFootball.DTOs.Leagues
 {
-    public class FixturesResponse
+    public class FixturesDTO
     {
         [JsonProperty("events")]
         public bool Events { get; set; }

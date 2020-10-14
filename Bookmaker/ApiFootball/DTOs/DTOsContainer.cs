@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bookmaker.ApiFootball.Responses
+namespace Bookmaker.ApiFootball.DTOs
 {
-    public class ResponseContainer<T>
+    public class DTOsContainer<T>
     {
         [JsonProperty("api")]
-        public T Content { get; set; }
+        public T DTOsHolder { get; set; }
     }
 }

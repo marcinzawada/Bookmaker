@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Bookmaker.ApiFootball.DTOs;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -7,24 +10,54 @@ using System.Threading.Tasks;
 
 namespace Bookmaker.ApiFootball.Client
 {
-    public class ApiFootballClient
+    public class ApiFootballClient : IApiFootballClient
     {
-        private readonly IConfiguration _configuration;
         private readonly RestClient _restClient;
+        private readonly string _host;
+        private readonly string _key;
 
         public ApiFootballClient(IConfiguration configuration)
         {
-            _configuration = configuration;
-            var client = new RestClient("https://api-football-v1.p.rapidapi.com/v2/leagues");
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("x-rapidapi-host", "api-football-v1.p.rapidapi.com");
-            request.AddHeader("x-rapidapi-key", "fe7e68095dmsh3ab1bccf87f3dcdp1d3d30jsne245d22c32b8");
-            //IRestResponse response = await client.ExecuteAsync(request);
+            _host = configuration.GetSection("ApiFootballCredential").GetSection("x-rapidapi-host").Value;
+            _key = configuration.GetSection("ApiFootballCredential").GetSection("x-rapidapi-key").Value;
+            var baseUrl = configuration.GetSection("ApiFootballCredential").GetSection("BaseUrl").Value;
+            _restClient = new RestClient(baseUrl);
+
         }
 
-        public void Request(string endpoint, Dictionary<string, string> parameters)
+        public async Task<IRestResponse> RequestAsync(string endpoint,
+            Dictionary<string, string> parameters = null, Method method = Method.GET)
         {
-            var request = new RestRequest(Method.GET);
+            var request = new RestRequest(endpoint, method);
+            request.AddHeader("x-rapidapi-host", _host);
+            request.AddHeader("x-rapidapi-key", _key);
+
+            if (parameters != null)
+            {
+                foreach (var p in parameters)
+                {
+                    request.AddParameter(p.Key, p.Value);
+                }
+            }
+
+            IRestResponse response = await _restClient.ExecuteAsync(request);
+            return response;
+        }
+
+        public async Task<List<DTO>> DownloadAllIResources<H, DTO>(string resourcesUrl) where H : DTOsHolder<DTO>
+        {
+            var response = await this.RequestAsync(resourcesUrl);
+
+            var serializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+
+            var container =
+                JsonConvert.DeserializeObject<DTOsContainer<H>>(response.Content,
+                    serializerSettings);
+
+            return container.DTOsHolder.Resources;
         }
     }
 }

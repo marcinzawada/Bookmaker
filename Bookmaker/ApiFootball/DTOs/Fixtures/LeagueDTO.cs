@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bookmaker.ApiFootball.Responses.Fixtures
+namespace Bookmaker.ApiFootball.DTOs.Fixtures
 {
-    public class LeagueResponse
+    public class LeagueDTO
     {
         [JsonProperty("name")]
         public string Name { get; set; }
