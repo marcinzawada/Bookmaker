@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bookmaker.Data
+namespace Bookmaker.Api.Data.Data
 {
     public class AppDbContext : DbContext
     {

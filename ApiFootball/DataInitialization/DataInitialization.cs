@@ -1,5 +1,5 @@
-﻿using Bookmaker.ApiFootball.Client;
-using Bookmaker.Data;
+﻿using Bookmaker.Api.Data.Data;
+using Bookmaker.ApiFootball.Client;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,12 +23,12 @@ namespace Bookmaker.ApiFootball.DataInitialization
 
         public async Task<List<TEntity>> DownloadAllFirstTime<DTO,TEntity>() where TEntity : class
         {
-            var itemsInBase = await  _context.Set<TEntity>().ToListAsync();
-            if (itemsInBase.Count != 0)
-                return itemsInBase;
+            var itemsInBaseCount =  _context.Set<TEntity>().Count();
+            if (itemsInBaseCount != 0)
+                return new List<TEntity>();
 
             //var container =
-                //await _client.DownloadAllIResources<CountriesDTOHolder>("/countries");
+            //await _client.DownloadAllIResources<CountriesDTOHolder>("/countries");
 
             //var type = typeof(TEntity);
 
@@ -54,7 +54,7 @@ namespace Bookmaker.ApiFootball.DataInitialization
             //_context.Countries.AddRange(countries);
             //await _context.SaveChangesAsync();
 
-            return itemsInBase;
+            return new List<TEntity>();
         }
     }
 }

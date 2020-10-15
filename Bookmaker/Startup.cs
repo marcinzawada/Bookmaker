@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bookmaker.Api.Data.Data;
 using Bookmaker.ApiFootball.Client;
 using Bookmaker.ApiFootball.DataInitialization;
 using Bookmaker.ApiFootball.Services;
-using Bookmaker.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -41,7 +41,6 @@ namespace Bookmaker
             services.AddScoped<IApiFootballClient, ApiFootballClient>();
             services.AddScoped<ApiFootballLeaguesService>();
             services.AddScoped<IDataInitialization, DataInitialization>();
-
 
 
 

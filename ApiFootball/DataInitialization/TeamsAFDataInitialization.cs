@@ -1,5 +1,5 @@
-﻿using Bookmaker.ApiFootball.Client;
-using Bookmaker.Data;
+﻿using Bookmaker.Api.Data.Data;
+using Bookmaker.ApiFootball.Client;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
