@@ -1,8 +1,7 @@
-﻿using Bookmaker.ApiFootball.Client;
+﻿using Bookmaker.Api.Data.Data;
+using Bookmaker.ApiFootball.Client;
 using Bookmaker.ApiFootball.DTOs;
 using Bookmaker.ApiFootball.DTOs.Leagues;
-using Bookmaker.Data;
-using Bookmaker.Enums;
 using Bookmaker.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

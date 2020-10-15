@@ -1,4 +1,4 @@
-﻿using Bookmaker.Enums;
+﻿using Bookmaker.Api.Data.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;

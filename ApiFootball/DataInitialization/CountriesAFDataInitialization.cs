@@ -1,8 +1,8 @@
-﻿using Bookmaker.ApiFootball.Client;
+﻿using Bookmaker.Api.Data.Data;
+using Bookmaker.ApiFootball.Client;
 using Bookmaker.ApiFootball.DataInitialization;
 using Bookmaker.ApiFootball.DTOs;
 using Bookmaker.ApiFootball.DTOs.Countries;
-using Bookmaker.Data;
 using Bookmaker.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
