@@ -1,12 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Bookmaker.ApiFootball.DTOs.Fixtures
+namespace ApiFootball.DTOs.Fixtures
 {
-    public class FixtureDTO
+    public class FixtureDto
     {
         [JsonProperty("fixture_id")]
         public int FixtureId { get; set; }
@@ -15,7 +11,7 @@ namespace Bookmaker.ApiFootball.DTOs.Fixtures
         public int LeagueId { get; set; }
 
         [JsonProperty("league")]
-        public LeagueDTO League { get; set; }
+        public LeagueDto League { get; set; }
 
         [JsonProperty("event_date")]
         public string EventDate { get; set; }
@@ -48,10 +44,10 @@ namespace Bookmaker.ApiFootball.DTOs.Fixtures
         public string Referee { get; set; }
 
         [JsonProperty("homeTeam")]
-        public TeamDTO HomeTeam { get; set; }
+        public TeamDto HomeTeam { get; set; }
 
         [JsonProperty("awayTeam")]
-        public TeamDTO AwayTeam { get; set; }
+        public TeamDto AwayTeam { get; set; }
 
         [JsonProperty("goalsHomeTeam")]
         public int GoalsHomeTeam { get; set; }
@@ -60,6 +56,6 @@ namespace Bookmaker.ApiFootball.DTOs.Fixtures
         public int GoalsAwayTeam { get; set; }
 
         [JsonProperty("score")]
-        public ScoreDTO Score { get; set; }
+        public ScoreDto Score { get; set; }
     }
 }

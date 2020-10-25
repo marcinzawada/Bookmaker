@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Bookmaker.ApiFootball.DTOs
 {
-    public class DTOsHolderConverter : JsonConverter
+    public class DtoHolderConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
@@ -24,7 +24,7 @@ namespace Bookmaker.ApiFootball.DTOs
             foreach (JProperty jp in jo.Properties())
             {
                 var name = jp.Name;
-                if(name != "results")
+                if(name != "results" && name != "paging")
                 {
                     name = "resources";
                 }

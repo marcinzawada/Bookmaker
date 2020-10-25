@@ -1,12 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Bookmaker.ApiFootball.DTOs.Fixtures
+namespace ApiFootball.DTOs.Fixtures
 {
-    public class TeamDTO
+    public class TeamDto
     {
         [JsonProperty("team_id")]
         public int TeamId { get; set; }

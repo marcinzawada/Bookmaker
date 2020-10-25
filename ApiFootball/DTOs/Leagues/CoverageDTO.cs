@@ -1,13 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
-namespace Bookmaker.ApiFootball.DTOs.Leagues
+namespace ApiFootball.DTOs.Leagues
 {
-    public class CoverageDTO
+    public class CoverageDto
     {
         [JsonProperty("standings")]
         public bool CoverageStandings { get; set; }
@@ -25,7 +20,7 @@ namespace Bookmaker.ApiFootball.DTOs.Leagues
         public bool Odds { get; set; }
 
         [JsonProperty("fixtures")]
-        public FixturesDTO Fixtures { get; set; }
+        public FixturesDto Fixtures { get; set; }
 
 
     }

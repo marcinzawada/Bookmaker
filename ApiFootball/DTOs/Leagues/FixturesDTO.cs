@@ -1,13 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
-namespace Bookmaker.ApiFootball.DTOs.Leagues
+namespace ApiFootball.DTOs.Leagues
 {
-    public class FixturesDTO
+    public class FixturesDto
     {
         [JsonProperty("events")]
         public bool Events { get; set; }
