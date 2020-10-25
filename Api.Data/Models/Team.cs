@@ -5,14 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bookmaker.Models
+namespace Api.Data.Models
 {
     public class Team
     {   
         [Key]
         public int Id { get; set; }
 
-        public int TeamId { get; set; }
+        public int ExtTeamId { get; set; }
 
         public string Name { get; set; }
 
@@ -38,5 +38,9 @@ namespace Bookmaker.Models
         public string VenueCity { get; set; }
 
         public int VenueCapacity { get; set; }
+
+        public int LeagueId { get; set; }
+
+        public League League { get; set; }
     }
 }

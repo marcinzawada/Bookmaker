@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace Api.Data.Models
 {
-    public class Season
+    public class Coupon
     {
         [Key]
         public int Id { get; set; }
 
-        public int Year { get; set; }
+        public decimal Bid { get; set; }
 
-        public List<League> Leagues { get; set; }
+        public List<CouponBetValue> CouponBetValues { get; set; }
     }
 }

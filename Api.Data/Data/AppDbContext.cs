@@ -1,4 +1,4 @@
-﻿using Bookmaker.Models;
+﻿using Api.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,5 +14,67 @@ namespace Bookmaker.Api.Data.Data
         public DbSet<League> Leagues { get; set; }
 
         public DbSet<Country> Countries { get; set; }
+
+        public DbSet<Season> Seasons { get; set; }
+
+        public DbSet<Team> Teams { get; set; }
+
+        public DbSet<Round> Rounds  { get; set; }
+
+        public DbSet<Bet> Bets  { get; set; }
+
+        public DbSet<BetValue> BetValues { get; set; }
+
+        public DbSet<Bookie> Bookies { get; set; }
+
+        public DbSet<Fixture> Fixtures { get; set; }
+
+        public DbSet<Label> Labels { get; set; }
+
+        public DbSet<Odd> Odds { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Bet>()
+                .HasMany(b => b.BetValues)
+                .WithOne(bv => bv.Bet);
+
+            modelBuilder.Entity<Odd>()
+                .HasMany(o => o.Bets)
+                .WithOne(b => b.Odd);
+
+            modelBuilder.Entity<Fixture>()
+                .HasMany(f => f.Odds)
+                .WithOne(o => o.Fixture);
+
+            modelBuilder.Entity<League>()
+                .HasMany(l => l.Odds)
+                .WithOne(o => o.League);
+
+            modelBuilder.Entity<Season>()
+                .HasMany(s => s.Leagues)
+                .WithOne(l => l.Season);
+
+            modelBuilder.Entity<Country>()
+                .HasMany(c => c.Leagues)
+                .WithOne(l => l.Country);
+
+            modelBuilder.Entity<Country>()
+                .HasMany(c => c.Teams)
+                .WithOne(t => t.Country);
+
+            modelBuilder.Entity<League>()
+                .HasMany(l => l.Odds)
+                .WithOne(o => o.League);
+
+            modelBuilder.Entity<League>()
+                .HasMany(l => l.Rounds)
+                .WithOne(r => r.League);
+
+            modelBuilder.Entity<League>()
+                .HasMany(l => l.Teams)
+                .WithOne(t => t.League);
+        }
     }
 }
