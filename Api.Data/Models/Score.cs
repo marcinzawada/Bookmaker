@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bookmaker.Models
+namespace Api.Data.Models
 {
     public class Score
     {

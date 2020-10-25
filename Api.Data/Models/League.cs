@@ -1,30 +1,36 @@
-﻿using Bookmaker.Api.Data.Data.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Data.Enums;
 
-namespace Bookmaker.Models
+namespace Api.Data.Models
+
 {
     public class League
     {
         [Key]
         public int Id { get; set; }
 
+        public int ExtLeagueId { get; set; }
+
         public string Name { get; set; }
 
         public LeagueType Type { get; set; }
 
-        private int CountryId { get; set; }
+        public int? CountryId { get; set; }
 
         [ForeignKey("CountryId")]
         public Country Country { get; set; }
 
         public string CountryCode { get; set; }
 
-        public int Season { get; set; }
+        public int SeasonId { get; set; }
+
+        [ForeignKey("SeasonId")]
+        public Season Season { get; set; }
 
         public DateTime? SeasonStart { get; set; }
 
@@ -56,5 +62,10 @@ namespace Bookmaker.Models
 
         public bool HasPlayersStatistics { get; set; }
 
+        public List<Odd> Odds { get; set; }
+
+        public List<Round> Rounds { get; set; }
+
+        public List<Team> Teams { get; set; }
     }
 }
