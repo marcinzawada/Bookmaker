@@ -1,15 +1,33 @@
-﻿using Bookmaker.ApiFootball.DTOs;
-using RestSharp;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Api.Data.Models;
+using ApiFootball.DTOs;
+using ApiFootball.DTOs.Countries;
+using ApiFootball.DTOs.Fixtures.Rounds;
+using RestSharp;
 
-namespace Bookmaker.ApiFootball.Client
+namespace ApiFootball.Client
 {
     public interface IApiFootballClient
     {
-        Task<List<DTO>> DownloadAllIResources<H, DTO>(string resourcesUrl)
-            where H : DTOsHolder<DTO>;
+        Task<List<TDto>> DownloadAllIResources<THolder, TDto>(string resourcesUrl)
+            where THolder : DtoHolder<TDto>;
 
         Task<IRestResponse> RequestAsync(string endpoint, Dictionary<string, string> parameters = null, Method method = Method.GET);
+
+        Task<List<Country>> DownloadAllCountries();
+
+        Task<List<Season>> DownloadAllSeasons();
+
+        Task<List<League>> DownloadAllLeagues();
+
+        Task<List<Team>> DownloadTeamsByLeagueId(int extLeagueId);
+
+        Task<List<Label>> DownloadAllLabels();
+
+        Task<List<Round>> DownloadAllRoundsByLeagueId(int extLeagueId);
+
+        Task<List<Fixture>> DownloadAllFixturesByLeagueId(int extLeagueId);
+
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Bookmaker.Api.Data.Data;
-using Bookmaker.ApiFootball.Client;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using ApiFootball.Client;
 
 namespace Bookmaker.ApiFootball.DataInitialization
 {
-    public class DataInitialization : BaseAFDataInitialization, IDataInitialization
+    public class DataInitialization : BaseAfDataInitialization, IDataInitialization
     {
         private readonly ILogger<DataInitialization> _logger;
 
@@ -21,7 +21,7 @@ namespace Bookmaker.ApiFootball.DataInitialization
         }
 
 
-        public async Task<List<TEntity>> DownloadAllFirstTime<DTO,TEntity>() where TEntity : class
+        public async Task<List<TEntity>> DownloadAllFirstTime<TDto,TEntity>() where TEntity : class
         {
             var itemsInBaseCount =  _context.Set<TEntity>().Count();
             if (itemsInBaseCount != 0)

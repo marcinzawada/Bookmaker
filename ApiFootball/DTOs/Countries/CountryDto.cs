@@ -4,9 +4,9 @@ using System.Text;
 
 namespace ApiFootball.DTOs.Countries
 {
-    class CountryDto
+    public class CountryDto
     {
-        public int Name { get; set; }
+        public string Country { get; set; }
 
         public string Code { get; set; }
 

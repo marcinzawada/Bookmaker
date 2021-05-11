@@ -27,7 +27,7 @@ namespace Api.Data.Models
 
         public int CountryId { get; set; }
 
-        public int Founded { get; set; }
+        public int? Founded { get; set; }
 
         public string VenueName { get; set; }
 
@@ -41,6 +41,11 @@ namespace Api.Data.Models
 
         public int LeagueId { get; set; }
 
+        [ForeignKey("LeagueId")]
         public League League { get; set; }
+
+        public List<Fixture> HomeFixtures { get; set; } = new List<Fixture>();
+        
+        public List<Fixture> AwayFixtures { get; set; } = new List<Fixture>();
     }
 }

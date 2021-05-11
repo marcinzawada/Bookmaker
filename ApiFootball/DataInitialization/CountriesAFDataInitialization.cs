@@ -1,23 +1,23 @@
-﻿using Bookmaker.Api.Data.Data;
-using Bookmaker.ApiFootball.Client;
+﻿using Api.Data.Models;
+using Bookmaker.Api.Data.Data;
 using Bookmaker.ApiFootball.DataInitialization;
 using Bookmaker.ApiFootball.DTOs;
-using Bookmaker.ApiFootball.DTOs.Countries;
-using Bookmaker.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiFootball.Client;
+using ApiFootball.DTOs;
 
 namespace Bookmaker.ApiFootball.DataInitialization
 {
-    public class CountriesAFDataInitialization : BaseAFDataInitialization
+    public class CountriesAfDataInitialization : BaseAfDataInitialization
     {
-        private readonly ILogger<CountriesAFDataInitialization> _logger;
+        private readonly ILogger<CountriesAfDataInitialization> _logger;
 
-        public CountriesAFDataInitialization(ILogger<CountriesAFDataInitialization> logger,
+        public CountriesAfDataInitialization(ILogger<CountriesAfDataInitialization> logger,
             AppDbContext context, IApiFootballClient client) : base(context, client)
         {
             _logger = logger;
@@ -31,7 +31,7 @@ namespace Bookmaker.ApiFootball.DataInitialization
                 return countriesInBase;
 
             var countries = 
-                await _client.DownloadAllIResources<DTOsHolder<Country>, Country>("/countries");
+                await _client.DownloadAllIResources<DtoHolder<Country>, Country>("/countries");
 
 
             _context.Countries.AddRange(countries);

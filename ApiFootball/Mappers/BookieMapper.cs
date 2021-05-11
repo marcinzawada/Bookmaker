@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ApiFootball.Mappers
 {
-    class BookieMapper : BaseMapper, IDtoToModelMapper<BookieDto, Bookie>
+    public class BookieMapper : BaseMapper, IDtoToModelMapper<BookieDto, Bookie>
     {
         public BookieMapper(AppDbContext context) : base(context)
         {
@@ -20,6 +20,11 @@ namespace ApiFootball.Mappers
                 ExtBookmakerId = dto.Id,
                 Name = dto.Name
             };
+        }
+
+        public List<Bookie> MapDtosToModels(List<BookieDto> dtos)
+        {
+            throw new NotImplementedException();
         }
     }
 }

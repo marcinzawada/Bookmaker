@@ -5,11 +5,32 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
+    <Compile Remove="Migrations\20210119004252_Init.cs" />
+    <Compile Remove="Migrations\20210119004252_Init.Designer.cs" />
+    <Compile Remove="Migrations\20210119011047_Init.cs" />
+    <Compile Remove="Migrations\20210119011047_Init.Designer.cs" />
+    <Compile Remove="Migrations\20210125050425_Init.cs" />
+    <Compile Remove="Migrations\20210125050425_Init.Designer.cs" />
+    <Compile Remove="Migrations\20210202200255_Init.cs" />
+    <Compile Remove="Migrations\20210202200255_Init.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
     <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

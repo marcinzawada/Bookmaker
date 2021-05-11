@@ -17,13 +17,13 @@ namespace ApiFootball.DTOs.Fixtures
         public string EventDate { get; set; }
 
         [JsonProperty("event_timestamp")]
-        public long EventTimestamp { get; set; }
+        public long? EventTimestamp { get; set; }
 
         [JsonProperty("firstHalfStart")]
-        public long FirstHalfStart { get; set; }
+        public long? FirstHalfStart { get; set; }
 
         [JsonProperty("secondHalfStart")]
-        public long SecondHalfStart { get; set; }
+        public long? SecondHalfStart { get; set; }
 
         [JsonProperty("round")]
         public string Round { get; set; }
@@ -50,10 +50,10 @@ namespace ApiFootball.DTOs.Fixtures
         public TeamDto AwayTeam { get; set; }
 
         [JsonProperty("goalsHomeTeam")]
-        public int GoalsHomeTeam { get; set; }
+        public int? GoalsHomeTeam { get; set; }
 
         [JsonProperty("goalsAwayTeam")]
-        public int GoalsAwayTeam { get; set; }
+        public int? GoalsAwayTeam { get; set; }
 
         [JsonProperty("score")]
         public ScoreDto Score { get; set; }

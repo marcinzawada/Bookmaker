@@ -9,7 +9,7 @@ namespace Api.Data.Models
     public class Bet
     {
         [Key]
-        private int Id { get; set; }
+        public int Id { get; set; }
 
         public int OddId { get; set; }
 

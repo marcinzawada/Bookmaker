@@ -8,11 +8,12 @@ using System.Linq;
 using System.Text;
 using Api.Data.Enums;
 using ApiFootball.DTOs.Fixtures;
+using Microsoft.EntityFrameworkCore.Internal;
 using static ApiFootball.DTOs.Fixtures.FixtureDto;
 
 namespace ApiFootball.Mappers
 {
-    class FixturesMapper : BaseMapper, IDtoToModelMapper<FixtureDto, Fixture>
+    public class FixturesMapper : BaseMapper, IDtoToModelMapper<FixtureDto, Fixture>
     {
         private readonly ILogger<LeagueMapper> _logger;
 
@@ -37,6 +38,18 @@ namespace ApiFootball.Mappers
 
             return CreateFixture(dto, homeTeamId, awayTeamId, 
                 leagueId, eventDates, roundId, matchStatus);
+        }
+
+        public List<Fixture> MapDtosToModels(List<FixtureDto> dtos)
+        {
+            var fixtures = new List<Fixture>();
+
+            foreach (var fixtureDto in dtos)
+            {
+                fixtures.Add(MapDtoToModel(fixtureDto));
+            }
+
+            return fixtures;
         }
 
         private Fixture CreateFixture(FixtureDto dto, int homeTeamId,
@@ -101,10 +114,13 @@ namespace ApiFootball.Mappers
             };
         }
 
-        private DateTime GetDateTimeByTimeByTimestamp(long timestamp)
+        private DateTime? GetDateTimeByTimeByTimestamp(long? timestamp)
         {
+            if (timestamp == null)
+                return null;
+
             var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            dateTime = dateTime.AddSeconds(timestamp).ToLocalTime();
+            dateTime = dateTime.AddSeconds((double)timestamp).ToLocalTime();
             return dateTime;
         }
 
@@ -112,7 +128,7 @@ namespace ApiFootball.Mappers
             string roundName, int leagueId)
         {
             var round = _context.Rounds.FirstOrDefault(
-                x => x.LeagueId == leagueId && x.Name == roundName);
+                x => x.LeagueId == leagueId && x.Name.ToLower() == roundName.ToLower());
 
             if (round != null) 
                 return round.Id;
@@ -147,15 +163,31 @@ namespace ApiFootball.Mappers
 
             return matchStatus;
         }
+
+        private Score GetScore(FixtureDto dto)
+        {
+            if (dto.GoalsAwayTeam == null)
+                return null;
+
+            var score =
+                _context.Scores.FirstOrDefault(x => x.ExtFixtureId == dto.FixtureId);
+
+            var 
+
+            if (score == null)
+            {
+                var halftimeHomeGoals
+            }
+        }
     }
 
     internal class EventDates
     {
-        public DateTime MatchStart { get; set; }
+        public DateTime? MatchStart { get; set; }
 
-        public DateTime FirstHalfStart { get; set; }
+        public DateTime? FirstHalfStart { get; set; }
 
-        public DateTime SecondHalfStart { get; set; }
+        public DateTime? SecondHalfStart { get; set; }
     }
 
     

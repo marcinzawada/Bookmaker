@@ -1,9 +1,9 @@
 ﻿using Bookmaker.Api.Data.Data;
-using Bookmaker.ApiFootball.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiFootball.Client;
 
 namespace Bookmaker.ApiFootball.Services
 {

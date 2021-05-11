@@ -1,23 +1,38 @@
-﻿using Bookmaker.ApiFootball.DTOs;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using RestSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Data.Models;
+using ApiFootball.DTOs;
+using ApiFootball.DTOs.Countries;
+using ApiFootball.DTOs.Fixtures;
+using ApiFootball.DTOs.Fixtures.Rounds;
+using ApiFootball.DTOs.Labels;
+using ApiFootball.DTOs.Seasons;
+using ApiFootball.Mappers;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
+using RestSharp;
+using LeagueDto = ApiFootball.DTOs.Leagues.LeagueDto;
+using TeamDto = ApiFootball.DTOs.Teams.TeamDto;
 
-namespace Bookmaker.ApiFootball.Client
+namespace ApiFootball.Client
 {
     public class ApiFootballClient : IApiFootballClient
     {
         private readonly RestClient _restClient;
+        private readonly ILogger<ApiFootballClient> _logger;
         private readonly string _host;
         private readonly string _key;
+        private readonly ApiFootballMapper _mapper;
 
-        public ApiFootballClient(IConfiguration configuration)
+        public ApiFootballClient(IConfiguration configuration, ILogger<ApiFootballClient> logger, ApiFootballMapper mapper)
         {
+            _logger = logger;
+            _mapper = mapper;
             _host = configuration.GetSection("ApiFootballCredential").GetSection("x-rapidapi-host").Value;
             _key = configuration.GetSection("ApiFootballCredential").GetSection("x-rapidapi-key").Value;
             var baseUrl = configuration.GetSection("ApiFootballCredential").GetSection("BaseUrl").Value;
@@ -44,9 +59,10 @@ namespace Bookmaker.ApiFootball.Client
             return response;
         }
 
-        public async Task<List<DTO>> DownloadAllIResources<H, DTO>(string resourcesUrl) where H : DTOsHolder<DTO>
+        public async Task<List<TDto>> DownloadAllIResources<THolder, TDto>(string resourcesUrl)
+            where THolder : DtoHolder<TDto>
         {
-            var response = await this.RequestAsync(resourcesUrl);
+            var response = await RequestAsync(resourcesUrl);
 
             var serializerSettings = new JsonSerializerSettings
             {
@@ -54,10 +70,62 @@ namespace Bookmaker.ApiFootball.Client
             };
 
             var container =
-                JsonConvert.DeserializeObject<DTOsContainer<H>>(response.Content,
-                    serializerSettings);
+                JsonConvert.DeserializeObject<DtoContainer<THolder>>(response.Content, serializerSettings);
 
-            return container.DTOsHolder.Resources;
+            if (container != null) 
+                return container.DtoHolder.Resources;
+
+            _logger.LogError("Api doesn't return data, resourceUrl: " + resourcesUrl);
+            throw new Exception("Api doesn't return data, resourceUrl: "+resourcesUrl);
+        }
+
+        public async Task<List<Country>> DownloadAllCountries()
+        {
+            var countryDtos = await DownloadAllIResources<DtoHolder<CountryDto>, CountryDto>("/countries");
+            return _mapper.MapCountryDtosToCountries(countryDtos);
+        }
+
+        public async Task<List<Season>> DownloadAllSeasons()
+        {
+            var seasonDtos = await DownloadAllIResources<DtoHolder<SeasonDto>, SeasonDto>("/seasons");
+            return _mapper.MapSeasonDtosToSeasons(seasonDtos);
+        }
+
+        public async Task<List<League>> DownloadAllLeagues()
+        {
+            var leagueDtos = await DownloadAllIResources<DtoHolder<LeagueDto>, LeagueDto>("/leagues");
+            return _mapper.MapLeagueDtosToLeagues(leagueDtos);
+        }
+
+        public async Task<List<Team>> DownloadTeamsByLeagueId(int extLeagueId)
+        {
+            var teamDtos = await DownloadAllIResources<DtoHolder<TeamDto>, TeamDto>($"/teams/league/{extLeagueId}");
+            return _mapper.MapLeagueDtosToLeagues(teamDtos, extLeagueId);
+        }
+
+        public async Task<List<Label>> DownloadAllLabels()
+        {
+            var labelDtos = await DownloadAllIResources<DtoHolder<LabelDto>, LabelDto>("/odds/labels");
+            return _mapper.MapLabelDtosToLabels(labelDtos);
+        }
+
+        public async Task<List<Round>> DownloadAllRoundsByLeagueId(int extLeagueId)
+        {
+            var response = await RequestAsync($"fixtures/rounds/{extLeagueId}");
+            var json = JObject.Parse(response.Content);
+            var roundJsons = json["api"]["fixtures"].ToList();
+            var rounds = new List<RoundDto>();
+            foreach (var roundJson in roundJsons)
+            {
+                rounds.Add(new RoundDto{Name = roundJson.ToString(), ExtLeagueId = extLeagueId});   
+            }
+            return _mapper.MapRoundDtosToRounds(rounds);
+        }
+
+        public async Task<List<Fixture>> DownloadAllFixturesByLeagueId(int extLeagueId)
+        {
+            var fixtureDtos = await DownloadAllIResources<DtoHolder<FixtureDto>, FixtureDto>($"/fixtures/league/{extLeagueId}");
+            return _mapper.MapFixtureDtosToFixtures(fixtureDtos);
         }
     }
 }

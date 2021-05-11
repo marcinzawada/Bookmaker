@@ -4,8 +4,11 @@ using System.Text;
 
 namespace ApiFootball.Mappers
 {
-    public interface IDtoToModelMapper<in TDto, out TModel>
+    public interface IDtoToModelMapper<TDto, TModel>
     {
         public TModel MapDtoToModel(TDto dto);
+
+        public List<TModel> MapDtosToModels(List<TDto> dtos);
+
     }
 }

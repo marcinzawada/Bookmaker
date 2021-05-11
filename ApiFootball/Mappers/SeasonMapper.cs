@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ApiFootball.Mappers
 {
-    class SeasonMapper : BaseMapper, IDtoToModelMapper<SeasonDto, Season>
+    public class SeasonMapper : BaseMapper, IDtoToModelMapper<SeasonDto, Season>
     {
         public SeasonMapper(AppDbContext context) : base(context)
         {
@@ -19,6 +19,18 @@ namespace ApiFootball.Mappers
             {
                 Year = dto.Year
             };
+        }
+
+        public List<Season> MapDtosToModels(List<SeasonDto> dtos)
+        {
+            var seasons = new List<Season>();
+
+            foreach (var seasonDto in dtos)
+            {
+                seasons.Add(MapDtoToModel(seasonDto));
+            }
+
+            return seasons;
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace ApiFootball.Mappers
 {
-    class CountryMapper : BaseMapper, IDtoToModelMapper<CountryDto, Country>
+    public class CountryMapper : BaseMapper, IDtoToModelMapper<CountryDto, Country>
     {
         public CountryMapper(AppDbContext context) : base(context)
         {
@@ -18,10 +18,22 @@ namespace ApiFootball.Mappers
         {
             return new Country
             {
-                Name = dto.Name,
+                Name = dto.Country,
                 Code = dto.Code,
                 Flag = dto.Flag
             };
+        }
+
+        public List<Country> MapDtosToModels(List<CountryDto> dtos)
+        {
+            var countries = new List<Country>();
+
+            foreach (var countryDto in dtos)
+            {
+                countries.Add(MapDtoToModel(countryDto));
+            }
+
+            return countries;
         }
     }
 }

@@ -5,9 +5,10 @@ using System.Text;
 
 namespace ApiFootball.DTOs.Fixtures.Rounds
 {
-    class RoundDto
+    public class RoundDto
     {
-        [JsonProperty("fixtures")]
-        public List<string> Name { get; set; }
+        public string Name { get; set; }
+
+        public int ExtLeagueId { get; set; }
     }
 }
