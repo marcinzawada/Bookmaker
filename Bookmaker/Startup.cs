@@ -1,7 +1,7 @@
 using API.ExtensionMethod;
-using Bookmaker.Api.Data.Data;
 using Bookmaker.ApiFootball.DataInitialization;
 using Bookmaker.ApiFootball.Services;
+using Domain.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

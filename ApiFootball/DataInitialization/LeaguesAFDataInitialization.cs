@@ -1,5 +1,4 @@
-﻿using Bookmaker.Api.Data.Data;
-using Bookmaker.ApiFootball.DTOs;
+﻿using Bookmaker.ApiFootball.DTOs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -8,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiFootball.Client;
+using Domain.Data;
 
 namespace Bookmaker.ApiFootball.DataInitialization
 {

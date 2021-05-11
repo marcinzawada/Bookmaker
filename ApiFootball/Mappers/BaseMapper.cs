@@ -1,7 +1,7 @@
-﻿using Bookmaker.Api.Data.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Domain.Data;
 
 namespace ApiFootball.Mappers
 {

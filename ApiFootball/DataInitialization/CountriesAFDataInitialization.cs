@@ -1,5 +1,4 @@
-﻿using Bookmaker.Api.Data.Data;
-using Bookmaker.ApiFootball.DataInitialization;
+﻿using Bookmaker.ApiFootball.DataInitialization;
 using Bookmaker.ApiFootball.DTOs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -9,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApiFootball.Client;
 using ApiFootball.DTOs;
+using Domain.Data;
 using Domain.Entities;
 
 namespace Bookmaker.ApiFootball.DataInitialization

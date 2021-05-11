@@ -38,7 +38,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Api.Core\Infrastructure.csproj" />
-    <ProjectReference Include="..\Api.Data\Domain.csproj" />
     <ProjectReference Include="..\ApiFootball\ApiFootball.csproj" />
   </ItemGroup>
 

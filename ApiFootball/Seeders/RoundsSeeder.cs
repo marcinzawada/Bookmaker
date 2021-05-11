@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ApiFootball.Client;
 using ApiFootball.Mappers;
-using Bookmaker.Api.Data.Data;
+using Domain.Data;
 using Microsoft.Extensions.Logging;
 
 namespace ApiFootball.Seeders

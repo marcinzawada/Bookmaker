@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ApiFootball.DTOs.Fixtures.Rounds;
-using Bookmaker.Api.Data.Data;
+using Domain.Data;
 using Domain.Entities;
 
 namespace ApiFootball.Mappers

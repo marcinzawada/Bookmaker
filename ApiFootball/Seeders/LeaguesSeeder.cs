@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ApiFootball.Client;
-using Bookmaker.Api.Data.Data;
+using Domain.Data;
 using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ApiFootball.Seeders

@@ -1,5 +1,4 @@
-﻿using Bookmaker.Api.Data.Data;
-using Bookmaker.ApiFootball.DTOs;
+﻿using Bookmaker.ApiFootball.DTOs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -10,6 +9,7 @@ using System.Threading.Tasks;
 using Api.Data.Enums;
 using ApiFootball.Client;
 using ApiFootball.DTOs.Leagues;
+using Domain.Data;
 using Domain.Entities;
 
 namespace Bookmaker.ApiFootball.Services
