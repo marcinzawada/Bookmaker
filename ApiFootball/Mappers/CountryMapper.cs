@@ -1,9 +1,9 @@
 ﻿using ApiFootball.DTOs.Countries;
-using Bookmaker.Api.Data.Data;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Domain.Data;
 using Domain.Entities;
 
 namespace ApiFootball.Mappers

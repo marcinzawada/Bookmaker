@@ -1,10 +1,10 @@
-﻿using Bookmaker.Api.Data.Data;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using ApiFootball.DTOs.Fixtures;
+using Domain.Data;
 using Domain.Entities;
 
 namespace ApiFootball.Mappers

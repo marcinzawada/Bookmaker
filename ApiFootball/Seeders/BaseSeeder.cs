@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ApiFootball.Client;
-using Bookmaker.Api.Data.Data;
+using Domain.Data;
 
 namespace ApiFootball.Seeders
 {

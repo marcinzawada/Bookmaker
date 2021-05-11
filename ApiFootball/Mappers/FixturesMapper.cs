@@ -1,5 +1,4 @@
-﻿using Bookmaker.Api.Data.Data;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Text;
 using Api.Data.Enums;
 using ApiFootball.DTOs.Fixtures;
+using Domain.Data;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Internal;
 using static ApiFootball.DTOs.Fixtures.FixtureDto;
