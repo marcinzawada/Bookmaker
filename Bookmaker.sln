@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalAPIs", "ExternalAPI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiFootball", "ApiFootball\ApiFootball.csproj", "{C17DED69-1371-4DBD-A494-69AC178134DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "Api.Tests\UnitTests.csproj", "{8701C252-4806-4367-8F4A-CC479A2DE5C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{8701C252-4806-4367-8F4A-CC479A2DE5C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{EFCBD941-7D97-4112-A01E-9E101A29AE84}"
 EndProject
