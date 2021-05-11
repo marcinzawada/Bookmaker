@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Data;
+using Infrastructure.Data;
 
 namespace ApiFootball.Seeders
 {

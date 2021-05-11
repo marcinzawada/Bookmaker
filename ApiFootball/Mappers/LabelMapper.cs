@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Domain.Data;
 using Domain.Entities;
+using Infrastructure.Data;
 
 namespace ApiFootball.Mappers
 {

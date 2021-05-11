@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Domain.Data
+namespace Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
@@ -15,9 +15,9 @@ namespace Domain.Data
 
         public DbSet<Team> Teams { get; set; }
 
-        public DbSet<Round> Rounds  { get; set; }
+        public DbSet<Round> Rounds { get; set; }
 
-        public DbSet<Bet> Bets  { get; set; }
+        public DbSet<Bet> Bets { get; set; }
 
         public DbSet<BetValue> BetValues { get; set; }
 
@@ -34,6 +34,8 @@ namespace Domain.Data
         public DbSet<Sport> Sports { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<CouponBetValue> CouponBetValues { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -99,6 +101,9 @@ namespace Domain.Data
             modelBuilder.Entity<User>()
                 .HasIndex(x => x.Email)
                 .IsUnique();
+
+            modelBuilder.Entity<CouponBetValue>()
+                .HasKey(x => new {x.CouponId, x.BetValueId});
         }
     }
 }

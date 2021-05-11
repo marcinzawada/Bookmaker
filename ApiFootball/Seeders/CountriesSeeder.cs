@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ApiFootball.Client;
-using Domain.Data;
-using Microsoft.EntityFrameworkCore.Internal;
+using Infrastructure.Data;
 
 namespace ApiFootball.Seeders
 {

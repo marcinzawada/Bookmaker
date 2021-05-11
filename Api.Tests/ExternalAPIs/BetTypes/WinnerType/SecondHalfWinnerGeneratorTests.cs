@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using ApiFootball.BetTypes;
 using ApiFootball.BetTypes.WinnerType;
 using Domain.Entities;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Api.Tests.ExternalAPIs.BetTypes.WinnerType
+namespace UnitTests.ExternalAPIs.BetTypes.WinnerType
 {
     public class SecondHalfWinnerGeneratorTests
     {

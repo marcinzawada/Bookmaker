@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using ApiFootball.DTOs.Fixtures;
-using Domain.Data;
 using Domain.Entities;
+using Infrastructure.Data;
 
 namespace ApiFootball.Mappers
 {

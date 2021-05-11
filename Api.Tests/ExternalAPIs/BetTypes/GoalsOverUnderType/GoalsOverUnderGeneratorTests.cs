@@ -6,7 +6,7 @@ using Domain.Entities;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Api.Tests.ExternalAPIs.BetTypes.GoalsOverUnderType
+namespace UnitTests.ExternalAPIs.BetTypes.GoalsOverUnderType
 {
     public class GoalsOverUnderGeneratorTests
     {
