@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ApiFootball.Client;
-using Domain.Data;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiFootball.Seeders

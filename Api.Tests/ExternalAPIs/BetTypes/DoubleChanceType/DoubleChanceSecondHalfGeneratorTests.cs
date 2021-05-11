@@ -6,7 +6,7 @@ using ApiFootball.BetTypes.DoubleChanceType.Generators;
 using Domain.Entities;
 using Xunit;
 
-namespace Api.Tests.ExternalAPIs.BetTypes.DoubleChanceType
+namespace UnitTests.ExternalAPIs.BetTypes.DoubleChanceType
 {
     public class DoubleChanceSecondHalfGeneratorTests
     {

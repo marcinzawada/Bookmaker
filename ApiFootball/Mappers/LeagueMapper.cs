@@ -6,8 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Api.Data.Enums;
 using ApiFootball.DTOs.Leagues;
-using Domain.Data;
 using Domain.Entities;
+using Infrastructure.Data;
 
 namespace ApiFootball.Mappers
 {

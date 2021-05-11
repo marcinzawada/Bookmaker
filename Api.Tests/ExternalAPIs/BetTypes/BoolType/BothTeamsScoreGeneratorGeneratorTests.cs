@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ApiFootball.BetTypes;
 using ApiFootball.BetTypes.BoolType;
 using ApiFootball.BetTypes.BoolType.Generators;
 using Domain.Entities;
 using Xunit;
 
-namespace Api.Tests.ExternalAPIs.BetTypes.BoolType
+namespace UnitTests.ExternalAPIs.BetTypes.BoolType
 {
     public class BothTeamsScoreGeneratorGeneratorTests
     {

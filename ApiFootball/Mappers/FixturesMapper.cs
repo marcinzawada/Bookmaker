@@ -6,8 +6,8 @@ using System.Linq;
 using System.Text;
 using Api.Data.Enums;
 using ApiFootball.DTOs.Fixtures;
-using Domain.Data;
 using Domain.Entities;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore.Internal;
 using static ApiFootball.DTOs.Fixtures.FixtureDto;
 

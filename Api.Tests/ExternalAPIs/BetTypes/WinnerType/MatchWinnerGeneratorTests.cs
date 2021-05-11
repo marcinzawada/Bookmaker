@@ -7,7 +7,7 @@ using Domain.Entities;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Api.Tests.ExternalAPIs.BetTypes.WinnerType
+namespace UnitTests.ExternalAPIs.BetTypes.WinnerType
 {
     public class MatchWinnerGeneratorTests
     {

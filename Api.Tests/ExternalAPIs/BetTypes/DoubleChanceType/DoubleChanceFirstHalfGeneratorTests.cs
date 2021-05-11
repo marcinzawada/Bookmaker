@@ -3,12 +3,10 @@ using System.Linq;
 using ApiFootball.BetTypes;
 using ApiFootball.BetTypes.DoubleChanceType;
 using ApiFootball.BetTypes.DoubleChanceType.Generators;
-using ApiFootball.BetTypes.ExactScoreType;
-using ApiFootball.BetTypes.ExactScoreType.Generators;
 using Domain.Entities;
 using Xunit;
 
-namespace Api.Tests.ExternalAPIs.BetTypes.DoubleChanceType
+namespace UnitTests.ExternalAPIs.BetTypes.DoubleChanceType
 {
     public class DoubleChanceFirstHalfGeneratorTests
     {

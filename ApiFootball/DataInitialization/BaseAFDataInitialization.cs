@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ApiFootball.Client;
-using Domain.Data;
+﻿using ApiFootball.Client;
+using Infrastructure.Data;
 
-namespace Bookmaker.ApiFootball.DataInitialization
+namespace ApiFootball.DataInitialization
 {
     public class BaseAfDataInitialization
     {

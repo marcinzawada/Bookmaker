@@ -1,15 +1,8 @@
-﻿using Bookmaker.ApiFootball.DTOs;
-using Microsoft.EntityFrameworkCore;
+﻿using ApiFootball.Client;
+using Infrastructure.Data;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ApiFootball.Client;
-using Domain.Data;
 
-namespace Bookmaker.ApiFootball.DataInitialization
+namespace ApiFootball.DataInitialization
 {
     public class LeaguesAfDataInitialization : BaseAfDataInitialization
     {

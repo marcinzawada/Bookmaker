@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using Api.Data.Enums;
 using ApiFootball.Client;
 using ApiFootball.DTOs.Leagues;
-using Domain.Data;
 using Domain.Entities;
+using Infrastructure.Data;
 
 namespace Bookmaker.ApiFootball.Services
 {

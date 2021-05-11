@@ -1,14 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using ApiFootball.Client;
-using Domain.Data;
+using Bookmaker.ApiFootball.DataInitialization;
+using Infrastructure.Data;
+using Microsoft.Extensions.Logging;
 
-namespace Bookmaker.ApiFootball.DataInitialization
+namespace ApiFootball.DataInitialization
 {
     public class DataInitialization : BaseAfDataInitialization, IDataInitialization
     {

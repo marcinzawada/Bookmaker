@@ -1,17 +1,13 @@
-﻿using Bookmaker.ApiFootball.DataInitialization;
-using Bookmaker.ApiFootball.DTOs;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ApiFootball.Client;
 using ApiFootball.DTOs;
-using Domain.Data;
 using Domain.Entities;
+using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
-namespace Bookmaker.ApiFootball.DataInitialization
+namespace ApiFootball.DataInitialization
 {
     public class CountriesAfDataInitialization : BaseAfDataInitialization
     {
