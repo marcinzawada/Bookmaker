@@ -1,9 +1,9 @@
-﻿using Api.Data.Models;
-using ApiFootball.DTOs.Seasons;
+﻿using ApiFootball.DTOs.Seasons;
 using Bookmaker.Api.Data.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Domain.Entities;
 
 namespace ApiFootball.Mappers
 {

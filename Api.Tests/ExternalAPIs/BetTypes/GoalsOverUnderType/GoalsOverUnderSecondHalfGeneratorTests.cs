@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Api.Data.Models;
 using ApiFootball.BetTypes;
 using ApiFootball.BetTypes.GoalsOverUnderType;
 using ApiFootball.BetTypes.GoalsOverUnderType.Generators;
+using Domain.Entities;
 using Newtonsoft.Json;
 using Xunit;
 

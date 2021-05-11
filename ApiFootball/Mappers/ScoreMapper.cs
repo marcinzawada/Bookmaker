@@ -1,15 +1,15 @@
-﻿using Api.Data.Models;
-using Bookmaker.Api.Data.Data;
+﻿using Bookmaker.Api.Data.Data;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using ApiFootball.DTOs.Fixtures;
+using Domain.Entities;
 
 namespace ApiFootball.Mappers
 {
-    public class ScoreMapper : BaseMapper, IDtoToModelMapper<FixtureDto, Api.Data.Models.Score>
+    public class ScoreMapper : BaseMapper, IDtoToModelMapper<FixtureDto, Score>
     {
         private readonly ILogger<ScoreMapper> _logger;
 

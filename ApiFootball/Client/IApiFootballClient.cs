@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Api.Data.Models;
 using ApiFootball.DTOs;
 using ApiFootball.DTOs.Countries;
 using ApiFootball.DTOs.Fixtures.Rounds;
+using Domain.Entities;
 using RestSharp;
 
 namespace ApiFootball.Client

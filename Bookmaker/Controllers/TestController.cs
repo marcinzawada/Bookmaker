@@ -1,30 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Data.Enums;
-using Api.Data.Models;
-using ApiFootball.BetTypes.GoalsOverUnderType;
 using ApiFootball.BetTypes.GoalsOverUnderType.Generators;
-using ApiFootball.BetTypes.WinnerType;
 using ApiFootball.BetTypes.WinnerType.Generators;
 using ApiFootball.Client;
-using ApiFootball.DTOs;
-using ApiFootball.DTOs.Leagues;
 using ApiFootball.Seeders;
 using Bookmaker.Api.Data.Data;
 using Bookmaker.ApiFootball.DataInitialization;
-using Bookmaker.ApiFootball.DTOs;
 using Bookmaker.ApiFootball.Services;
-using Microsoft.AspNetCore.Http;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using RestSharp;
-using Label = Api.Data.Models.Label;
+using Label = Domain.Entities.Label;
 
-namespace Bookmaker.Controllers
+namespace API.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]

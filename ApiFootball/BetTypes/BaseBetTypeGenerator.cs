@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Api.Data.Models;
+using Domain.Entities;
 
 namespace ApiFootball.BetTypes
 {

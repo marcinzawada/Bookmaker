@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Api.Data.Models;
 using ApiFootball.BetTypes.ExactScoreType;
+using Domain.Entities;
 
 namespace ApiFootball.BetTypes.DoubleChanceType.Generators
 {

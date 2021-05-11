@@ -1,6 +1,6 @@
 ﻿using System;
-using Api.Data.Models;
 using ApiFootball.BetTypes.ExactScoreType;
+using Domain.Entities;
 
 namespace ApiFootball.BetTypes.BoolType.Generators
 {

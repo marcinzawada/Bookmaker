@@ -1,13 +1,10 @@
-﻿using Api.Data.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 using Api.Data.Enums;
 
-namespace Api.Data.Models
+namespace Domain.Entities
 {
     public class Fixture
     {

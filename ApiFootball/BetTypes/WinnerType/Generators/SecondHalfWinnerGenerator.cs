@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Api.Data.Models;
+using Domain.Entities;
 
 namespace ApiFootball.BetTypes.WinnerType
 {

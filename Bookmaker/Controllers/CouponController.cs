@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bookmaker.Requests.Coupon;
+﻿using API.Requests.Coupon;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Bookmaker.Controllers
+namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]

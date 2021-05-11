@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Api.Data.Models;
 using ApiFootball.BetTypes;
 using ApiFootball.BetTypes.WinnerType;
 using ApiFootball.BetTypes.WinnerType.Generators;
+using Domain.Entities;
 using Newtonsoft.Json;
 using Xunit;
 
