@@ -29,9 +29,13 @@ namespace Bookmaker.Api.Data.Data
 
         public DbSet<Fixture> Fixtures { get; set; }
 
+        public DbSet<Score> Scores { get; set; }
+
         public DbSet<Label> Labels { get; set; }
 
         public DbSet<Odd> Odds { get; set; }
+
+        public DbSet<Sport> Sports { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -75,6 +79,24 @@ namespace Bookmaker.Api.Data.Data
             modelBuilder.Entity<League>()
                 .HasMany(l => l.Teams)
                 .WithOne(t => t.League);
+
+            modelBuilder.Entity<Fixture>()
+                .HasOne(m => m.HomeTeam)
+                .WithMany(t => t.HomeFixtures)
+                .HasForeignKey(m => m.HomeTeamId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+
+            modelBuilder.Entity<Fixture>()
+                .HasOne(m => m.AwayTeam)
+                .WithMany(t => t.AwayFixtures)
+                .HasForeignKey(m => m.AwayTeamId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<Fixture>()
+                .HasMany(x => x.Odds)
+                .WithOne(x => x.Fixture)
+                .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }

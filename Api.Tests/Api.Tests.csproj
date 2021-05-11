@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="ExternalAPIs\BetTypes\Handicap\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

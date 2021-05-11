@@ -7,6 +7,6 @@ namespace Bookmaker.ApiFootball.DataInitialization
 {
     public interface IDataInitialization
     {
-        public Task<List<TEntity>> DownloadAllFirstTime<DTO,TEntity>() where TEntity : class;
+        public Task<List<TEntity>> DownloadAllFirstTime<TDto,TEntity>() where TEntity : class;
     }
 }

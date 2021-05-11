@@ -17,6 +17,8 @@ namespace Api.Data.Models
         [ForeignKey("FixtureId")]
         public Fixture Fixture { get; set; }
 
+        public int? ExtFixtureId { get; set; }
+
         public int? GoalsHomeTeam { get; set; }
 
         public int? GoalsAwayTeam { get; set; }
@@ -25,13 +27,13 @@ namespace Api.Data.Models
 
         public int? HalftimeAwayGoals { get; set; }
 
-        public int? FulltimeHomeGoals { get; set; }
+        public int? FullTimeHomeGoals { get; set; }
 
-        public int? FulltimeAwayGoals { get; set; }
+        public int? FullTimeAwayGoals { get; set; }
 
-        public int? ExtratimeHomeGoals { get; set; }
+        public int? ExtraTimeHomeGoals { get; set; }
 
-        public int? ExtratimeAwayGoals { get; set; }
+        public int? ExtraTimeAwayGoals { get; set; }
 
         public int? PenaltyHomeGoals { get; set; }
 

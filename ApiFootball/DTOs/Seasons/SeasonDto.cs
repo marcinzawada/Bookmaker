@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ApiFootball.DTOs.Seasons
 {
-    class SeasonDto
+    public class SeasonDto
     {
         public int Year { get; set; }
     }

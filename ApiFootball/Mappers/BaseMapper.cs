@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ApiFootball.Mappers
 {
-    class BaseMapper
+    public class BaseMapper
     {
         protected readonly AppDbContext _context;
 

@@ -1,8 +1,5 @@
 ﻿using Bookmaker.Api.Data.Data;
-using Bookmaker.ApiFootball.Client;
 using Bookmaker.ApiFootball.DTOs;
-using Bookmaker.ApiFootball.DTOs.Leagues;
-using Bookmaker.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -10,14 +7,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiFootball.Client;
 
 namespace Bookmaker.ApiFootball.DataInitialization
 {
-    public class LeaguesAFDataInitialization : BaseAFDataInitialization
+    public class LeaguesAfDataInitialization : BaseAfDataInitialization
     {
-        private readonly ILogger<LeaguesAFDataInitialization> _logger;
+        private readonly ILogger<LeaguesAfDataInitialization> _logger;
 
-        public LeaguesAFDataInitialization(ILogger<LeaguesAFDataInitialization> logger,
+        public LeaguesAfDataInitialization(ILogger<LeaguesAfDataInitialization> logger,
             AppDbContext context, IApiFootballClient client) : base(context, client)
         {
             _logger = logger;
@@ -69,7 +67,7 @@ namespace Bookmaker.ApiFootball.DataInitialization
         //    {
         //        leagueType = LeagueType.OTHER;
         //        _logger.LogError("Invalid LeagueType from api: " +
-        //            leagueDTO.Type + "LeagueId: " + leagueDTO.Type);
+        //            leagueDTO.Type + "ExtLeagueId: " + leagueDTO.Type);
         //    }
         //    return leagueType;
         //}
@@ -86,7 +84,7 @@ namespace Bookmaker.ApiFootball.DataInitialization
         //{
         //    if (dateIsCorrect)
         //        return date;
-        //    _logger.LogWarning("Invalid season start date. LeagueId: " + leagueDTO.LeagueId);
+        //    _logger.LogWarning("Invalid season start date. ExtLeagueId: " + leagueDTO.ExtLeagueId);
         //    return date.AddYears(-30);
         //}
 

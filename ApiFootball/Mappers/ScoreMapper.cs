@@ -9,7 +9,7 @@ using ApiFootball.DTOs.Fixtures;
 
 namespace ApiFootball.Mappers
 {
-    class ScoreMapper : BaseMapper, IDtoToModelMapper<FixtureDto, Api.Data.Models.Score>
+    public class ScoreMapper : BaseMapper, IDtoToModelMapper<FixtureDto, Api.Data.Models.Score>
     {
         private readonly ILogger<ScoreMapper> _logger;
 
@@ -25,6 +25,11 @@ namespace ApiFootball.Mappers
             return CreateScore(dto, matchScores);
         }
 
+        public List<Score> MapDtosToModels(List<FixtureDto> dtos)
+        {
+            throw new NotImplementedException();
+        }
+
         public Score CreateScore(FixtureDto dto,
             MatchScores matchScores)
         {
@@ -34,10 +39,10 @@ namespace ApiFootball.Mappers
                 GoalsAwayTeam = dto.GoalsAwayTeam,
                 HalftimeHomeGoals = matchScores.HalfTimeScore.Home,
                 HalftimeAwayGoals = matchScores.HalfTimeScore.Away,
-                FulltimeHomeGoals = matchScores.FullTimeScore.Home,
-                FulltimeAwayGoals = matchScores.FullTimeScore.Away,
-                ExtratimeHomeGoals = matchScores.ExtraTimeScore.Home,
-                ExtratimeAwayGoals = matchScores.ExtraTimeScore.Away,
+                FullTimeHomeGoals = matchScores.FullTimeScore.Home,
+                FullTimeAwayGoals = matchScores.FullTimeScore.Away,
+                ExtraTimeHomeGoals = matchScores.ExtraTimeScore.Home,
+                ExtraTimeAwayGoals = matchScores.ExtraTimeScore.Away,
                 PenaltyHomeGoals = matchScores.PenaltyScore.Home,
                 PenaltyAwayGoals = matchScores.PenaltyScore.Away
             };
@@ -59,9 +64,9 @@ namespace ApiFootball.Mappers
             var splittedScores = matchScores.Split("-");
 
             var homeScoreIsCorrect =
-                Int32.TryParse(splittedScores[0], out var homeScore);
+                int.TryParse(splittedScores[0], out var homeScore);
             var awayScoreIsCorrect =
-                Int32.TryParse(splittedScores[0], out var awayScore);
+                int.TryParse(splittedScores[0], out var awayScore);
 
             var score = new ScoreValue
             {
@@ -83,7 +88,7 @@ namespace ApiFootball.Mappers
             return score;
         }
 
-        internal class MatchScores
+        public class MatchScores
         {
             public ScoreValue HalfTimeScore { get; set; }
 
@@ -94,7 +99,7 @@ namespace ApiFootball.Mappers
             public ScoreValue PenaltyScore { get; set; }
         }
 
-        internal class ScoreValue
+        public class ScoreValue
         {
             public int Home { get; set; }
 

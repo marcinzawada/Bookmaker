@@ -1,18 +1,18 @@
 ﻿using Bookmaker.Api.Data.Data;
-using Bookmaker.ApiFootball.Client;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiFootball.Client;
 
 namespace Bookmaker.ApiFootball.DataInitialization
 {
-    public class TeamsAFDataInitialization : BaseAFDataInitialization
+    public class TeamsAfDataInitialization : BaseAfDataInitialization
     {
-        private readonly ILogger<TeamsAFDataInitialization> _logger;
+        private readonly ILogger<TeamsAfDataInitialization> _logger;
 
-        public TeamsAFDataInitialization(ILogger<TeamsAFDataInitialization> logger,
+        public TeamsAfDataInitialization(ILogger<TeamsAfDataInitialization> logger,
             AppDbContext context, IApiFootballClient client) : base(context, client)
         {
             _logger = logger;

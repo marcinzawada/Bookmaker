@@ -11,7 +11,7 @@ using ApiFootball.DTOs.Leagues;
 
 namespace ApiFootball.Mappers
 {
-    class LeagueMapper : BaseMapper, IDtoToModelMapper<LeagueDto, League>
+    public class LeagueMapper : BaseMapper, IDtoToModelMapper<LeagueDto, League>
     {
         private readonly ILogger<LeagueMapper> _logger;
 
@@ -38,6 +38,18 @@ namespace ApiFootball.Mappers
             return CreateLeague(dto, leagueType, seasonStart, seasonEnd, countryId, seasonId);
         }
 
+        public List<League> MapDtosToModels(List<LeagueDto> dtos)
+        {
+            var leagues = new List<League>();
+
+            foreach (var leagueDto in dtos)
+            {
+                leagues.Add(MapDtoToModel(leagueDto));
+            }
+
+            return leagues;
+        }
+
         private LeagueType ParseLeagueType(LeagueDto leagueDto)
         {
             var isLeagueTypeCorrect = Enum.TryParse<LeagueType>(leagueDto.Type, true, out LeagueType leagueType);
@@ -45,7 +57,7 @@ namespace ApiFootball.Mappers
             {
                 leagueType = LeagueType.OTHER;
                 _logger.LogError("Invalid LeagueType from api: " +
-                    leagueDto.Type + "LeagueId: " + leagueDto.Type);
+                    leagueDto.Type + "ExtLeagueId: " + leagueDto.Type);
             }
             return leagueType;
         }
@@ -54,17 +66,16 @@ namespace ApiFootball.Mappers
         {
             if (dateIsCorrect)
                 return date;
-            _logger.LogWarning("Invalid season date. LeagueId: " + leagueDto.LeagueId);
-            return date.AddYears(-30);
+
+            _logger.LogWarning("Invalid season date. ExtLeagueId: " + leagueDto.LeagueId);
+            
+            return date;
         }
 
         private int? GetCountryIdByName(string countryName)
         {
             return _context.Countries.FirstOrDefault(
-                x => string.Equals(
-                    x.Name.ToString(), countryName, 
-                    StringComparison.CurrentCultureIgnoreCase))
-                ?.Id;
+                x => x.Name == countryName)?.Id;
         }
 
         private int GetSeasonIdByYear(LeagueDto dto)
@@ -75,7 +86,7 @@ namespace ApiFootball.Mappers
             if (season != null)
                 return season.Id;
 
-            _logger.LogError("No season for league. LeagueId: " + dto.LeagueId);
+            _logger.LogError("No season for league. ExtLeagueId: " + dto.LeagueId);
             return 1;
         }
 
@@ -85,6 +96,8 @@ namespace ApiFootball.Mappers
             return new League
             {
                 Name = leagueDto.Name,
+                ExtLeagueId = leagueDto.LeagueId,
+                SportId = 1,
                 Type = leagueType,
                 CountryId = countryId,
                 CountryCode = leagueDto.CountryCode,

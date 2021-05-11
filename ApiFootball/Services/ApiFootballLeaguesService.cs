@@ -1,8 +1,6 @@
-﻿using Bookmaker.Api.Data.Data;
-using Bookmaker.Api.Data.Data.Enums;
-using Bookmaker.ApiFootball.Client;
+﻿using Api.Data.Models;
+using Bookmaker.Api.Data.Data;
 using Bookmaker.ApiFootball.DTOs;
-using Bookmaker.ApiFootball.DTOs.Leagues;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -10,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Data.Enums;
+using ApiFootball.Client;
+using ApiFootball.DTOs.Leagues;
 
 namespace Bookmaker.ApiFootball.Services
 {
@@ -62,14 +63,14 @@ namespace Bookmaker.ApiFootball.Services
         //    return leaguesDTOs;
         //}
 
-        private LeagueType ParseLeagueType(DTOs.Leagues.LeagueDTO leagueDTO)
+        private LeagueType ParseLeagueType(LeagueDto leagueDto)
         {
-            var isLeagueTypeCorrect = Enum.TryParse<LeagueType>(leagueDTO.Type, true, out LeagueType leagueType);
+            var isLeagueTypeCorrect = Enum.TryParse<LeagueType>(leagueDto.Type, true, out LeagueType leagueType);
             if (!isLeagueTypeCorrect)
             {
                 leagueType = LeagueType.OTHER;
                 _logger.LogError("Invalid LeagueType from api: " +
-                    leagueDTO.Type + "LeagueId: " + leagueDTO.Type);
+                    leagueDto.Type + "ExtLeagueId: " + leagueDto.Type);
             }
             return leagueType;
         }
@@ -82,39 +83,39 @@ namespace Bookmaker.ApiFootball.Services
                 System.Globalization.DateTimeStyles.None, out parsedDate);
         }
 
-        private DateTime MarkDateSeasonIncorrect(bool dateIsCorrect, DateTime date, DTOs.Leagues.LeagueDTO leagueDTO)
+        private DateTime MarkDateSeasonIncorrect(bool dateIsCorrect, DateTime date, LeagueDto leagueDto)
         {
             if (dateIsCorrect)
                 return date;
-            _logger.LogWarning("Invalid season start date. LeagueId: " + leagueDTO.LeagueId);
+            _logger.LogWarning("Invalid season start date. ExtLeagueId: " + leagueDto.LeagueId);
             return date.AddYears(-30);
         }
 
-        private static void AddNewLeague(List<Models.League> leagues, DTOs.Leagues.LeagueDTO leagueDTO,
+        private static void AddNewLeague(List<League> leagues, LeagueDto leagueDto,
             LeagueType leagueType, DateTime seasonStart, DateTime seasonEnd)
         {
-            leagues.Add(new Models.League
+            leagues.Add(new League
             {
-                Name = leagueDTO.Name,
+                Name = leagueDto.Name,
                 Type = leagueType,
                 //Country = leagueDTO.Country,
-                CountryCode = leagueDTO.CountryCode,
-                Season = leagueDTO.Season,
+                CountryCode = leagueDto.CountryCode,
+                //Season = leagueDTO.Season,
                 SeasonStart = seasonStart,
                 SeasonEnd = seasonEnd,
-                Logo = leagueDTO.Logo,
-                Flag = leagueDTO.Flag,
-                HasStandings = leagueDTO.Standings,
-                IsCurrent = leagueDTO.IsCurrent,
-                HasCoverageStandings = leagueDTO.Coverage.CoverageStandings,
-                HasPlayers = leagueDTO.Coverage.Players,
-                HasTopScorers = leagueDTO.Coverage.TopScorers,
-                HasPredictions = leagueDTO.Coverage.Predictions,
-                HasOdds = leagueDTO.Coverage.Odds,
-                HasEvents = leagueDTO.Coverage.Fixtures.Events,
-                HasLineups = leagueDTO.Coverage.Fixtures.Lineups,
-                HasStatistics = leagueDTO.Coverage.Fixtures.Statistics,
-                HasPlayersStatistics = leagueDTO.Coverage.Fixtures.PlayersStatistics
+                Logo = leagueDto.Logo,
+                Flag = leagueDto.Flag,
+                HasStandings = leagueDto.Standings,
+                IsCurrent = leagueDto.IsCurrent,
+                HasCoverageStandings = leagueDto.Coverage.CoverageStandings,
+                HasPlayers = leagueDto.Coverage.Players,
+                HasTopScorers = leagueDto.Coverage.TopScorers,
+                HasPredictions = leagueDto.Coverage.Predictions,
+                HasOdds = leagueDto.Coverage.Odds,
+                HasEvents = leagueDto.Coverage.Fixtures.Events,
+                HasLineups = leagueDto.Coverage.Fixtures.Lineups,
+                HasStatistics = leagueDto.Coverage.Fixtures.Statistics,
+                HasPlayersStatistics = leagueDto.Coverage.Fixtures.PlayersStatistics
             });
         }
     }
