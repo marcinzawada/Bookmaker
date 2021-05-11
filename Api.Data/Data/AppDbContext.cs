@@ -1,11 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace Bookmaker.Api.Data.Data
+namespace Domain.Data
 {
     public class AppDbContext : DbContext
     {
@@ -36,6 +32,8 @@ namespace Bookmaker.Api.Data.Data
         public DbSet<Odd> Odds { get; set; }
 
         public DbSet<Sport> Sports { get; set; }
+
+        public DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -97,6 +95,10 @@ namespace Bookmaker.Api.Data.Data
                 .HasMany(x => x.Odds)
                 .WithOne(x => x.Fixture)
                 .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(x => x.Email)
+                .IsUnique();
         }
     }
 }
