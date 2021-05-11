@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "Bookmaker\API.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{4AAF8E7B-C165-4386-B137-BF22D9C411BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Api.Core\Infrastructure.csproj", "{516F53A7-0006-4D12-B103-BE6DD6149114}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{516F53A7-0006-4D12-B103-BE6DD6149114}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalAPIs", "ExternalAPIs", "{F3A7B842-3F0B-434E-8C17-179518851529}"
 EndProject
