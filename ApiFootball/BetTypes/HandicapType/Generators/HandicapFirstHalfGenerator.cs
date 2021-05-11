@@ -1,4 +1,4 @@
-﻿using Api.Data.Models;
+﻿using Domain.Entities;
 
 namespace ApiFootball.BetTypes.HandicapType.Generators
 {

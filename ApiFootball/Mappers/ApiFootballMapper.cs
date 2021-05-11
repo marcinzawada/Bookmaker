@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Api.Data.Models;
 using ApiFootball.DTOs.Countries;
 using ApiFootball.DTOs.Fixtures;
 using ApiFootball.DTOs.Fixtures.Rounds;
 using ApiFootball.DTOs.Labels;
 using ApiFootball.DTOs.Seasons;
+using Domain.Entities;
 using LeagueDto = ApiFootball.DTOs.Leagues.LeagueDto;
 using TeamDto = ApiFootball.DTOs.Teams.TeamDto;
 

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Api.Data.Models;
 using ApiFootball.BetTypes;
 using ApiFootball.BetTypes.DoubleChanceType;
 using ApiFootball.BetTypes.DoubleChanceType.Generators;
+using Domain.Entities;
 using Xunit;
 
 namespace Api.Tests.ExternalAPIs.BetTypes.DoubleChanceType

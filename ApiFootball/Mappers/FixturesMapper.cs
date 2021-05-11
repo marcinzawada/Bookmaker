@@ -1,5 +1,4 @@
-﻿using Api.Data.Models;
-using Bookmaker.Api.Data.Data;
+﻿using Bookmaker.Api.Data.Data;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Text;
 using Api.Data.Enums;
 using ApiFootball.DTOs.Fixtures;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Internal;
 using static ApiFootball.DTOs.Fixtures.FixtureDto;
 
@@ -172,12 +172,14 @@ namespace ApiFootball.Mappers
             var score =
                 _context.Scores.FirstOrDefault(x => x.ExtFixtureId == dto.FixtureId);
 
-            var 
+            //var 
 
             if (score == null)
             {
-                var halftimeHomeGoals
+               // var halftimeHomeGoals
             }
+
+            return new Score();
         }
     }
 

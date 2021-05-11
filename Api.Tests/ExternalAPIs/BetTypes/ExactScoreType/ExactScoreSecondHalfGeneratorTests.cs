@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Api.Data.Models;
 using ApiFootball.BetTypes;
 using ApiFootball.BetTypes.ExactScoreType;
 using ApiFootball.BetTypes.ExactScoreType.Generators;
+using Domain.Entities;
 using Xunit;
 
 namespace Api.Tests.ExternalAPIs.BetTypes.ExactScoreType

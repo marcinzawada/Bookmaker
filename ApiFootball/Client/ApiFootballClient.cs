@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Api.Data.Models;
 using ApiFootball.DTOs;
 using ApiFootball.DTOs.Countries;
 using ApiFootball.DTOs.Fixtures;
@@ -10,6 +9,7 @@ using ApiFootball.DTOs.Fixtures.Rounds;
 using ApiFootball.DTOs.Labels;
 using ApiFootball.DTOs.Seasons;
 using ApiFootball.Mappers;
+using Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;

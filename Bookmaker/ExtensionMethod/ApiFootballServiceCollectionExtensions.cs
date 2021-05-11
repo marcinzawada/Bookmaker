@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ApiFootball.Client;
+﻿using ApiFootball.Client;
 using ApiFootball.Mappers;
 using ApiFootball.Seeders;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Bookmaker.ExtensionMethod
+namespace API.ExtensionMethod
 {
     public static class ApiFootballServiceCollectionExtensions
     {

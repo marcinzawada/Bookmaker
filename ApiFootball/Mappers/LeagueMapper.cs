@@ -1,5 +1,4 @@
-﻿using Api.Data.Models;
-using Bookmaker.Api.Data.Data;
+﻿using Bookmaker.Api.Data.Data;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Api.Data.Enums;
 using ApiFootball.DTOs.Leagues;
+using Domain.Entities;
 
 namespace ApiFootball.Mappers
 {

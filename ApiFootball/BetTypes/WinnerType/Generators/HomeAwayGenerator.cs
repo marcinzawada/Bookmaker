@@ -1,5 +1,5 @@
 ﻿using System;
-using Api.Data.Models;
+using Domain.Entities;
 
 namespace ApiFootball.BetTypes.WinnerType
 {
