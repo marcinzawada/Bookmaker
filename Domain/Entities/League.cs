@@ -65,10 +65,10 @@ namespace Domain.Entities
 
         public bool HasPlayersStatistics { get; set; }
 
-        public List<Odd> Odds { get; set; }
+        public List<FixtureOdd> Odds { get; set; }
 
         public List<Round> Rounds { get; set; }
 
-        public List<Team> Teams { get; set; }
+        public virtual ICollection<LeagueTeam> Teams { get; set; }
     }
 }

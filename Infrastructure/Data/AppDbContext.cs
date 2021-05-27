@@ -29,14 +29,19 @@ namespace Infrastructure.Data
 
         public DbSet<Label> Labels { get; set; }
 
-        public DbSet<Odd> Odds { get; set; }
+        public DbSet<FixtureOdd> FixtureOdds { get; set; }
 
         public DbSet<Sport> Sports { get; set; }
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Room> Rooms { get; set; }
+
+        public DbSet<RoomUser> RoomUsers { get; set; }
+
         public DbSet<CouponBetValue> CouponBetValues { get; set; }
 
+        public DbSet<LeagueTeam> LeagueTeams { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,13 +49,18 @@ namespace Infrastructure.Data
                 .HasMany(b => b.BetValues)
                 .WithOne(bv => bv.Bet);
 
-            modelBuilder.Entity<Odd>()
+            modelBuilder.Entity<FixtureOdd>()
                 .HasMany(o => o.Bets)
                 .WithOne(b => b.Odd);
 
-            modelBuilder.Entity<Fixture>()
-                .HasMany(f => f.Odds)
-                .WithOne(o => o.Fixture);
+            modelBuilder.Entity<FixtureOdd>()
+                .HasOne(o => o.Fixture)
+                .WithOne(f => f.Odds)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<FixtureOdd>()
+                .HasMany(o => o.Bets)
+                .WithOne(b => b.Odd);
 
             modelBuilder.Entity<League>()
                 .HasMany(l => l.Odds)
@@ -78,32 +88,44 @@ namespace Infrastructure.Data
 
             modelBuilder.Entity<League>()
                 .HasMany(l => l.Teams)
-                .WithOne(t => t.League);
+                .WithOne(t => t.League)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Team>()
+                .HasMany(t => t.Leagues)
+                .WithOne(lt => lt.Team)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Fixture>()
                 .HasOne(m => m.HomeTeam)
                 .WithMany(t => t.HomeFixtures)
                 .HasForeignKey(m => m.HomeTeamId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
-
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Fixture>()
                 .HasOne(m => m.AwayTeam)
                 .WithMany(t => t.AwayFixtures)
                 .HasForeignKey(m => m.AwayTeamId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Fixture>()
-                .HasMany(x => x.Odds)
-                .WithOne(x => x.Fixture)
-                .OnDelete(DeleteBehavior.ClientCascade);
+            modelBuilder.Entity<LeagueTeam>()
+                .HasKey(x => new {x.LeagueId, x.TeamId});
 
             modelBuilder.Entity<User>()
                 .HasIndex(x => x.Email)
                 .IsUnique();
 
             modelBuilder.Entity<CouponBetValue>()
-                .HasKey(x => new {x.CouponId, x.BetValueId});
+                .HasKey(x => new { x.CouponId, x.BetValueId });
+
+            modelBuilder.Entity<RoomUser>()
+                .HasKey(x => new { x.RoomId, x.UserId });
+
+            modelBuilder.Entity<RoomUser>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.RoomUsers)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

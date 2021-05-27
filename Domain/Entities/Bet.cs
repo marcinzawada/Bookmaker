@@ -12,7 +12,7 @@ namespace Domain.Entities
         public int OddId { get; set; }
 
         [ForeignKey("OddId")]
-        public Odd Odd { get; set; }
+        public FixtureOdd Odd { get; set; }
 
         public int BookieId { get; set; }
 

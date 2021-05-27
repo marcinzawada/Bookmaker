@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
-    public class Odd
+    public class FixtureOdd
     {
         [Key]
         public int Id { get; set; }
@@ -20,7 +20,7 @@ namespace Domain.Entities
         [ForeignKey("FixtureId")]
         public Fixture Fixture { get; set; }
 
-        public DateTime UpdateAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         public List<Bet> Bets { get; set; }
     }

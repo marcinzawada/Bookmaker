@@ -22,7 +22,7 @@ namespace ApiFootball.Mappers
         public Team MapDtoToModel(TeamDto dto)
         {
             var league = _context.Leagues.FirstOrDefault(x => x.ExtLeagueId == dto.LeagueId);
-            var country = _context.Countries.FirstOrDefault(x => x.Name ==dto.Country);
+            var country = _context.Countries.FirstOrDefault(x => x.Name == dto.Country);
 
             if (league == null)
                 _logger.LogError($"League not found. ExtLeagueId: {dto.LeagueId}");
@@ -32,7 +32,13 @@ namespace ApiFootball.Mappers
 
             return new Team
             {
-                LeagueId = league?.Id ?? 0,
+                Leagues = new List<LeagueTeam>
+                {
+                    new LeagueTeam
+                    {
+                        LeagueId = league?.Id ?? 0,
+                    }
+                },
                 ExtTeamId = dto.TeamId,
                 Name = dto.Name,
                 Code = dto.Code,
