@@ -36,10 +36,7 @@ namespace Domain.Entities
 
         public int VenueCapacity { get; set; }
 
-        public int LeagueId { get; set; }
-
-        [ForeignKey("LeagueId")]
-        public League League { get; set; }
+        public virtual ICollection<LeagueTeam> Leagues { get; set; }
 
         public List<Fixture> HomeFixtures { get; set; } = new List<Fixture>();
         

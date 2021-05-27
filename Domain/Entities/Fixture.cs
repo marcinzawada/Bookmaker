@@ -54,6 +54,9 @@ namespace Domain.Entities
         [ForeignKey("ScoreId")]
         public Score Score { get; set; }
 
-        public List<Odd> Odds { get; set; }
+        public int? OddsId { get; set; }
+
+        [ForeignKey(nameof(OddsId))]
+        public FixtureOdd Odds { get; set; }
     }
 }

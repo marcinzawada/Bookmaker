@@ -17,5 +17,7 @@ namespace Domain.Entities
 
         [ForeignKey(nameof(UserId))]
         public User User { get; set; }
+
+        public decimal? TotalCourse { get; set; }
     }
 }

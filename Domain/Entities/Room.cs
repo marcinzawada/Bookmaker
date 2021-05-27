@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Domain.Entities
 {
-    public class User
+    public class Room
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public string Email { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public string PasswordHash { get; set; }
+        public int AdminId { get; set; }
 
-        public virtual ICollection<Coupon> Coupons { get; set; }
+        [ForeignKey(nameof(AdminId))]
+        public User Admin { get; set; }
 
         public virtual ICollection<RoomUser> RoomUsers { get; set; }
-        
-        public virtual ICollection<Room> ManagedRooms { get; set; }
     }
 }
