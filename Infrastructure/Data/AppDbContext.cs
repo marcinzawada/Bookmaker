@@ -29,7 +29,7 @@ namespace Infrastructure.Data
 
         public DbSet<Label> Labels { get; set; }
 
-        public DbSet<FixtureOdd> FixtureOdds { get; set; }
+        public DbSet<Odd> Odds { get; set; }
 
         public DbSet<Sport> Sports { get; set; }
 
@@ -49,16 +49,16 @@ namespace Infrastructure.Data
                 .HasMany(b => b.BetValues)
                 .WithOne(bv => bv.Bet);
 
-            modelBuilder.Entity<FixtureOdd>()
+            modelBuilder.Entity<Odd>()
                 .HasMany(o => o.Bets)
                 .WithOne(b => b.Odd);
 
-            modelBuilder.Entity<FixtureOdd>()
+            modelBuilder.Entity<Odd>()
                 .HasOne(o => o.Fixture)
                 .WithOne(f => f.Odds)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<FixtureOdd>()
+            modelBuilder.Entity<Odd>()
                 .HasMany(o => o.Bets)
                 .WithOne(b => b.Odd);
 

@@ -25,7 +25,7 @@ namespace API.ExtensionMethod
             services.AddScoped<TeamMapper>();
             services.AddScoped<RoundMapper>();
             services.AddScoped<IDtoToModelMapper<BookieDto, Bookie>, BookieMapper>();
-            services.AddScoped<IDtoToModelMapper<OddDto, FixtureOdd>, OddMapper>();
+            services.AddScoped<IDtoToModelMapper<OddDto, Odd>, OddMapper>();
 
             services.AddScoped<ApiFootballSeeder>();
             services.AddScoped<CountriesSeeder>();
