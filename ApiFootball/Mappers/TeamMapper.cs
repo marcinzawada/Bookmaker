@@ -44,7 +44,7 @@ namespace ApiFootball.Mappers
                 Code = dto.Code,
                 Logo = dto.Logo,
                 IsNational = dto.IsNational,
-                CountryId = country?.Id ?? 0,
+                CountryId = country?.Id,
                 Founded = dto.Founded,
                 VenueName = dto.VenueName,
                 VenueSurface = dto.VenueSurface,
