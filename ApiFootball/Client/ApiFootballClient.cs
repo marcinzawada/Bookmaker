@@ -132,7 +132,7 @@ namespace ApiFootball.Client
             return _mapper.MapFixtureDtosToFixtures(fixtureDtos);
         }
 
-        public async Task<List<FixtureOdd>> DownloadAllOddsByLeagueId(int extLeagueId)
+        public async Task<List<Odd>> DownloadAllOddsByLeagueId(int extLeagueId)
         {
             var response = await RequestAsync($"/odds/league/{extLeagueId}");
 

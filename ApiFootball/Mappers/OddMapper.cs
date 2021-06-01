@@ -15,7 +15,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ApiFootball.Mappers
 {
-    public class OddMapper : BaseMapper, IDtoToModelMapper<OddDto, FixtureOdd>
+    public class OddMapper : BaseMapper, IDtoToModelMapper<OddDto, Odd>
     {
         private readonly ILogger<OddMapper> _logger;
 
@@ -24,7 +24,7 @@ namespace ApiFootball.Mappers
             _logger = logger;
         }
 
-        public FixtureOdd MapDtoToModel(OddDto dto)
+        public Odd MapDtoToModel(OddDto dto)
         {
             var league = _context.Leagues.FirstOrDefault(x => x.ExtLeagueId == dto.Fixture.LeagueId);
             if (league == null)
@@ -54,7 +54,7 @@ namespace ApiFootball.Mappers
             if (labelIds.Count() != labelsInBase.Count)
                 throw new EntityNotFoundException($"Some labels not found. ExtBookieIds: " + string.Join(", ", labelIds));
 
-            var newOdd = new FixtureOdd
+            var newOdd = new Odd
             {
                 LeagueId = league.Id,
                 FixtureId = fixture.Id,
