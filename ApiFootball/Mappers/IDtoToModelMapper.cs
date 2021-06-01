@@ -8,7 +8,17 @@ namespace ApiFootball.Mappers
     {
         public TModel MapDtoToModel(TDto dto);
 
-        public List<TModel> MapDtosToModels(List<TDto> dtos);
+        public List<TModel> MapDtosToModels(List<TDto> dtos)
+        {
+            var items = new List<TModel>();
+
+            foreach (var teamDto in dtos)
+            {
+                items.Add(MapDtoToModel(teamDto));
+            }
+
+            return items;
+        }
 
     }
 }
