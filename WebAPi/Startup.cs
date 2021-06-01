@@ -1,5 +1,7 @@
+using System.Threading.Tasks;
 using API.ExtensionMethod;
 using ApiFootball.DataInitialization;
+using ApiFootball.Seeders;
 using Bookmaker.ApiFootball.DataInitialization;
 using Bookmaker.ApiFootball.Services;
 using Infrastructure.Data;
@@ -55,7 +57,8 @@ namespace API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, 
+            ApiFootballSeeder seeder, AppDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -87,6 +90,16 @@ namespace API
             {
                 endpoints.MapControllers();
             });
+
+            if (context.Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+            {
+                ConfigureAsync(seeder).Wait();
+            }
+        }
+
+        public async Task ConfigureAsync(ApiFootballSeeder seeder)
+        {
+            await seeder.SeedData().ConfigureAwait(false);
         }
     }
 }

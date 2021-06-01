@@ -1,7 +1,10 @@
 ﻿using ApiFootball.Client;
+using ApiFootball.DTOs.Odds;
 using ApiFootball.Mappers;
 using ApiFootball.Seeders;
+using Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
+using BookieDto = ApiFootball.DTOs.Bookies.BookieDto;
 
 namespace API.ExtensionMethod
 {
@@ -21,6 +24,8 @@ namespace API.ExtensionMethod
             services.AddScoped<SeasonMapper>();
             services.AddScoped<TeamMapper>();
             services.AddScoped<RoundMapper>();
+            services.AddScoped<IDtoToModelMapper<BookieDto, Bookie>, BookieMapper>();
+            services.AddScoped<IDtoToModelMapper<OddDto, FixtureOdd>, OddMapper>();
 
             services.AddScoped<ApiFootballSeeder>();
             services.AddScoped<CountriesSeeder>();
@@ -31,6 +36,8 @@ namespace API.ExtensionMethod
             services.AddScoped<LabelsSeeder>();
             services.AddScoped<RoundsSeeder>();
             services.AddScoped<FixturesSeeder>();
+            services.AddScoped<OddsSeeder>();
+            services.AddScoped<BookiesSeeder>();
         }
     }
 }

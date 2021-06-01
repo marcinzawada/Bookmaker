@@ -22,6 +22,6 @@ namespace Domain.Entities
 
         public DateTime UpdatedAt { get; set; }
 
-        public List<Bet> Bets { get; set; }
+        public virtual List<Bet> Bets { get; set; } = new List<Bet>();
     }
 }
