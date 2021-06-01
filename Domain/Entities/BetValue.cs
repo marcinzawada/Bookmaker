@@ -11,8 +11,9 @@ namespace Domain.Entities
         public int BetId { get; set; }
 
         [ForeignKey("BetId")]
-        public Bet Bet { get; set; }
+        public virtual Bet Bet { get; set; }
 
+        [MaxLength(64)]
         public string Value { get; set; }
 
         public decimal Odd { get; set; }

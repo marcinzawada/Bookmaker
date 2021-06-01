@@ -15,10 +15,11 @@ namespace Domain.Entities
         public int SportId { get; set; }
 
         [ForeignKey("SportId")]
-        public Sport Sport { get; set; }
+        public virtual Sport Sport { get; set; }
 
         public int ExtLeagueId { get; set; }
 
+        [MaxLength(256)]
         public string Name { get; set; }
 
         public LeagueType Type { get; set; }
@@ -26,21 +27,24 @@ namespace Domain.Entities
         public int? CountryId { get; set; }
 
         [ForeignKey("CountryId")]
-        public Country Country { get; set; }
+        public virtual Country Country { get; set; }
 
+        [MaxLength(8)]
         public string CountryCode { get; set; }
 
         public int SeasonId { get; set; }
 
         [ForeignKey("SeasonId")]
-        public Season Season { get; set; }
+        public virtual Season Season { get; set; }
 
         public DateTime? SeasonStart { get; set; }
 
         public DateTime? SeasonEnd { get; set; }
 
+        [MaxLength(256)]
         public string Logo { get; set; }
 
+        [MaxLength(256)]
         public string Flag { get; set; }
 
         public bool HasStandings { get; set; }
@@ -65,10 +69,10 @@ namespace Domain.Entities
 
         public bool HasPlayersStatistics { get; set; }
 
-        public List<FixtureOdd> Odds { get; set; }
+        public virtual List<Odd> Odds { get; set; } = new List<Odd>();
 
-        public List<Round> Rounds { get; set; }
+        public virtual List<Round> Rounds { get; set; } = new List<Round>();
 
-        public virtual ICollection<LeagueTeam> Teams { get; set; }
+        public virtual List<LeagueTeam> Teams { get; set; } = new List<LeagueTeam>();
     }
 }

@@ -11,7 +11,7 @@ namespace Domain.Entities
         public int FixtureId { get; set; }
 
         [ForeignKey("FixtureId")]
-        public Fixture Fixture { get; set; }
+        public virtual Fixture Fixture { get; set; }
 
         public int? ExtFixtureId { get; set; }
 
@@ -38,6 +38,6 @@ namespace Domain.Entities
         public int? WinnerId { get; set; } 
 
         [ForeignKey("WinnerId")]
-        public Team Winner { get; set; }
+        public virtual Team Winner { get; set; }
     }
 }

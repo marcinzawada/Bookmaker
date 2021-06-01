@@ -8,11 +8,12 @@ namespace Domain.Entities
         [Key]
         public int Id { get; set; }
 
+        [MaxLength(128)]
         public string Name { get; set; }
 
         public int LeagueId { get; set; }
 
         [ForeignKey("LeagueId")]
-        public League League { get; set; }
+        public virtual League League { get; set; }
     }
 }

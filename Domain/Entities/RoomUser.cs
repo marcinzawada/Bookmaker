@@ -12,12 +12,12 @@ namespace Domain.Entities
         public int RoomId { get; set; }
 
         [ForeignKey(nameof(RoomId))]
-        public Room Room { get; set; }
+        public virtual Room Room { get; set; }
 
         [Required]
         public int UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]
-        public User User { get; set; }
+        public virtual User User { get; set; }
     }
 }
