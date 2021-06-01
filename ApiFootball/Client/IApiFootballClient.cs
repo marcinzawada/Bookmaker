@@ -30,7 +30,7 @@ namespace ApiFootball.Client
 
         Task<List<Fixture>> DownloadAllFixturesByLeagueId(int extLeagueId);
 
-        Task<List<FixtureOdd>> DownloadAllOddsByLeagueId(int extLeagueId);
+        Task<List<Odd>> DownloadAllOddsByLeagueId(int extLeagueId);
         
         Task<List<Bookie>> DownloadAllBookies();
     }

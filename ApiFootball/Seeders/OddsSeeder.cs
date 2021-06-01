@@ -17,7 +17,7 @@ namespace ApiFootball.Seeders
         public async Task SeedOdds(int extLeagueId)
         {
             var odds = await _client.DownloadAllOddsByLeagueId(extLeagueId);
-            await _context.FixtureOdds.AddRangeAsync(odds);
+            await _context.Odds.AddRangeAsync(odds);
             await _context.SaveChangesAsync();
         }
     }

@@ -24,13 +24,13 @@ namespace ApiFootball.Mappers
         private readonly RoundMapper _roundMapper;
         private readonly FixturesMapper _fixtureMapper;
         private readonly IDtoToModelMapper<BookieDto, Bookie> _bookieMapper;
-        private readonly IDtoToModelMapper<OddDto, FixtureOdd> _oddMapper;
+        private readonly IDtoToModelMapper<OddDto, Odd> _oddMapper;
 
 
         public ApiFootballMapper(CountryMapper countryMapper, SeasonMapper seasonMapper,
             LeagueMapper leagueMapper, TeamMapper teamMapper, LabelMapper labelMapper,
             RoundMapper roundMapper, FixturesMapper fixtureMapper,
-            IDtoToModelMapper<BookieDto, Bookie> bookieMapper, IDtoToModelMapper<OddDto, FixtureOdd> oddMapper)
+            IDtoToModelMapper<BookieDto, Bookie> bookieMapper, IDtoToModelMapper<OddDto, Odd> oddMapper)
         {
             _countryMapper = countryMapper;
             _seasonMapper = seasonMapper;
@@ -89,7 +89,7 @@ namespace ApiFootball.Mappers
         public List<Bookie> MapBookieDtosToBookies(List<BookieDto> dtos) =>
             _bookieMapper.MapDtosToModels(dtos);
 
-        public List<FixtureOdd> MapOddDtosToFixtureOdds(List<OddDto> dtos) =>
+        public List<Odd> MapOddDtosToFixtureOdds(List<OddDto> dtos) =>
             _oddMapper.MapDtosToModels(dtos);
     }
 }
