@@ -5,14 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Migrations\20210513153237_Init.cs" />
-    <Compile Remove="Data\Migrations\20210513153237_Init.Designer.cs" />
-    <Compile Remove="Data\Migrations\20210513160134_xd.cs" />
-    <Compile Remove="Data\Migrations\20210513160134_xd.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Migrations\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
