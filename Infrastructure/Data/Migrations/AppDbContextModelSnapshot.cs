@@ -15,8 +15,8 @@ namespace Infrastructure.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("ProductVersion", "3.1.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Domain.Entities.Bet", b =>
@@ -507,7 +507,7 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CountryId")
+                    b.Property<int>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<int>("ExtTeamId")
@@ -528,7 +528,7 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("VenueAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("VenueCapacity")
+                    b.Property<int>("VenueCapacity")
                         .HasColumnType("int");
 
                     b.Property<string>("VenueCity")
@@ -589,12 +589,6 @@ namespace Infrastructure.Data.Migrations
                         .HasForeignKey("OddId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Bookie");
-
-                    b.Navigation("Label");
-
-                    b.Navigation("Odd");
                 });
 
             modelBuilder.Entity("Domain.Entities.BetValue", b =>
@@ -604,8 +598,6 @@ namespace Infrastructure.Data.Migrations
                         .HasForeignKey("BetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Bet");
                 });
 
             modelBuilder.Entity("Domain.Entities.Coupon", b =>
@@ -615,8 +607,6 @@ namespace Infrastructure.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.CouponBetValue", b =>
@@ -632,10 +622,6 @@ namespace Infrastructure.Data.Migrations
                         .HasForeignKey("CouponId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("BetValue");
-
-                    b.Navigation("Coupon");
                 });
 
             modelBuilder.Entity("Domain.Entities.Fixture", b =>
@@ -665,16 +651,6 @@ namespace Infrastructure.Data.Migrations
                     b.HasOne("Domain.Entities.Score", "Score")
                         .WithMany()
                         .HasForeignKey("ScoreId");
-
-                    b.Navigation("AwayTeam");
-
-                    b.Navigation("HomeTeam");
-
-                    b.Navigation("League");
-
-                    b.Navigation("Round");
-
-                    b.Navigation("Score");
                 });
 
             modelBuilder.Entity("Domain.Entities.FixtureOdd", b =>
@@ -690,10 +666,6 @@ namespace Infrastructure.Data.Migrations
                         .HasForeignKey("LeagueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Fixture");
-
-                    b.Navigation("League");
                 });
 
             modelBuilder.Entity("Domain.Entities.League", b =>
@@ -713,12 +685,6 @@ namespace Infrastructure.Data.Migrations
                         .HasForeignKey("SportId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Country");
-
-                    b.Navigation("Season");
-
-                    b.Navigation("Sport");
                 });
 
             modelBuilder.Entity("Domain.Entities.LeagueTeam", b =>
@@ -734,21 +700,15 @@ namespace Infrastructure.Data.Migrations
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("League");
-
-                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("Domain.Entities.Room", b =>
                 {
                     b.HasOne("Domain.Entities.User", "Admin")
-                        .WithMany("ManagedRooms")
+                        .WithMany()
                         .HasForeignKey("AdminId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Admin");
                 });
 
             modelBuilder.Entity("Domain.Entities.RoomUser", b =>
@@ -764,10 +724,6 @@ namespace Infrastructure.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Room");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.Round", b =>
@@ -777,8 +733,6 @@ namespace Infrastructure.Data.Migrations
                         .HasForeignKey("LeagueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("League");
                 });
 
             modelBuilder.Entity("Domain.Entities.Score", b =>
@@ -792,83 +746,15 @@ namespace Infrastructure.Data.Migrations
                     b.HasOne("Domain.Entities.Team", "Winner")
                         .WithMany()
                         .HasForeignKey("WinnerId");
-
-                    b.Navigation("Fixture");
-
-                    b.Navigation("Winner");
                 });
 
             modelBuilder.Entity("Domain.Entities.Team", b =>
                 {
                     b.HasOne("Domain.Entities.Country", "Country")
                         .WithMany("Teams")
-                        .HasForeignKey("CountryId");
-
-                    b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Bet", b =>
-                {
-                    b.Navigation("BetValues");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Country", b =>
-                {
-                    b.Navigation("Leagues");
-
-                    b.Navigation("Teams");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Coupon", b =>
-                {
-                    b.Navigation("CouponBetValues");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Fixture", b =>
-                {
-                    b.Navigation("Odds");
-                });
-
-            modelBuilder.Entity("Domain.Entities.FixtureOdd", b =>
-                {
-                    b.Navigation("Bets");
-                });
-
-            modelBuilder.Entity("Domain.Entities.League", b =>
-                {
-                    b.Navigation("Odds");
-
-                    b.Navigation("Rounds");
-
-                    b.Navigation("Teams");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Room", b =>
-                {
-                    b.Navigation("RoomUsers");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Season", b =>
-                {
-                    b.Navigation("Leagues");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Team", b =>
-                {
-                    b.Navigation("AwayFixtures");
-
-                    b.Navigation("HomeFixtures");
-
-                    b.Navigation("Leagues");
-                });
-
-            modelBuilder.Entity("Domain.Entities.User", b =>
-                {
-                    b.Navigation("Coupons");
-
-                    b.Navigation("ManagedRooms");
-
-                    b.Navigation("RoomUsers");
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

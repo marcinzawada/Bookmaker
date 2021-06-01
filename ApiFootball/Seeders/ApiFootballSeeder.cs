@@ -17,10 +17,8 @@ namespace ApiFootball.Seeders
         private readonly LabelsSeeder _labelsSeeder;
         private readonly RoundsSeeder _roundsSeeder;
         private readonly FixturesSeeder _fixturesSeeder;
-        private readonly OddsSeeder _oddsSeeder;
-        private readonly BookiesSeeder _bookiesSeeder;
 
-        public ApiFootballSeeder(CountriesSeeder countriesSeeder, SeasonsSeeder seasonsSeeder, LeaguesSeeder leaguesSeeder, TeamsSeeder teamSeeder, AppDbContext context, SportSeeder sportSeeder, LabelsSeeder labelsSeeder, RoundsSeeder roundsSeeder, FixturesSeeder fixturesSeeder, OddsSeeder oddsSeeder, BookiesSeeder bookiesSeeder)
+        public ApiFootballSeeder(CountriesSeeder countriesSeeder, SeasonsSeeder seasonsSeeder, LeaguesSeeder leaguesSeeder, TeamsSeeder teamSeeder, AppDbContext context, SportSeeder sportSeeder, LabelsSeeder labelsSeeder, RoundsSeeder roundsSeeder, FixturesSeeder fixturesSeeder)
         {
             _countriesSeeder = countriesSeeder;
             _seasonsSeeder = seasonsSeeder;
@@ -31,8 +29,6 @@ namespace ApiFootball.Seeders
             _labelsSeeder = labelsSeeder;
             _roundsSeeder = roundsSeeder;
             _fixturesSeeder = fixturesSeeder;
-            _oddsSeeder = oddsSeeder;
-            _bookiesSeeder = bookiesSeeder;
         }
 
         public async Task SeedData()
@@ -42,13 +38,10 @@ namespace ApiFootball.Seeders
             //await _countriesSeeder.SeedCountries();
             //await _sportSeeder.SeedSport();
             //await _leaguesSeeder.SeedLeagues();
+            //await _teamSeeder.SeedTeams();
             //await _labelsSeeder.SeedLabels();
-            //await _bookiesSeeder.SeedBookies();
-
-            //await _teamSeeder.SeedTeamsByExtLeagueId(1252);
-            //await _roundsSeeder.SeedRoundsByExtLeagueId(1252);
-            //await _fixturesSeeder.SeedFixturesByExtLeagueId(1252);
-            await _oddsSeeder.SeedOdds(1252);
+            await _roundsSeeder.SeedRounds();
+            //await _fixturesSeeder.SeedFixtures();
         }
 
     }
