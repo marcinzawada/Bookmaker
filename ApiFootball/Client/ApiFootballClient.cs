@@ -1,21 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using ApiFootball.DTOs;
 using ApiFootball.DTOs.Countries;
-using ApiFootball.DTOs.Fixtures;
 using ApiFootball.DTOs.Fixtures.Rounds;
 using ApiFootball.DTOs.Labels;
+using ApiFootball.DTOs.Odds;
 using ApiFootball.DTOs.Seasons;
 using ApiFootball.Mappers;
 using Domain.Entities;
+using Infrastructure.ExtensionMethods;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using RestSharp;
+using BookieDto = ApiFootball.DTOs.Bookies.BookieDto;
+using FixtureDto = ApiFootball.DTOs.Fixtures.FixtureDto;
 using LeagueDto = ApiFootball.DTOs.Leagues.LeagueDto;
 using TeamDto = ApiFootball.DTOs.Teams.TeamDto;
 
@@ -76,7 +80,7 @@ namespace ApiFootball.Client
                 return container.DtoHolder.Resources;
 
             _logger.LogError("Api doesn't return data, resourceUrl: " + resourcesUrl);
-            throw new Exception("Api doesn't return data, resourceUrl: "+resourcesUrl);
+            throw new Exception("Api doesn't return data, resourceUrl: " +resourcesUrl);
         }
 
         public async Task<List<Country>> DownloadAllCountries()
@@ -126,6 +130,34 @@ namespace ApiFootball.Client
         {
             var fixtureDtos = await DownloadAllIResources<DtoHolder<FixtureDto>, FixtureDto>($"/fixtures/league/{extLeagueId}");
             return _mapper.MapFixtureDtosToFixtures(fixtureDtos);
+        }
+
+        public async Task<List<FixtureOdd>> DownloadAllOddsByLeagueId(int extLeagueId)
+        {
+            var response = await RequestAsync($"/odds/league/{extLeagueId}");
+
+            var holder = response.Content.Deserialize<DtoContainer<DtoHolder<OddDto>>>().DtoHolder;
+
+            var oddDtos = holder.Resources; 
+
+            if (holder.Paging.TotalPages > 1)
+            {
+                for (var i = 2; i <= holder.Paging.TotalPages; i++)
+                {
+                    var nextOdds = await DownloadAllIResources<DtoHolder<OddDto>, OddDto>($"/odds/league/{extLeagueId}?page={i}");
+                    oddDtos.AddRange(nextOdds);
+                }
+            }
+
+            var odds = _mapper.MapOddDtosToFixtureOdds(oddDtos);
+
+            return odds;
+        }
+
+        public async Task<List<Bookie>> DownloadAllBookies()
+        {
+            var bookieDtos = await DownloadAllIResources<DtoHolder<BookieDto>, BookieDto>("/odds/bookmakers");
+            return _mapper.MapBookieDtosToBookies(bookieDtos);
         }
     }
 }

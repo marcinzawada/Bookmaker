@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ApiFootball.DTOs;
+using ApiFootball.DTOs.Bookies;
 using ApiFootball.DTOs.Countries;
 using ApiFootball.DTOs.Fixtures.Rounds;
 using Domain.Entities;
@@ -29,5 +30,8 @@ namespace ApiFootball.Client
 
         Task<List<Fixture>> DownloadAllFixturesByLeagueId(int extLeagueId);
 
+        Task<List<FixtureOdd>> DownloadAllOddsByLeagueId(int extLeagueId);
+        
+        Task<List<Bookie>> DownloadAllBookies();
     }
 }
