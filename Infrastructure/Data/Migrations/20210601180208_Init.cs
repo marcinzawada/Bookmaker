@@ -11,10 +11,10 @@ namespace Infrastructure.Data.Migrations
                 name: "Bookies",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ExtBookmakerId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    ExtBookmakerId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -25,11 +25,11 @@ namespace Infrastructure.Data.Migrations
                 name: "Countries",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Code = table.Column<string>(nullable: true),
-                    Flag = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: true),
+                    Flag = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,10 +40,10 @@ namespace Infrastructure.Data.Migrations
                 name: "Labels",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ExtLabelId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    ExtLabelId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -54,9 +54,9 @@ namespace Infrastructure.Data.Migrations
                 name: "Seasons",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Year = table.Column<int>(nullable: false)
+                    Year = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,9 +67,9 @@ namespace Infrastructure.Data.Migrations
                 name: "Sports",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -80,10 +80,10 @@ namespace Infrastructure.Data.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -94,20 +94,20 @@ namespace Infrastructure.Data.Migrations
                 name: "Teams",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ExtTeamId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Code = table.Column<string>(nullable: true),
-                    Logo = table.Column<string>(nullable: true),
-                    IsNational = table.Column<bool>(nullable: false),
-                    CountryId = table.Column<int>(nullable: false),
-                    Founded = table.Column<int>(nullable: true),
-                    VenueName = table.Column<string>(nullable: true),
-                    VenueSurface = table.Column<string>(nullable: true),
-                    VenueAddress = table.Column<string>(nullable: true),
-                    VenueCity = table.Column<string>(nullable: true),
-                    VenueCapacity = table.Column<int>(nullable: false)
+                    ExtTeamId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    Logo = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    IsNational = table.Column<bool>(type: "bit", nullable: false),
+                    CountryId = table.Column<int>(type: "int", nullable: true),
+                    Founded = table.Column<int>(type: "int", nullable: true),
+                    VenueName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    VenueSurface = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    VenueAddress = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    VenueCity = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    VenueCapacity = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -117,37 +117,37 @@ namespace Infrastructure.Data.Migrations
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Leagues",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SportId = table.Column<int>(nullable: false),
-                    ExtLeagueId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Type = table.Column<int>(nullable: false),
-                    CountryId = table.Column<int>(nullable: true),
-                    CountryCode = table.Column<string>(nullable: true),
-                    SeasonId = table.Column<int>(nullable: false),
-                    SeasonStart = table.Column<DateTime>(nullable: true),
-                    SeasonEnd = table.Column<DateTime>(nullable: true),
-                    Logo = table.Column<string>(nullable: true),
-                    Flag = table.Column<string>(nullable: true),
-                    HasStandings = table.Column<bool>(nullable: false),
-                    IsCurrent = table.Column<bool>(nullable: false),
-                    HasCoverageStandings = table.Column<bool>(nullable: false),
-                    HasPlayers = table.Column<bool>(nullable: false),
-                    HasTopScorers = table.Column<bool>(nullable: false),
-                    HasPredictions = table.Column<bool>(nullable: false),
-                    HasOdds = table.Column<bool>(nullable: false),
-                    HasEvents = table.Column<bool>(nullable: false),
-                    HasLineups = table.Column<bool>(nullable: false),
-                    HasStatistics = table.Column<bool>(nullable: false),
-                    HasPlayersStatistics = table.Column<bool>(nullable: false)
+                    SportId = table.Column<int>(type: "int", nullable: false),
+                    ExtLeagueId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    CountryId = table.Column<int>(type: "int", nullable: true),
+                    CountryCode = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: true),
+                    SeasonId = table.Column<int>(type: "int", nullable: false),
+                    SeasonStart = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    SeasonEnd = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Logo = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Flag = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    HasStandings = table.Column<bool>(type: "bit", nullable: false),
+                    IsCurrent = table.Column<bool>(type: "bit", nullable: false),
+                    HasCoverageStandings = table.Column<bool>(type: "bit", nullable: false),
+                    HasPlayers = table.Column<bool>(type: "bit", nullable: false),
+                    HasTopScorers = table.Column<bool>(type: "bit", nullable: false),
+                    HasPredictions = table.Column<bool>(type: "bit", nullable: false),
+                    HasOdds = table.Column<bool>(type: "bit", nullable: false),
+                    HasEvents = table.Column<bool>(type: "bit", nullable: false),
+                    HasLineups = table.Column<bool>(type: "bit", nullable: false),
+                    HasStatistics = table.Column<bool>(type: "bit", nullable: false),
+                    HasPlayersStatistics = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -176,11 +176,11 @@ namespace Infrastructure.Data.Migrations
                 name: "Coupon",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Bid = table.Column<decimal>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    TotalCourse = table.Column<decimal>(nullable: true)
+                    Bid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    TotalCourse = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -197,10 +197,10 @@ namespace Infrastructure.Data.Migrations
                 name: "Rooms",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: false),
-                    AdminId = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    AdminId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -217,8 +217,8 @@ namespace Infrastructure.Data.Migrations
                 name: "LeagueTeams",
                 columns: table => new
                 {
-                    LeagueId = table.Column<int>(nullable: false),
-                    TeamId = table.Column<int>(nullable: false)
+                    LeagueId = table.Column<int>(type: "int", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -239,10 +239,10 @@ namespace Infrastructure.Data.Migrations
                 name: "Rounds",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    LeagueId = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    LeagueId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -259,8 +259,8 @@ namespace Infrastructure.Data.Migrations
                 name: "RoomUsers",
                 columns: table => new
                 {
-                    RoomId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
+                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -282,11 +282,11 @@ namespace Infrastructure.Data.Migrations
                 name: "BetValues",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BetId = table.Column<int>(nullable: false),
-                    Value = table.Column<string>(nullable: true),
-                    Odd = table.Column<decimal>(nullable: false)
+                    BetId = table.Column<int>(type: "int", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    Odd = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -297,8 +297,8 @@ namespace Infrastructure.Data.Migrations
                 name: "CouponBetValues",
                 columns: table => new
                 {
-                    CouponId = table.Column<int>(nullable: false),
-                    BetValueId = table.Column<int>(nullable: false)
+                    CouponId = table.Column<int>(type: "int", nullable: false),
+                    BetValueId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -321,11 +321,11 @@ namespace Infrastructure.Data.Migrations
                 name: "Bets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OddId = table.Column<int>(nullable: false),
-                    BookieId = table.Column<int>(nullable: false),
-                    LabelId = table.Column<int>(nullable: false)
+                    OddId = table.Column<int>(type: "int", nullable: false),
+                    BookieId = table.Column<int>(type: "int", nullable: false),
+                    LabelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -345,20 +345,20 @@ namespace Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FixtureOdds",
+                name: "Odds",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LeagueId = table.Column<int>(nullable: false),
-                    FixtureId = table.Column<int>(nullable: false),
-                    UpdatedAt = table.Column<DateTime>(nullable: false)
+                    LeagueId = table.Column<int>(type: "int", nullable: false),
+                    FixtureId = table.Column<int>(type: "int", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FixtureOdds", x => x.Id);
+                    table.PrimaryKey("PK_Odds", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FixtureOdds_Leagues_LeagueId",
+                        name: "FK_Odds_Leagues_LeagueId",
                         column: x => x.LeagueId,
                         principalTable: "Leagues",
                         principalColumn: "Id",
@@ -369,21 +369,21 @@ namespace Infrastructure.Data.Migrations
                 name: "Scores",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FixtureId = table.Column<int>(nullable: false),
-                    ExtFixtureId = table.Column<int>(nullable: true),
-                    GoalsHomeTeam = table.Column<int>(nullable: true),
-                    GoalsAwayTeam = table.Column<int>(nullable: true),
-                    HalftimeHomeGoals = table.Column<int>(nullable: true),
-                    HalftimeAwayGoals = table.Column<int>(nullable: true),
-                    FullTimeHomeGoals = table.Column<int>(nullable: true),
-                    FullTimeAwayGoals = table.Column<int>(nullable: true),
-                    ExtraTimeHomeGoals = table.Column<int>(nullable: true),
-                    ExtraTimeAwayGoals = table.Column<int>(nullable: true),
-                    PenaltyHomeGoals = table.Column<int>(nullable: true),
-                    PenaltyAwayGoals = table.Column<int>(nullable: true),
-                    WinnerId = table.Column<int>(nullable: true)
+                    FixtureId = table.Column<int>(type: "int", nullable: false),
+                    ExtFixtureId = table.Column<int>(type: "int", nullable: true),
+                    GoalsHomeTeam = table.Column<int>(type: "int", nullable: true),
+                    GoalsAwayTeam = table.Column<int>(type: "int", nullable: true),
+                    HalftimeHomeGoals = table.Column<int>(type: "int", nullable: true),
+                    HalftimeAwayGoals = table.Column<int>(type: "int", nullable: true),
+                    FullTimeHomeGoals = table.Column<int>(type: "int", nullable: true),
+                    FullTimeAwayGoals = table.Column<int>(type: "int", nullable: true),
+                    ExtraTimeHomeGoals = table.Column<int>(type: "int", nullable: true),
+                    ExtraTimeAwayGoals = table.Column<int>(type: "int", nullable: true),
+                    PenaltyHomeGoals = table.Column<int>(type: "int", nullable: true),
+                    PenaltyAwayGoals = table.Column<int>(type: "int", nullable: true),
+                    WinnerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -400,37 +400,27 @@ namespace Infrastructure.Data.Migrations
                 name: "Fixtures",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ExtFixtureId = table.Column<int>(nullable: false),
-                    LeagueId = table.Column<int>(nullable: false),
-                    EventDate = table.Column<DateTime>(nullable: true),
-                    FirstHalfStart = table.Column<DateTime>(nullable: true),
-                    SecondHalfStart = table.Column<DateTime>(nullable: true),
-                    RoundId = table.Column<int>(nullable: true),
-                    Status = table.Column<int>(nullable: false),
-                    StatusName = table.Column<string>(nullable: true),
-                    Elapsed = table.Column<int>(nullable: true),
-                    Venue = table.Column<string>(nullable: true),
-                    Referee = table.Column<string>(nullable: true),
-                    HomeTeamId = table.Column<int>(nullable: false),
-                    AwayTeamId = table.Column<int>(nullable: false),
-                    ScoreId = table.Column<int>(nullable: true),
-                    OddsId = table.Column<int>(nullable: true)
+                    ExtFixtureId = table.Column<int>(type: "int", nullable: false),
+                    LeagueId = table.Column<int>(type: "int", nullable: false),
+                    EventDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    FirstHalfStart = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    SecondHalfStart = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RoundId = table.Column<int>(type: "int", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    StatusName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    Elapsed = table.Column<int>(type: "int", nullable: true),
+                    Venue = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    Referee = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    HomeTeamId = table.Column<int>(type: "int", nullable: false),
+                    AwayTeamId = table.Column<int>(type: "int", nullable: false),
+                    ScoreId = table.Column<int>(type: "int", nullable: true),
+                    OddsId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Fixtures", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Fixtures_Teams_AwayTeamId",
-                        column: x => x.AwayTeamId,
-                        principalTable: "Teams",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Fixtures_Teams_HomeTeamId",
-                        column: x => x.HomeTeamId,
-                        principalTable: "Teams",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Fixtures_Leagues_LeagueId",
                         column: x => x.LeagueId,
@@ -449,6 +439,16 @@ namespace Infrastructure.Data.Migrations
                         principalTable: "Scores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Fixtures_Teams_AwayTeamId",
+                        column: x => x.AwayTeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Fixtures_Teams_HomeTeamId",
+                        column: x => x.HomeTeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -480,17 +480,6 @@ namespace Infrastructure.Data.Migrations
                 name: "IX_CouponBetValues_BetValueId",
                 table: "CouponBetValues",
                 column: "BetValueId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FixtureOdds_FixtureId",
-                table: "FixtureOdds",
-                column: "FixtureId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FixtureOdds_LeagueId",
-                table: "FixtureOdds",
-                column: "LeagueId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Fixtures_AwayTeamId",
@@ -538,6 +527,17 @@ namespace Infrastructure.Data.Migrations
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Odds_FixtureId",
+                table: "Odds",
+                column: "FixtureId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Odds_LeagueId",
+                table: "Odds",
+                column: "LeagueId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Rooms_AdminId",
                 table: "Rooms",
                 column: "AdminId");
@@ -582,16 +582,16 @@ namespace Infrastructure.Data.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Bets_FixtureOdds_OddId",
+                name: "FK_Bets_Odds_OddId",
                 table: "Bets",
                 column: "OddId",
-                principalTable: "FixtureOdds",
+                principalTable: "Odds",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_FixtureOdds_Fixtures_FixtureId",
-                table: "FixtureOdds",
+                name: "FK_Odds_Fixtures_FixtureId",
+                table: "Odds",
                 column: "FixtureId",
                 principalTable: "Fixtures",
                 principalColumn: "Id");
@@ -608,8 +608,20 @@ namespace Infrastructure.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Scores_Fixtures_FixtureId",
-                table: "Scores");
+                name: "FK_Fixtures_Leagues_LeagueId",
+                table: "Fixtures");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Rounds_Leagues_LeagueId",
+                table: "Rounds");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Fixtures_Rounds_RoundId",
+                table: "Fixtures");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Fixtures_Scores_ScoreId",
+                table: "Fixtures");
 
             migrationBuilder.DropTable(
                 name: "CouponBetValues");
@@ -642,10 +654,16 @@ namespace Infrastructure.Data.Migrations
                 name: "Labels");
 
             migrationBuilder.DropTable(
-                name: "FixtureOdds");
+                name: "Odds");
 
             migrationBuilder.DropTable(
-                name: "Fixtures");
+                name: "Leagues");
+
+            migrationBuilder.DropTable(
+                name: "Seasons");
+
+            migrationBuilder.DropTable(
+                name: "Sports");
 
             migrationBuilder.DropTable(
                 name: "Rounds");
@@ -654,16 +672,10 @@ namespace Infrastructure.Data.Migrations
                 name: "Scores");
 
             migrationBuilder.DropTable(
-                name: "Leagues");
+                name: "Fixtures");
 
             migrationBuilder.DropTable(
                 name: "Teams");
-
-            migrationBuilder.DropTable(
-                name: "Seasons");
-
-            migrationBuilder.DropTable(
-                name: "Sports");
 
             migrationBuilder.DropTable(
                 name: "Countries");
