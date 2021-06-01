@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using ApiFootball.DTOs.Countries;
-using ApiFootball.DTOs.Fixtures;
 using ApiFootball.DTOs.Fixtures.Rounds;
 using ApiFootball.DTOs.Labels;
+using ApiFootball.DTOs.Odds;
 using ApiFootball.DTOs.Seasons;
 using Domain.Entities;
+using BookieDto = ApiFootball.DTOs.Bookies.BookieDto;
+using FixtureDto = ApiFootball.DTOs.Fixtures.FixtureDto;
 using LeagueDto = ApiFootball.DTOs.Leagues.LeagueDto;
 using TeamDto = ApiFootball.DTOs.Teams.TeamDto;
 
@@ -21,9 +23,14 @@ namespace ApiFootball.Mappers
         private readonly LabelMapper _labelMapper;
         private readonly RoundMapper _roundMapper;
         private readonly FixturesMapper _fixtureMapper;
+        private readonly IDtoToModelMapper<BookieDto, Bookie> _bookieMapper;
+        private readonly IDtoToModelMapper<OddDto, FixtureOdd> _oddMapper;
 
 
-        public ApiFootballMapper(CountryMapper countryMapper, SeasonMapper seasonMapper, LeagueMapper leagueMapper, TeamMapper teamMapper, LabelMapper labelMapper, RoundMapper roundMapper, FixturesMapper fixtureMapper)
+        public ApiFootballMapper(CountryMapper countryMapper, SeasonMapper seasonMapper,
+            LeagueMapper leagueMapper, TeamMapper teamMapper, LabelMapper labelMapper,
+            RoundMapper roundMapper, FixturesMapper fixtureMapper,
+            IDtoToModelMapper<BookieDto, Bookie> bookieMapper, IDtoToModelMapper<OddDto, FixtureOdd> oddMapper)
         {
             _countryMapper = countryMapper;
             _seasonMapper = seasonMapper;
@@ -32,6 +39,8 @@ namespace ApiFootball.Mappers
             _labelMapper = labelMapper;
             _roundMapper = roundMapper;
             _fixtureMapper = fixtureMapper;
+            _bookieMapper = bookieMapper;
+            _oddMapper = oddMapper;
         }
 
         public Country MapCountryDtoToCountry(CountryDto dto) =>
@@ -76,5 +85,11 @@ namespace ApiFootball.Mappers
 
         public List<Fixture> MapFixtureDtosToFixtures(List<FixtureDto> dtos) =>
             _fixtureMapper.MapDtosToModels(dtos);
+
+        public List<Bookie> MapBookieDtosToBookies(List<BookieDto> dtos) =>
+            _bookieMapper.MapDtosToModels(dtos);
+
+        public List<FixtureOdd> MapOddDtosToFixtureOdds(List<OddDto> dtos) =>
+            _oddMapper.MapDtosToModels(dtos);
     }
 }
