@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ApiFootball.Client;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiFootball.Seeders
 {
@@ -14,11 +15,14 @@ namespace ApiFootball.Seeders
         {
         }
 
-        public async Task SeedOdds(int extLeagueId)
+        public async Task SeedOddsByLeagueId(int extLeagueId)
         {
-            var odds = await _client.DownloadAllOddsByLeagueId(extLeagueId);
-            await _context.Odds.AddRangeAsync(odds);
-            await _context.SaveChangesAsync();
+            if (! await _context.Odds.AnyAsync())
+            {
+                var odds = await _client.DownloadAllOddsByLeagueId(extLeagueId);
+                await _context.Odds.AddRangeAsync(odds);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
