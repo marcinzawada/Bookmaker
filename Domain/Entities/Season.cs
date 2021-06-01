@@ -10,6 +10,6 @@ namespace Domain.Entities
 
         public int Year { get; set; }
 
-        public List<League> Leagues { get; set; }
+        public virtual List<League> Leagues { get; set; } = new List<League>();
     }
 }

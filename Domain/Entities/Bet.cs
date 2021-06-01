@@ -12,17 +12,17 @@ namespace Domain.Entities
         public int OddId { get; set; }
 
         [ForeignKey("OddId")]
-        public FixtureOdd Odd { get; set; }
+        public virtual Odd Odd { get; set; }
 
         public int BookieId { get; set; }
 
         [ForeignKey("BookieId")]
-        public Bookie Bookie { get; set; }
+        public virtual Bookie Bookie { get; set; }
 
         public int LabelId { get; set; }
 
         [ForeignKey("LabelId")]
-        public Label Label { get; set; }
+        public virtual Label Label { get; set; }
 
         public virtual List<BetValue> BetValues { get; set; } = new List<BetValue>();
     }

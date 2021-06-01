@@ -12,14 +12,15 @@ namespace Domain.Entities
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(256)]
         public string Name { get; set; }
 
         [Required]
         public int AdminId { get; set; }
 
         [ForeignKey(nameof(AdminId))]
-        public User Admin { get; set; }
+        public virtual User Admin { get; set; }
 
-        public virtual ICollection<RoomUser> RoomUsers { get; set; }
+        public virtual List<RoomUser> RoomUsers { get; set; } = new List<RoomUser>();
     }
 }

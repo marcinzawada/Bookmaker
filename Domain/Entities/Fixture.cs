@@ -16,7 +16,7 @@ namespace Domain.Entities
         public int LeagueId { get; set; }
 
         [ForeignKey("LeagueId")]
-        public League League { get; set; }
+        public virtual League League { get; set; }
 
         public DateTime? EventDate { get; set; }
 
@@ -27,27 +27,30 @@ namespace Domain.Entities
         public int? RoundId { get; set; }
 
         [ForeignKey("RoundId")]
-        public Round Round { get; set; }
+        public virtual Round Round { get; set; }
 
         public MatchStatus Status { get; set; }
 
+        [MaxLength(64)]
         public string StatusName { get; set; }
 
         public int? Elapsed { get; set; }
 
+        [MaxLength(128)]
         public string Venue { get; set; }
 
+        [MaxLength(128)]
         public string Referee { get; set; }
 
         public int HomeTeamId { get; set; }
 
         [ForeignKey("HomeTeamId")]
-        public Team HomeTeam { get; set; }
+        public virtual Team HomeTeam { get; set; }
 
         public int AwayTeamId { get; set; }
 
         [ForeignKey("AwayTeamId")]
-        public Team AwayTeam { get; set; }
+        public virtual Team AwayTeam { get; set; }
 
         public int? ScoreId { get; set; }
 
@@ -57,6 +60,6 @@ namespace Domain.Entities
         public int? OddsId { get; set; }
 
         [ForeignKey(nameof(OddsId))]
-        public FixtureOdd Odds { get; set; }
+        public virtual Odd Odds { get; set; }
     }
 }

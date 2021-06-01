@@ -11,15 +11,17 @@ namespace Domain.Entities
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(128)]
         public string Email { get; set; }
 
         [Required]
+        [MaxLength(512)]
         public string PasswordHash { get; set; }
 
-        public virtual ICollection<Coupon> Coupons { get; set; }
+        public virtual List<Coupon> Coupons { get; set; } = new List<Coupon>();
 
-        public virtual ICollection<RoomUser> RoomUsers { get; set; }
+        public virtual List<RoomUser> RoomUsers { get; set; } = new List<RoomUser>();
         
-        public virtual ICollection<Room> ManagedRooms { get; set; }
+        public virtual List<Room> ManagedRooms { get; set; } = new List<Room>();
     }
 }

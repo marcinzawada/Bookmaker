@@ -12,12 +12,12 @@ namespace Domain.Entities
         public int LeagueId { get; set; }
 
         [ForeignKey(nameof(LeagueId))]
-        public League League { get; set; }
+        public virtual League League { get; set; }
 
         [Required]
         public int TeamId { get; set; }
 
         [ForeignKey(nameof(TeamId))]
-        public Team Team { get; set; }
+        public virtual Team Team { get; set; }
     }
 }
