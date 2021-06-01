@@ -21,10 +21,5 @@ namespace ApiFootball.Mappers
                 Name = dto.Name
             };
         }
-
-        public List<Bookie> MapDtosToModels(List<BookieDto> dtos)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
