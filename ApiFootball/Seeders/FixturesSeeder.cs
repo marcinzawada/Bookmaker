@@ -15,13 +15,13 @@ namespace ApiFootball.Seeders
         {
         }
 
-        public async Task SeedFixtures()
+        public async Task SeedFixturesByExtLeagueId(int id)
         {
-            var league = await _context.Leagues.FirstOrDefaultAsync(x => x.ExtLeagueId == 2655);
+            var league = await _context.Leagues.FirstOrDefaultAsync(x => x.ExtLeagueId == id);
 
-            if (_context.Fixtures.Count(x => x.LeagueId == league.Id) == 0)
+            if (!_context.Fixtures.Any(x => x.LeagueId == league.Id))
             {
-                var fixtures = await _client.DownloadAllFixturesByLeagueId(2655);
+                var fixtures = await _client.DownloadAllFixturesByLeagueId(id);
                 await _context.Fixtures.AddRangeAsync(fixtures);
                 await _context.SaveChangesAsync();
             }

@@ -24,6 +24,6 @@ namespace Domain.Entities
         [ForeignKey("LabelId")]
         public Label Label { get; set; }
 
-        public List<BetValue> BetValues { get; set; }
+        public virtual List<BetValue> BetValues { get; set; } = new List<BetValue>();
     }
 }

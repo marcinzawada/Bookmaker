@@ -11,12 +11,12 @@ namespace Domain.Entities
 
         public decimal Bid { get; set; }
 
-        public List<CouponBetValue> CouponBetValues { get; set; }
+        public virtual List<CouponBetValue> CouponBetValues { get; set; } = new List<CouponBetValue>();
 
         public int UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
         public decimal? TotalCourse { get; set; }
     }
