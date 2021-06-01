@@ -44,6 +44,6 @@ namespace ApiFootball.DTOs.Teams
         public string VenueCity { get; set; }
 
         [JsonProperty("venue_capacity")]
-        public int VenueCapacity { get; set; }
+        public int? VenueCapacity { get; set; }
     }
 }
