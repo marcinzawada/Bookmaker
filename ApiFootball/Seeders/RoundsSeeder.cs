@@ -19,16 +19,16 @@ namespace ApiFootball.Seeders
             _logger = logger;
         }
 
-        public async Task SeedRounds()
+        public async Task SeedRoundsByExtLeagueId(int id)
         {
-            var league = _context.Leagues.FirstOrDefault(x => x.ExtLeagueId == 2655);
+            var league = _context.Leagues.FirstOrDefault(x => x.ExtLeagueId == id);
             
             if (league == null)
-                _logger.LogError($"League not found. ExtLeagueId: {2655}");
+                _logger.LogError($"League not found. ExtLeagueId: {id}");
             
             if (!_context.Rounds.Any(x => x.LeagueId == league.Id))
             {
-                var rounds = await _client.DownloadAllRoundsByLeagueId(2655);
+                var rounds = await _client.DownloadAllRoundsByLeagueId(id);
                 await _context.Rounds.AddRangeAsync(rounds);
                 await _context.SaveChangesAsync();
             }
