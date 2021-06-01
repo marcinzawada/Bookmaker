@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ApiFootball.DTOs.Odds
 {
-    class OddDto
+    public class OddDto
     {
         [JsonProperty("fixture")]
         public FixtureDto Fixture { get; set; }
