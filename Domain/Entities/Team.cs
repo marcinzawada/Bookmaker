@@ -22,7 +22,7 @@ namespace Domain.Entities
         [ForeignKey("CountryId")]
         public Country Country { get; set; }
 
-        public int CountryId { get; set; }
+        public int? CountryId { get; set; }
 
         public int? Founded { get; set; }
 
@@ -34,7 +34,7 @@ namespace Domain.Entities
 
         public string VenueCity { get; set; }
 
-        public int VenueCapacity { get; set; }
+        public int? VenueCapacity { get; set; }
 
         public virtual ICollection<LeagueTeam> Leagues { get; set; }
 
