@@ -37,18 +37,17 @@ namespace ApiFootball.Seeders
 
         public async Task SeedData()
         {
-            //var databaseCreated = await _context.Database.EnsureCreatedAsync();
-            //await _seasonsSeeder.SeedSeasons();
-            //await _countriesSeeder.SeedCountries();
-            //await _sportSeeder.SeedSport();
-            //await _leaguesSeeder.SeedLeagues();
-            //await _labelsSeeder.SeedLabels();
-            //await _bookiesSeeder.SeedBookies();
-
-            //await _teamSeeder.SeedTeamsByExtLeagueId(1252);
-            //await _roundsSeeder.SeedRoundsByExtLeagueId(1252);
-            //await _fixturesSeeder.SeedFixturesByExtLeagueId(1252);
-            await _oddsSeeder.SeedOdds(1252);
+            await _context.Database.EnsureCreatedAsync();
+            await _seasonsSeeder.SeedSeasons();
+            await _countriesSeeder.SeedCountries();
+            await _sportSeeder.SeedSport();
+            await _leaguesSeeder.SeedLeagues();
+            await _labelsSeeder.SeedLabels();
+            await _bookiesSeeder.SeedBookies();
+            await _teamSeeder.SeedTeamsByExtLeagueId(1321);
+            await _roundsSeeder.SeedRoundsByExtLeagueId(1321);
+            await _fixturesSeeder.SeedFixturesByExtLeagueId(1321);
+            await _oddsSeeder.SeedOddsByLeagueId(1321);
         }
 
     }
