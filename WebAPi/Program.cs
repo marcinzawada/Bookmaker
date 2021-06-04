@@ -1,11 +1,10 @@
 using System;
-using Bookmaker;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
 
-namespace API
+namespace WebAPI
 {
     public class Program
     {
