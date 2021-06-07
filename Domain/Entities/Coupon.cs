@@ -18,6 +18,6 @@ namespace Domain.Entities
         [ForeignKey(nameof(UserId))]
         public virtual User User { get; set; }
 
-        public decimal? TotalCourse { get; set; }
+        public decimal TotalCourse { get; set; }
     }
 }
