@@ -10,6 +10,7 @@ using Bookmaker.ApiFootball.Services;
 using Domain.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Infrastructure.Common.DependencyInjection;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using MediatR;
@@ -44,11 +45,11 @@ namespace WebAPI
             }).AddFluentValidation(opt => 
                 opt.RegisterValidatorsFromAssembly(Assembly.Load("Application")));
 
-            services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
-
             services.AddAuthentication(Configuration);
 
             services.AddAuthorization();
+
+            services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
 
             services.AddScoped<ModelValidatorFilter>();
 
@@ -62,8 +63,10 @@ namespace WebAPI
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IOddRepository, OddRepository>();
 
             services.AddApplication();
+            services.AddInfrastructure();
 
             services.ConfigureSwagger();
 
@@ -87,6 +90,8 @@ namespace WebAPI
                     document.Schemes.Add(OpenApiSchema.Https);
                 };
             });
+
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
 
