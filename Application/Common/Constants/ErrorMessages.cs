@@ -9,5 +9,6 @@ namespace Application.Common.Constants
     public static class ErrorMessages
     {
         public const string InvalidCredentialsMessage = "Invalid email or password";
+        public const string EntityNotFoundMessage = "Entity not found";
     }
 }
