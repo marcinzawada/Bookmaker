@@ -15,5 +15,15 @@ namespace Application.Common.Constants
 
         public static Error InvalidCredentials => new(ErrorCodes.InvalidCredentials,
             ErrorMessages.InvalidCredentialsMessage);
+
+        public static Error EntityNotFound<T>()
+        {
+            return new(ErrorCodes.EntityNotFound, ErrorMessages.EntityNotFoundMessage.Replace("Entity", typeof(T).Name), HttpStatusCode.NotFound);
+        }
+
+        public static Error EntityNotFound()
+        {
+            return new(ErrorCodes.EntityNotFound, ErrorMessages.EntityNotFoundMessage, HttpStatusCode.NotFound);
+        }
     }
 }
