@@ -1,9 +1,12 @@
-﻿using Domain.Entities;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Application.Common.Interfaces;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : DbContext, IDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -42,6 +45,8 @@ namespace Infrastructure.Data
         public DbSet<CouponBetValue> CouponBetValues { get; set; }
 
         public DbSet<LeagueTeam> LeagueTeams { get; set; }
+
+        public DbSet<Coupon> Coupons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -126,6 +131,12 @@ namespace Infrastructure.Data
                 .WithMany(x => x.RoomUsers)
                 .OnDelete(DeleteBehavior.NoAction);
 
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            var result = await base.SaveChangesAsync(cancellationToken);
+            return result;
         }
     }
 }
