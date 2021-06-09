@@ -25,5 +25,7 @@ namespace Application.Common.Constants
         {
             return new(ErrorCodes.EntityNotFound, ErrorMessages.EntityNotFoundMessage, HttpStatusCode.NotFound);
         }
+
+        public static Error InvalidBetData => new(ErrorCodes.InvalidData, ErrorMessages.InvalidBetDataMessage);
     }
 }
