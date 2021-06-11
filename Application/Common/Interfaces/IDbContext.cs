@@ -49,6 +49,8 @@ namespace Application.Common.Interfaces
 
         public DbSet<Coupon> Coupons { get; set; }
 
+        public DbSet<ReadCoupon> ReadCoupons { get; set; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
