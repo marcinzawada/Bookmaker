@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.Commands.Coupons;
 using Application.Extensions;
+using Application.Queries.Coupons;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,15 @@ namespace WebAPI.Controllers
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> Post(CreateCouponCommand request)
+        {
+            var response = await Mediator.Send(request);
+
+            return this.CreateResponse(response);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery]GetCouponQuery request)
         {
             var response = await Mediator.Send(request);
 
