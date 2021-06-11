@@ -35,6 +35,9 @@ namespace Application.Commands.Coupons
             if (betValues.Count != request.BetValueIds.Count)
                 return Response.Failure(Errors.EntityNotFound<BetValue>());
 
+            if (betValues.Select(x => x.BetId).Distinct().Count() != betValues.Count)
+                return Response.Failure(Errors.InvalidBetData);
+
             var coupon = new CouponBuilder()
                 .SetUserId(_userContextService.GetUserId())
                 .SetBetValues(betValues)
