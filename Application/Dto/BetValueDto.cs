@@ -15,5 +15,8 @@ namespace Application.Dto
         public string Value { get; set; }
 
         public decimal Odd { get; set; }
+
+        public BetDto Bet { get; set; }
+
     }
 }
