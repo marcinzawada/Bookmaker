@@ -7,11 +7,11 @@ namespace Domain.Entities
         public int CouponId { get; set; }
 
         [ForeignKey("CouponId")]
-        public Coupon Coupon { get; set; }
+        public virtual Coupon Coupon { get; set; }
 
         public int BetValueId { get; set; }
 
         [ForeignKey("BetValueId")]
-        public BetValue BetValue { get; set; }
+        public virtual BetValue BetValue { get; set; }
     }
 }

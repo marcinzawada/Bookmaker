@@ -19,5 +19,10 @@ namespace Domain.Entities
         public virtual User User { get; set; }
 
         public decimal TotalCourse { get; set; }
+
+        public int ReadCouponId { get; set; }
+
+        [ForeignKey(nameof(ReadCouponId))]
+        public ReadCoupon ReadCoupon { get; set; }
     }
 }
