@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using Api.Data.Enums;
 using ApiFootball.DTOs.Leagues;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Data;
 
 namespace ApiFootball.Mappers
