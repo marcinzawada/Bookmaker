@@ -93,7 +93,6 @@ namespace ApiFootball.BetTypes
                 oddValue.Id = betValue.Id;
             }
 
-            BetType.OddId = Bet.OddId;
             BetType.LabelId = Bet.LabelId;
         }
 
