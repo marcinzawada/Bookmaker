@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210601180208_Init")]
+    [Migration("20210611221546_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,19 +31,24 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("BookieId")
                         .HasColumnType("int");
 
+                    b.Property<int>("FixtureId")
+                        .HasColumnType("int");
+
                     b.Property<int>("LabelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OddId")
+                    b.Property<int>("LeagueId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BookieId");
 
+                    b.HasIndex("FixtureId");
+
                     b.HasIndex("LabelId");
 
-                    b.HasIndex("OddId");
+                    b.HasIndex("LeagueId");
 
                     b.ToTable("Bets");
                 });
@@ -125,7 +130,10 @@ namespace Infrastructure.Data.Migrations
                     b.Property<decimal>("Bid")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("TotalCourse")
+                    b.Property<int>("ReadCouponId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalCourse")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
@@ -135,7 +143,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Coupon");
+                    b.ToTable("Coupons");
                 });
 
             modelBuilder.Entity("Domain.Entities.CouponBetValue", b =>
@@ -181,9 +189,6 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("LeagueId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OddsId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Referee")
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
@@ -203,6 +208,9 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("StatusName")
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
+
+                    b.Property<DateTime?>("UpdatedBetsAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Venue")
                         .HasMaxLength(128)
@@ -345,30 +353,25 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("LeagueTeams");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Odd", b =>
+            modelBuilder.Entity("Domain.Entities.ReadCoupon", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("FixtureId")
-                        .HasColumnType("int");
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LeagueId")
+                    b.Property<int>("CouponId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FixtureId")
+                    b.HasIndex("CouponId")
                         .IsUnique();
 
-                    b.HasIndex("LeagueId");
-
-                    b.ToTable("Odds");
+                    b.ToTable("ReadCoupons");
                 });
 
             modelBuilder.Entity("Domain.Entities.Room", b =>
@@ -605,23 +608,31 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Fixture", "Fixture")
+                        .WithMany("Bets")
+                        .HasForeignKey("FixtureId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Label", "Label")
                         .WithMany()
                         .HasForeignKey("LabelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Odd", "Odd")
+                    b.HasOne("Domain.Entities.League", "League")
                         .WithMany("Bets")
-                        .HasForeignKey("OddId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("LeagueId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Bookie");
 
+                    b.Navigation("Fixture");
+
                     b.Navigation("Label");
 
-                    b.Navigation("Odd");
+                    b.Navigation("League");
                 });
 
             modelBuilder.Entity("Domain.Entities.BetValue", b =>
@@ -748,23 +759,15 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Odd", b =>
+            modelBuilder.Entity("Domain.Entities.ReadCoupon", b =>
                 {
-                    b.HasOne("Domain.Entities.Fixture", "Fixture")
-                        .WithOne("Odds")
-                        .HasForeignKey("Domain.Entities.Odd", "FixtureId")
+                    b.HasOne("Domain.Entities.Coupon", "Coupon")
+                        .WithOne("ReadCoupon")
+                        .HasForeignKey("Domain.Entities.ReadCoupon", "CouponId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.League", "League")
-                        .WithMany("Odds")
-                        .HasForeignKey("LeagueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Fixture");
-
-                    b.Navigation("League");
+                    b.Navigation("Coupon");
                 });
 
             modelBuilder.Entity("Domain.Entities.Room", b =>
@@ -849,25 +852,22 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Domain.Entities.Coupon", b =>
                 {
                     b.Navigation("CouponBetValues");
+
+                    b.Navigation("ReadCoupon");
                 });
 
             modelBuilder.Entity("Domain.Entities.Fixture", b =>
                 {
-                    b.Navigation("Odds");
+                    b.Navigation("Bets");
                 });
 
             modelBuilder.Entity("Domain.Entities.League", b =>
                 {
-                    b.Navigation("Odds");
+                    b.Navigation("Bets");
 
                     b.Navigation("Rounds");
 
                     b.Navigation("Teams");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Odd", b =>
-                {
-                    b.Navigation("Bets");
                 });
 
             modelBuilder.Entity("Domain.Entities.Room", b =>
