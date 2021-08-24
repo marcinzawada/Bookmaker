@@ -33,8 +33,6 @@ namespace Application.Common.Interfaces
 
         public DbSet<Label> Labels { get; set; }
 
-        public DbSet<Odd> Odds { get; set; }
-
         public DbSet<Sport> Sports { get; set; }
 
         public DbSet<User> Users { get; set; }
