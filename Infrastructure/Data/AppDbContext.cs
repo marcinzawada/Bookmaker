@@ -32,8 +32,6 @@ namespace Infrastructure.Data
 
         public DbSet<Label> Labels { get; set; }
 
-        public DbSet<Odd> Odds { get; set; }
-
         public DbSet<Sport> Sports { get; set; }
 
         public DbSet<User> Users { get; set; }
@@ -56,22 +54,15 @@ namespace Infrastructure.Data
                 .HasMany(b => b.BetValues)
                 .WithOne(bv => bv.Bet);
 
-            modelBuilder.Entity<Odd>()
-                .HasMany(o => o.Bets)
-                .WithOne(b => b.Odd);
-
-            modelBuilder.Entity<Odd>()
-                .HasOne(o => o.Fixture)
-                .WithOne(f => f.Odds)
+            modelBuilder.Entity<Bet>()
+                .HasOne(b => b.Fixture)
+                .WithMany(bv => bv.Bets)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Odd>()
-                .HasMany(o => o.Bets)
-                .WithOne(b => b.Odd);
-
-            modelBuilder.Entity<League>()
-                .HasMany(l => l.Odds)
-                .WithOne(o => o.League);
+            modelBuilder.Entity<Bet>()
+                .HasOne(b => b.League)
+                .WithMany(bv => bv.Bets)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Season>()
                 .HasMany(s => s.Leagues)
@@ -84,10 +75,6 @@ namespace Infrastructure.Data
             modelBuilder.Entity<Country>()
                 .HasMany(c => c.Teams)
                 .WithOne(t => t.Country);
-
-            modelBuilder.Entity<League>()
-                .HasMany(l => l.Odds)
-                .WithOne(o => o.League);
 
             modelBuilder.Entity<League>()
                 .HasMany(l => l.Rounds)
@@ -131,6 +118,11 @@ namespace Infrastructure.Data
             modelBuilder.Entity<RoomUser>()
                 .HasOne(x => x.User)
                 .WithMany(x => x.RoomUsers)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ReadCoupon>()
+                .HasOne(x => x.Coupon)
+                .WithOne(x => x.ReadCoupon)
                 .OnDelete(DeleteBehavior.NoAction);
 
         }

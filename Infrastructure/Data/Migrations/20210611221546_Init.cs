@@ -173,20 +173,21 @@ namespace Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Coupon",
+                name: "Coupons",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Bid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    TotalCourse = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                    TotalCourse = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ReadCouponId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Coupon", x => x.Id);
+                    table.PrimaryKey("PK_Coupons", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Coupon_Users_UserId",
+                        name: "FK_Coupons_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -256,6 +257,25 @@ namespace Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ReadCoupons",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CouponId = table.Column<int>(type: "int", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReadCoupons", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ReadCoupons_Coupons_CouponId",
+                        column: x => x.CouponId,
+                        principalTable: "Coupons",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RoomUsers",
                 columns: table => new
                 {
@@ -310,9 +330,9 @@ namespace Infrastructure.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CouponBetValues_Coupon_CouponId",
+                        name: "FK_CouponBetValues_Coupons_CouponId",
                         column: x => x.CouponId,
-                        principalTable: "Coupon",
+                        principalTable: "Coupons",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -323,7 +343,8 @@ namespace Infrastructure.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OddId = table.Column<int>(type: "int", nullable: false),
+                    LeagueId = table.Column<int>(type: "int", nullable: false),
+                    FixtureId = table.Column<int>(type: "int", nullable: false),
                     BookieId = table.Column<int>(type: "int", nullable: false),
                     LabelId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -342,27 +363,11 @@ namespace Infrastructure.Data.Migrations
                         principalTable: "Labels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Odds",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LeagueId = table.Column<int>(type: "int", nullable: false),
-                    FixtureId = table.Column<int>(type: "int", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Odds", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Odds_Leagues_LeagueId",
+                        name: "FK_Bets_Leagues_LeagueId",
                         column: x => x.LeagueId,
                         principalTable: "Leagues",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -416,7 +421,7 @@ namespace Infrastructure.Data.Migrations
                     HomeTeamId = table.Column<int>(type: "int", nullable: false),
                     AwayTeamId = table.Column<int>(type: "int", nullable: false),
                     ScoreId = table.Column<int>(type: "int", nullable: true),
-                    OddsId = table.Column<int>(type: "int", nullable: true)
+                    UpdatedBetsAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -457,14 +462,19 @@ namespace Infrastructure.Data.Migrations
                 column: "BookieId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bets_FixtureId",
+                table: "Bets",
+                column: "FixtureId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Bets_LabelId",
                 table: "Bets",
                 column: "LabelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bets_OddId",
+                name: "IX_Bets_LeagueId",
                 table: "Bets",
-                column: "OddId");
+                column: "LeagueId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BetValues_BetId",
@@ -472,14 +482,14 @@ namespace Infrastructure.Data.Migrations
                 column: "BetId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Coupon_UserId",
-                table: "Coupon",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CouponBetValues_BetValueId",
                 table: "CouponBetValues",
                 column: "BetValueId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Coupons_UserId",
+                table: "Coupons",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Fixtures_AwayTeamId",
@@ -527,15 +537,10 @@ namespace Infrastructure.Data.Migrations
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Odds_FixtureId",
-                table: "Odds",
-                column: "FixtureId",
+                name: "IX_ReadCoupons_CouponId",
+                table: "ReadCoupons",
+                column: "CouponId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Odds_LeagueId",
-                table: "Odds",
-                column: "LeagueId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rooms_AdminId",
@@ -582,16 +587,8 @@ namespace Infrastructure.Data.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Bets_Odds_OddId",
+                name: "FK_Bets_Fixtures_FixtureId",
                 table: "Bets",
-                column: "OddId",
-                principalTable: "Odds",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Odds_Fixtures_FixtureId",
-                table: "Odds",
                 column: "FixtureId",
                 principalTable: "Fixtures",
                 principalColumn: "Id");
@@ -608,20 +605,8 @@ namespace Infrastructure.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Fixtures_Leagues_LeagueId",
-                table: "Fixtures");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Rounds_Leagues_LeagueId",
-                table: "Rounds");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Fixtures_Rounds_RoundId",
-                table: "Fixtures");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Fixtures_Scores_ScoreId",
-                table: "Fixtures");
+                name: "FK_Scores_Fixtures_FixtureId",
+                table: "Scores");
 
             migrationBuilder.DropTable(
                 name: "CouponBetValues");
@@ -630,13 +615,16 @@ namespace Infrastructure.Data.Migrations
                 name: "LeagueTeams");
 
             migrationBuilder.DropTable(
+                name: "ReadCoupons");
+
+            migrationBuilder.DropTable(
                 name: "RoomUsers");
 
             migrationBuilder.DropTable(
                 name: "BetValues");
 
             migrationBuilder.DropTable(
-                name: "Coupon");
+                name: "Coupons");
 
             migrationBuilder.DropTable(
                 name: "Rooms");
@@ -654,16 +642,7 @@ namespace Infrastructure.Data.Migrations
                 name: "Labels");
 
             migrationBuilder.DropTable(
-                name: "Odds");
-
-            migrationBuilder.DropTable(
-                name: "Leagues");
-
-            migrationBuilder.DropTable(
-                name: "Seasons");
-
-            migrationBuilder.DropTable(
-                name: "Sports");
+                name: "Fixtures");
 
             migrationBuilder.DropTable(
                 name: "Rounds");
@@ -672,10 +651,16 @@ namespace Infrastructure.Data.Migrations
                 name: "Scores");
 
             migrationBuilder.DropTable(
-                name: "Fixtures");
+                name: "Leagues");
 
             migrationBuilder.DropTable(
                 name: "Teams");
+
+            migrationBuilder.DropTable(
+                name: "Seasons");
+
+            migrationBuilder.DropTable(
+                name: "Sports");
 
             migrationBuilder.DropTable(
                 name: "Countries");
