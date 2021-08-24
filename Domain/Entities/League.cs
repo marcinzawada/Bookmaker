@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Api.Data.Enums;
+using Domain.Enums;
 
 namespace Domain.Entities
 
@@ -69,10 +69,10 @@ namespace Domain.Entities
 
         public bool HasPlayersStatistics { get; set; }
 
-        public virtual List<Odd> Odds { get; set; } = new List<Odd>();
+        public virtual List<Round> Rounds { get; set; } = new();
 
-        public virtual List<Round> Rounds { get; set; } = new List<Round>();
+        public virtual List<LeagueTeam> Teams { get; set; } = new();
 
-        public virtual List<LeagueTeam> Teams { get; set; } = new List<LeagueTeam>();
+        public virtual List<Bet> Bets { get; set; } = new();
     }
 }

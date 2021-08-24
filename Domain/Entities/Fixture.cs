@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Api.Data.Enums;
+using Domain.Enums;
 
 namespace Domain.Entities
 {
@@ -57,9 +57,9 @@ namespace Domain.Entities
         [ForeignKey("ScoreId")]
         public Score Score { get; set; }
 
-        public int? OddsId { get; set; }
+        public DateTime? UpdatedBetsAt { get; set; }
 
-        [ForeignKey(nameof(OddsId))]
-        public virtual Odd Odds { get; set; }
+        public virtual List<Bet> Bets { get; set; } = new List<Bet>();
+
     }
 }
