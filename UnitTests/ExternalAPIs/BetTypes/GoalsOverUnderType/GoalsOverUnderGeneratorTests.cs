@@ -15,7 +15,6 @@ namespace UnitTests.ExternalAPIs.BetTypes.GoalsOverUnderType
         {
             var bet = new Bet
             {
-                OddId = 123,
                 LabelId = 456,
 
                 Label = new Label()
