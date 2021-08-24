@@ -17,10 +17,10 @@ namespace ApiFootball.Seeders
         private readonly LabelsSeeder _labelsSeeder;
         private readonly RoundsSeeder _roundsSeeder;
         private readonly FixturesSeeder _fixturesSeeder;
-        private readonly OddsSeeder _oddsSeeder;
+        private readonly BetsSeeder _betsSeeder;
         private readonly BookiesSeeder _bookiesSeeder;
 
-        public ApiFootballSeeder(CountriesSeeder countriesSeeder, SeasonsSeeder seasonsSeeder, LeaguesSeeder leaguesSeeder, TeamsSeeder teamSeeder, AppDbContext context, SportSeeder sportSeeder, LabelsSeeder labelsSeeder, RoundsSeeder roundsSeeder, FixturesSeeder fixturesSeeder, OddsSeeder oddsSeeder, BookiesSeeder bookiesSeeder)
+        public ApiFootballSeeder(CountriesSeeder countriesSeeder, SeasonsSeeder seasonsSeeder, LeaguesSeeder leaguesSeeder, TeamsSeeder teamSeeder, AppDbContext context, SportSeeder sportSeeder, LabelsSeeder labelsSeeder, RoundsSeeder roundsSeeder, FixturesSeeder fixturesSeeder, BetsSeeder oddsSeeder, BookiesSeeder bookiesSeeder)
         {
             _countriesSeeder = countriesSeeder;
             _seasonsSeeder = seasonsSeeder;
@@ -31,7 +31,7 @@ namespace ApiFootball.Seeders
             _labelsSeeder = labelsSeeder;
             _roundsSeeder = roundsSeeder;
             _fixturesSeeder = fixturesSeeder;
-            _oddsSeeder = oddsSeeder;
+            _betsSeeder = oddsSeeder;
             _bookiesSeeder = bookiesSeeder;
         }
 
@@ -44,10 +44,10 @@ namespace ApiFootball.Seeders
             await _leaguesSeeder.SeedLeagues();
             await _labelsSeeder.SeedLabels();
             await _bookiesSeeder.SeedBookies();
-            await _teamSeeder.SeedTeamsByExtLeagueId(1321);
-            await _roundsSeeder.SeedRoundsByExtLeagueId(1321);
-            await _fixturesSeeder.SeedFixturesByExtLeagueId(1321);
-            await _oddsSeeder.SeedOddsByLeagueId(1321);
+            await _teamSeeder.SeedTeamsByExtLeagueId(3297);
+            await _roundsSeeder.SeedRoundsByExtLeagueId(3297);
+            await _fixturesSeeder.SeedFixturesByExtLeagueId(3297);
+            await _betsSeeder.SeedBetsByLeagueId(3297);
         }
 
     }
