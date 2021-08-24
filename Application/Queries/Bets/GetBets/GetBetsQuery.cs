@@ -9,13 +9,13 @@ using MediatR;
 
 namespace Application.Queries.Bets.GetBets
 {
-    public record GetBetsQuery(int OddId) : IRequest<Response>;
+    public record GetBetsQuery(int LeagueId) : IRequest<Response>;
 
     public class GetBetsQueryValidator : AbstractValidator<GetBetsQuery>
     {
         public GetBetsQueryValidator()
         {
-            RuleFor(x => x.OddId)
+            RuleFor(x => x.LeagueId)
                 .NotEmpty().NotNull().GreaterThanOrEqualTo(1);
         }
     }
