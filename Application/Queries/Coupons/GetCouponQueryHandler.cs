@@ -31,12 +31,6 @@ namespace Application.Queries.Coupons
                 .ThenInclude(x => x.BetValue.Bet)
                 .ThenInclude(x => x.Label)
                 .Include(x => x.CouponBetValues)
-                .ThenInclude(x => x.BetValue.Bet.Odd.League)
-                .Include(x => x.CouponBetValues)
-                .ThenInclude(x => x.BetValue.Bet.Odd.Fixture.AwayTeam)
-                .Include(x => x.CouponBetValues)
-                .ThenInclude(x => x.BetValue.Bet.Odd.Fixture.HomeTeam)
-                .Where(x => x.Id == request.CouponId)
                 .ProjectTo<CouponDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken);
            
