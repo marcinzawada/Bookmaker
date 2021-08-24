@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Api.Data.Enums
+﻿namespace Domain.Enums
 {
     public enum BetOption
     {
