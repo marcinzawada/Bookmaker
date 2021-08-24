@@ -1,12 +1,11 @@
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using API.ExtensionMethod;
 using ApiFootball.Seeders;
+using ApiFootball.Services;
 using Application.Common.DependencyInjection;
 using Application.Filters;
 using Application.Models;
-using Bookmaker.ApiFootball.Services;
 using Domain.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -24,6 +23,7 @@ using Microsoft.Extensions.Hosting;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using WebAPI.AppConfigs;
+using WebAPI.ExtensionMethod;
 
 namespace WebAPI
 {
@@ -63,7 +63,6 @@ namespace WebAPI
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IOddRepository, OddRepository>();
 
             services.AddApplication();
             services.AddInfrastructure();
