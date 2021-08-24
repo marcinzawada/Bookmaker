@@ -29,11 +29,11 @@ namespace Application.Queries.Bets.GetBets
                 .AsNoTracking()
                 .Include(x => x.BetValues)
                 .Include(x => x.Label)
-                .Where(x => x.OddId == request.OddId && x.BookieId == 7)
+                .Where(x => x.LeagueId == request.LeagueId && x.BookieId == 7)
                 .ProjectTo<BetDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            if (betDtos is null)
+            if (!betDtos.Any())
                 return Response.Failure(Errors.EntityNotFound<Bet>());
 
             return Result<List<BetDto>>.Create(betDtos);
