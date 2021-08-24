@@ -18,7 +18,9 @@ namespace Application.Common.Constants
 
         public static Error EntityNotFound<T>()
         {
-            return new(ErrorCodes.EntityNotFound, ErrorMessages.EntityNotFoundMessage.Replace("Entity", typeof(T).Name), HttpStatusCode.NotFound);
+            return new(ErrorCodes.EntityNotFound, 
+                ErrorMessages.EntityNotFoundMessage.Replace("Entity", typeof(T).Name),
+                HttpStatusCode.NotFound);
         }
 
         public static Error EntityNotFound()
