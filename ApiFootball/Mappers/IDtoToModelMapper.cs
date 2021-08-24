@@ -12,9 +12,9 @@ namespace ApiFootball.Mappers
         {
             var items = new List<TModel>();
 
-            foreach (var teamDto in dtos)
+            foreach (var dto in dtos)
             {
-                items.Add(MapDtoToModel(teamDto));
+                items.Add(MapDtoToModel(dto));
             }
 
             return items;
