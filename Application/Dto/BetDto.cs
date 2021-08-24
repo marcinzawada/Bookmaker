@@ -14,8 +14,6 @@ namespace Application.Dto
 
         public LabelDto Label { get; set; }
 
-        public OddDto Odd { get; set; }
-
         public List<BetValueDto> BetValues { get; set; }
     }
 }
