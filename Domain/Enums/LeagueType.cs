@@ -1,4 +1,4 @@
-﻿namespace Api.Data.Enums
+﻿namespace Domain.Enums
 {
     public enum LeagueType
     {
