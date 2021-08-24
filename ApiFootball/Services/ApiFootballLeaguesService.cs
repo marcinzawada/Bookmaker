@@ -1,18 +1,13 @@
-﻿using Bookmaker.ApiFootball.DTOs;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Api.Data.Enums;
 using ApiFootball.Client;
 using ApiFootball.DTOs.Leagues;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Data;
+using Microsoft.Extensions.Logging;
 
-namespace Bookmaker.ApiFootball.Services
+namespace ApiFootball.Services
 {
     public class ApiFootballLeaguesService : ApiFootballBaseService
     {
