@@ -29,20 +29,10 @@ namespace Application.Commands.Account.Login
             _jwtGenerator = jwtGenerator;
         }
 
-
-        //public LoginCommandHandler(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, IJwtGenerator jwtGenerator)
-        //{
-        //    _userRepository = userRepository;
-        //    _passwordHasher = passwordHasher;
-        //    _jwtGenerator = jwtGenerator;
-        //}
-
         public async Task<Response> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var user = await _context.Users
                 .FirstOrDefaultAsync(x => x.Email == request.Email, cancellationToken);
-
-            var xd = await _context.Users.ToListAsync(cancellationToken);
 
             if (user is null)
                 return Response.Failure(Errors.InvalidCredentials);
