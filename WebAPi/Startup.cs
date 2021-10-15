@@ -4,13 +4,11 @@ using System.Threading.Tasks;
 using Application.Common.DependencyInjection;
 using Application.Filters;
 using Application.Models;
-using Domain.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.Common.DependencyInjection;
 using Infrastructure.Data;
 using Infrastructure.ExternalApis.ApiFootball.Seeders;
-using Infrastructure.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -57,9 +55,6 @@ namespace WebAPI
 
 
             services.AddApiFootballServices();
-
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddApplication();
             services.AddInfrastructure();

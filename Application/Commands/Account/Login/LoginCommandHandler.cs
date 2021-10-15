@@ -11,7 +11,6 @@ using Application.Common.JWT;
 using Application.Models;
 using Application.Services;
 using Domain.Entities;
-using Domain.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +31,7 @@ namespace Application.Commands.Account.Login
         public async Task<Response> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var user = await _context.Users
-                .FirstOrDefaultAsync(x => x.Email == request.Email, cancellationToken);
+                .FirstOrDefaultAsync(x => x.Email == request.Email.ToLower().Trim(), cancellationToken);
 
             if (user is null)
                 return Response.Failure(Errors.InvalidCredentials);

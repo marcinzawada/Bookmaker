@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Common.Interfaces;
 using Application.Models;
 using Domain.Entities;
-using Domain.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -15,27 +15,26 @@ namespace Application.Commands.Account.Register
 {
     public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Response>
     {
-        private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly IDbContext _context; 
 
-
-        public RegisterCommandHandler(IUserRepository userRepository, IPasswordHasher<User> passwordHasher)
+        public RegisterCommandHandler(IPasswordHasher<User> passwordHasher, IDbContext context)
         {
-            _userRepository = userRepository;
             _passwordHasher = passwordHasher;
+            _context = context;
         }
 
         public async Task<Response> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             var newUser = new User()
             {
-                Email = request.Email,
+                Email = request.Email.ToLower().Trim(),
             };
 
             var hashedPassword = _passwordHasher.HashPassword(newUser, request.Password);
             newUser.PasswordHash = hashedPassword;
 
-            await _userRepository.AddAsync(newUser, cancellationToken);
+            await _context.Users.AddAsync(newUser, cancellationToken);
 
             return Response.Success();
         }

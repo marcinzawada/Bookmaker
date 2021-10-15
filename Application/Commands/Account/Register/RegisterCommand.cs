@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Common.Interfaces;
 using Application.Models;
-using Domain.Repositories;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Application.Commands.Account.Register
@@ -15,21 +16,20 @@ namespace Application.Commands.Account.Register
 
     public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IDbContext _context;
 
-        public RegisterCommandValidator(IUserRepository userRepository)
+        public RegisterCommandValidator(IDbContext context)
         {
-            _userRepository = userRepository;
+            _context = context;
 
             RuleFor(x => x.Email)
                 .NotEmpty()
                 .EmailAddress()
                 .CustomAsync(async (email, context, cancellationToken) =>
                 {
-                    var userWithThisEmailInBase = 
-                        await userRepository.FindAsync(x => 
-                            x.Email == email, cancellationToken);
-                    
+                    var userWithThisEmailInBase =
+                        await _context.Users.Where(x => x.Email == email.ToLower().Trim()).ToListAsync();
+
                     if (userWithThisEmailInBase.Any())
                     {
                         context.AddFailure("Email", "That email is taken");
