@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ApiFootball.BetTypes;
-using ApiFootball.BetTypes.DoubleChanceType.Generators;
 using Domain.Entities;
+using Infrastructure.ExternalApis.ApiFootball.BetTypes;
+using Infrastructure.ExternalApis.ApiFootball.BetTypes.DoubleChanceType;
+using Infrastructure.ExternalApis.ApiFootball.BetTypes.DoubleChanceType.Generators;
 using Xunit;
 
 namespace UnitTests.ExternalAPIs.BetTypes.DoubleChanceType
@@ -41,7 +42,7 @@ namespace UnitTests.ExternalAPIs.BetTypes.DoubleChanceType
                 }
             };
 
-            var expected = new ApiFootball.BetTypes.DoubleChanceType.DoubleChance
+            var expected = new DoubleChance
             {
                 OddValues = new List<OddValue>
                 {

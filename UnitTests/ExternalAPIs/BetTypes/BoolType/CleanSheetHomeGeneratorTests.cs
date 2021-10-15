@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ApiFootball.BetTypes;
-using ApiFootball.BetTypes.BoolType;
-using ApiFootball.BetTypes.BoolType.Generators;
 using Domain.Entities;
+using Infrastructure.ExternalApis.ApiFootball.BetTypes;
+using Infrastructure.ExternalApis.ApiFootball.BetTypes.BoolType;
+using Infrastructure.ExternalApis.ApiFootball.BetTypes.BoolType.Generators;
 using Xunit;
 
 namespace UnitTests.ExternalAPIs.BetTypes.BoolType

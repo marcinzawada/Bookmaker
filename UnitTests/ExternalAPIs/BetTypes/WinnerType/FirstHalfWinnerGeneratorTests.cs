@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using ApiFootball.BetTypes;
-using ApiFootball.BetTypes.WinnerType;
-using ApiFootball.BetTypes.WinnerType.Generators;
 using Domain.Entities;
+using Infrastructure.ExternalApis.ApiFootball.BetTypes;
+using Infrastructure.ExternalApis.ApiFootball.BetTypes.WinnerType;
+using Infrastructure.ExternalApis.ApiFootball.BetTypes.WinnerType.Generators;
 using Newtonsoft.Json;
 using Xunit;
 

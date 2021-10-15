@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ApiFootball.BetTypes;
-using ApiFootball.BetTypes.ExactScoreType;
-using ApiFootball.BetTypes.ExactScoreType.Generators;
 using Domain.Entities;
+using Infrastructure.ExternalApis.ApiFootball.BetTypes;
+using Infrastructure.ExternalApis.ApiFootball.BetTypes.ExactScoreType;
+using Infrastructure.ExternalApis.ApiFootball.BetTypes.ExactScoreType.Generators;
 using Xunit;
 
 namespace UnitTests.ExternalAPIs.BetTypes.ExactScoreType

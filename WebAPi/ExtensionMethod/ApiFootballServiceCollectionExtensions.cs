@@ -1,9 +1,9 @@
-﻿using ApiFootball.Client;
-using ApiFootball.Mappers;
-using ApiFootball.Seeders;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Infrastructure.ExternalApis.ApiFootball.Client;
+using Infrastructure.ExternalApis.ApiFootball.Mappers;
+using Infrastructure.ExternalApis.ApiFootball.Seeders;
 using Microsoft.Extensions.DependencyInjection;
-using BookieDto = ApiFootball.DTOs.Bookies.BookieDto;
+using BookieDto = Infrastructure.ExternalApis.ApiFootball.Dtos.Bookies.BookieDto;
 
 namespace WebAPI.ExtensionMethod
 {
