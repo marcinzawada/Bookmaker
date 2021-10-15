@@ -44,10 +44,10 @@ namespace ApiFootball.Seeders
             await _leaguesSeeder.SeedLeagues();
             await _labelsSeeder.SeedLabels();
             await _bookiesSeeder.SeedBookies();
-            await _teamSeeder.SeedTeamsByExtLeagueId(3297);
-            await _roundsSeeder.SeedRoundsByExtLeagueId(3297);
-            await _fixturesSeeder.SeedFixturesByExtLeagueId(3297);
-            await _betsSeeder.SeedBetsByLeagueId(3297);
+            await _teamSeeder.SeedTeamsByExtLeagueId(3466);
+            await _roundsSeeder.SeedRoundsByExtLeagueId(3466);
+            await _fixturesSeeder.SeedFixturesByExtLeagueId(3466);
+            await _betsSeeder.SeedBetsByLeagueId(3466);
         }
 
     }
