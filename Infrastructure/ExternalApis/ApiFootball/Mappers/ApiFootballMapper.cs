@@ -87,7 +87,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
         public List<Bookie> MapBookieDtosToBookies(List<BookieDto> dtos) =>
             _bookieMapper.MapDtosToModels(dtos);
 
-        public List<Bet> MapOddDtosToBets(List<OddDto> dtos) =>
+        public List<PotentialBet> MapOddDtosToBets(List<OddDto> dtos) =>
             _betMapper.MapOddDtosToBets(dtos);
     }
 }

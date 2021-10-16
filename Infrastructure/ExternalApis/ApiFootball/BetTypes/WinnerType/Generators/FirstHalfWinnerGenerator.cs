@@ -12,7 +12,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.BetTypes.WinnerType.Generators
         {
         }
 
-        public FirstHalfWinnerGenerator(Bet bet) : base(bet)
+        public FirstHalfWinnerGenerator(PotentialBet bet) : base(bet)
         {
         }
 

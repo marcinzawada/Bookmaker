@@ -13,7 +13,7 @@ namespace UnitTests.ExternalAPIs.BetTypes.ExactScoreType
         [Fact]
         public void ExactScoreSecondHalfGenerator_ValidDataShouldWork()
         {
-            var bet = new Bet
+            var bet = new PotentialBet
             {
                 Label = new Label
                 {

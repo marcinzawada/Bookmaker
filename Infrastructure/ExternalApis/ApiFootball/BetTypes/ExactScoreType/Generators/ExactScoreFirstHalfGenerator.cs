@@ -12,7 +12,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.BetTypes.ExactScoreType.Genera
         {
         }
 
-        public ExactScoreFirstHalfGenerator(Bet bet) : base(bet)
+        public ExactScoreFirstHalfGenerator(PotentialBet bet) : base(bet)
         {
         }
 

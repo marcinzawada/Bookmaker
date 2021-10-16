@@ -21,7 +21,7 @@ namespace Application.Common.Interfaces
 
         public DbSet<Round> Rounds { get; set; }
 
-        public DbSet<Bet> Bets { get; set; }
+        public DbSet<PotentialBet> PotentialBets { get; set; }
 
         public DbSet<BetValue> BetValues { get; set; }
 

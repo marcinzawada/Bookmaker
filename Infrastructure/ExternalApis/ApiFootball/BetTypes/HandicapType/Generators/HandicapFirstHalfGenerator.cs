@@ -12,7 +12,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.BetTypes.HandicapType.Generato
         {
         }
 
-        public HandicapFirstHalfGenerator(Bet bet) : base(bet)
+        public HandicapFirstHalfGenerator(PotentialBet bet) : base(bet)
         {
         }
 

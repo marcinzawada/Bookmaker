@@ -25,7 +25,7 @@ namespace Application.Queries.Bets.GetBets
 
         public async Task<Response> Handle(GetBetsQuery request, CancellationToken cancellationToken)
         {
-            var betDtos = await _context.Bets
+            var betDtos = await _context.PotentialBets
                 .AsNoTracking()
                 .Include(x => x.BetValues)
                 .Include(x => x.Label)
@@ -34,7 +34,7 @@ namespace Application.Queries.Bets.GetBets
                 .ToListAsync(cancellationToken);
 
             if (!betDtos.Any())
-                return Response.Failure(Errors.EntityNotFound<Bet>());
+                return Response.Failure(Errors.EntityNotFound<PotentialBet>());
 
             return Result<List<BetDto>>.Create(betDtos);
         }

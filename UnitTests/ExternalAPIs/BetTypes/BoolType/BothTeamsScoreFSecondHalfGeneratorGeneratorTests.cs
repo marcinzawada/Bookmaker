@@ -13,7 +13,7 @@ namespace UnitTests.ExternalAPIs.BetTypes.BoolType
         [Fact]
         public void BothTeamsScoreFSecondHalfGeneratorGenerator_ValidDataShouldWork()
         {
-            var bet = new Bet
+            var bet = new PotentialBet
             {
                 Label = new Label
                 {

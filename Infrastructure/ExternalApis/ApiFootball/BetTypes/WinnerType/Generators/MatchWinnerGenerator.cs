@@ -12,7 +12,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.BetTypes.WinnerType.Generators
         {
         }
 
-        public MatchWinnerGenerator(Bet bet) : base(bet)
+        public MatchWinnerGenerator(PotentialBet bet) : base(bet)
         {
         }
 

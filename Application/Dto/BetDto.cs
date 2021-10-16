@@ -8,7 +8,7 @@ using Domain.Entities;
 
 namespace Application.Dto
 {
-    public class BetDto : IMapFrom<Bet>
+    public class BetDto : IMapFrom<PotentialBet>
     {
         public int Id { get; set; }
 

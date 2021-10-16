@@ -12,7 +12,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.BetTypes.GoalsOverUnderType.Ge
         {
         }
 
-        public GoalsOverUnderGenerator(Bet bet) : base(bet)
+        public GoalsOverUnderGenerator(PotentialBet bet) : base(bet)
         {
         }
 

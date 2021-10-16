@@ -14,7 +14,7 @@ namespace UnitTests.ExternalAPIs.BetTypes.WinnerType
         [Fact]
         public void MatchWinnerGenerator_ValidDataShouldWork()
         {
-            var bet = new Bet
+            var bet = new PotentialBet
             {
                 Label = new Label()
                 {
@@ -80,13 +80,13 @@ namespace UnitTests.ExternalAPIs.BetTypes.WinnerType
         public void MatchWinnerGenerator_NullBetLabelShouldFail()
         {
             Assert.Throws<ArgumentException>("Bet.Label",
-                () => new MatchWinnerGenerator(new Bet()).GenerateBetType());
+                () => new MatchWinnerGenerator(new PotentialBet()).GenerateBetType());
         }
 
         [Fact]
         public void MatchWinnerGenerator_NullBetValuesShouldFail()
         {
-            var bet = new Bet
+            var bet = new PotentialBet
             {
                 Label = new Label(),
             };
@@ -98,7 +98,7 @@ namespace UnitTests.ExternalAPIs.BetTypes.WinnerType
         [Fact]
         public void MatchWinnerGenerator_InvalidExtLabelIdShouldFail()
         {
-            var bet = new Bet
+            var bet = new PotentialBet
             {
                 Label = new Label()
                 {

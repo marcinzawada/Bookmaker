@@ -12,7 +12,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.BetTypes.BoolType.Generators
         {
         }
 
-        public CleanSheetAwayGenerator(Bet bet) : base(bet)
+        public CleanSheetAwayGenerator(PotentialBet bet) : base(bet)
         {
         }
 

@@ -12,7 +12,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.BetTypes.DoubleChanceType.Gene
         {
         }
 
-        public DoubleChanceSecondHalfGenerator(Bet bet) : base(bet)
+        public DoubleChanceSecondHalfGenerator(PotentialBet bet) : base(bet)
         {
         }
 

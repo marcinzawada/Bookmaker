@@ -19,7 +19,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
             _logger = logger;
         }
 
-        public List<Bet> MapOddDtosToBets(List<OddDto> dtos)
+        public List<PotentialBet> MapOddDtosToBets(List<OddDto> dtos)
         {
             var leagueIdFromDto = dtos.First().Fixture.LeagueId;
             var league = _context.Leagues.FirstOrDefault(x => x.ExtLeagueId == leagueIdFromDto);
@@ -76,7 +76,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
             //    //UpdatedAt = DateTimeOffset.FromUnixTimeSeconds(dto.Fixture.UpdateAt).UtcDateTime
             //};
 
-            var newBets = new List<Bet>();
+            var newBets = new List<PotentialBet>();
 
             foreach (var dto in dtos)
             {
@@ -91,7 +91,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
                     // for every bet and bookmaker from api is one Bet in base
                     foreach (var bet in bookie.Bets)
                     {
-                        var newBet = new Bet
+                        var newBet = new PotentialBet
                         {
                             LeagueId = league.Id,
                             Fixture = fixtureFromBase

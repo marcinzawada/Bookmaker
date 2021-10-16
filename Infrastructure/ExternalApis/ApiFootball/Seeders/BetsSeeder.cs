@@ -13,10 +13,10 @@ namespace Infrastructure.ExternalApis.ApiFootball.Seeders
 
         public async Task SeedBetsByLeagueId(int extLeagueId)
         {
-            if (! await _context.Bets.AnyAsync())
+            if (! await _context.PotentialBets.AnyAsync())
             {
                 var bets = await _client.DownloadAllBetsByLeagueId(extLeagueId);
-                await _context.Bets.AddRangeAsync(bets);
+                await _context.PotentialBets.AddRangeAsync(bets);
                 await _context.SaveChangesAsync();
             }
         }

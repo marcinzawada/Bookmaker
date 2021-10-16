@@ -10,7 +10,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.BetTypes
 
         public T BetType { get; set; }
 
-        public Bet Bet { get; set; }
+        public PotentialBet Bet { get; set; }
 
         protected int ExtLabelId { get; set; }
 
@@ -22,7 +22,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.BetTypes
         {
         }
 
-        protected BaseBetTypeGenerator(Bet bet)
+        protected BaseBetTypeGenerator(PotentialBet bet)
         {
             Bet = bet;
         }
@@ -38,7 +38,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.BetTypes
             return BetType;
         }
 
-        public virtual T GenerateBetType(Bet bet)
+        public virtual T GenerateBetType(PotentialBet bet)
         {
             Bet = bet;
             ValidateBet();

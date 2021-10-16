@@ -131,7 +131,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
             return _mapper.MapFixtureDtosToFixtures(fixtureDtos);
         }
 
-        public async Task<List<Bet>> DownloadAllBetsByLeagueId(int extLeagueId)
+        public async Task<List<PotentialBet>> DownloadAllBetsByLeagueId(int extLeagueId)
         {
             var response = await RequestAsync($"/odds/league/{extLeagueId}");
 

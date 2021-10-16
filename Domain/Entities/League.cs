@@ -73,6 +73,6 @@ namespace Domain.Entities
 
         public virtual List<LeagueTeam> Teams { get; set; } = new();
 
-        public virtual List<Bet> Bets { get; set; } = new();
+        public virtual List<PotentialBet> Bets { get; set; } = new();
     }
 }

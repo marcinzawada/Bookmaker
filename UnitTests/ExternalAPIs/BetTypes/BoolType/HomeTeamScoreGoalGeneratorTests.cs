@@ -15,7 +15,7 @@ namespace Api.Tests.ExternalAPIs.BetTypes.BoolType
         [Fact]
         public void HomeTeamScoreGoalGenerator_ValidDataShouldWork()
         {
-            var bet = new Bet
+            var bet = new PotentialBet
             {
                 Label = new Label
                 {

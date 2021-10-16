@@ -13,7 +13,7 @@ namespace UnitTests.ExternalAPIs.BetTypes.GoalsOverUnderType
         [Fact]
         public void GoalsOverUnderGenerator_ValidDataShouldWork()
         {
-            var bet = new Bet
+            var bet = new PotentialBet
             {
                 LabelId = 456,
 

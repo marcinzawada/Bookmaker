@@ -59,7 +59,7 @@ namespace Domain.Entities
 
         public DateTime? UpdatedBetsAt { get; set; }
 
-        public virtual List<Bet> Bets { get; set; } = new List<Bet>();
+        public virtual List<PotentialBet> Bets { get; set; } = new List<PotentialBet>();
 
     }
 }

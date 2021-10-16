@@ -20,7 +20,7 @@ namespace Infrastructure.Data
 
         public DbSet<Round> Rounds { get; set; }
 
-        public DbSet<Bet> Bets { get; set; }
+        public DbSet<PotentialBet> PotentialBets { get; set; }
 
         public DbSet<BetValue> BetValues { get; set; }
 
@@ -50,16 +50,16 @@ namespace Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Bet>()
+            modelBuilder.Entity<PotentialBet>()
                 .HasMany(b => b.BetValues)
                 .WithOne(bv => bv.Bet);
 
-            modelBuilder.Entity<Bet>()
+            modelBuilder.Entity<PotentialBet>()
                 .HasOne(b => b.Fixture)
                 .WithMany(bv => bv.Bets)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Bet>()
+            modelBuilder.Entity<PotentialBet>()
                 .HasOne(b => b.League)
                 .WithMany(bv => bv.Bets)
                 .OnDelete(DeleteBehavior.NoAction);

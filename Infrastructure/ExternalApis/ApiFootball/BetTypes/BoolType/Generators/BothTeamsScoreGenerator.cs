@@ -12,7 +12,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.BetTypes.BoolType.Generators
         {
         }
 
-        public BothTeamsScoreGenerator(Bet bet) : base(bet)
+        public BothTeamsScoreGenerator(PotentialBet bet) : base(bet)
         {
         }
 

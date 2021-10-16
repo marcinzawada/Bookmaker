@@ -8,7 +8,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.BetTypes.GoalsOverUnderType.Ge
         public new const string Name = "Second Half Winner";
 
 
-        public GoalsOverUnderSecondHalfGenerator(Bet bet) : base(bet)
+        public GoalsOverUnderSecondHalfGenerator(PotentialBet bet) : base(bet)
         {
         }
 
