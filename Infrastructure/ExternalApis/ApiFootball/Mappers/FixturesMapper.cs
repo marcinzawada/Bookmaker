@@ -32,7 +32,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
 
             var matchStatus = ParseMatchStatusType(dto);
 
-            return CreateFixture(dto, homeTeamId, awayTeamId, 
+            return CreateFixture(dto, homeTeamId, awayTeamId,
                 leagueId, eventDates, roundId, matchStatus);
         }
 
@@ -52,7 +52,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
             int awayTeamId, int leagueId, EventDates eventDates,
             int? roundId, MatchStatus matchStatus)
         {
-            return new Fixture
+            var fixture = new Fixture
             {
                 ExtFixtureId = dto.FixtureId,
                 LeagueId = leagueId,
@@ -66,8 +66,11 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
                 Status = matchStatus,
                 StatusName = dto.Status,
                 HomeTeamId = homeTeamId,
-                AwayTeamId = awayTeamId
+                AwayTeamId = awayTeamId,
+                CreatedAt = DateTime.UtcNow
             };
+
+            return fixture;
         }
 
         private int GetTeamIdByExtTeamId(int extTeamId)
@@ -76,7 +79,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
                 _context.Teams.FirstOrDefault(
                     x => x.ExtTeamId == extTeamId);
 
-            if (team != null) 
+            if (team != null)
                 return team.Id;
 
             _logger.LogError(
@@ -91,7 +94,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
                 _context.Leagues.FirstOrDefault(
                     x => x.ExtLeagueId == extLeagueId);
 
-            if (league != null) 
+            if (league != null)
                 return league.Id;
 
             _logger.LogError(
@@ -126,7 +129,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
             var round = _context.Rounds.FirstOrDefault(
                 x => x.LeagueId == leagueId && x.Name.ToLower() == roundName.ToLower());
 
-            if (round != null) 
+            if (round != null)
                 return round.Id;
 
             _logger.LogError(
@@ -149,7 +152,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
 
             var isMatchStatusCorrect = Enum.TryParse<MatchStatus>(dto.StatusShort, true, out var matchStatus);
 
-            if (isMatchStatusCorrect) 
+            if (isMatchStatusCorrect)
                 return matchStatus;
 
             matchStatus = MatchStatus.TBD;
@@ -158,24 +161,6 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
                              dto.StatusShort + "ExtLeagueId: " + dto.LeagueId);
 
             return matchStatus;
-        }
-
-        private Score GetScore(FixtureDto dto)
-        {
-            if (dto.GoalsAwayTeam == null)
-                return null;
-
-            var score =
-                _context.Scores.FirstOrDefault(x => x.ExtFixtureId == dto.FixtureId);
-
-            //var 
-
-            if (score == null)
-            {
-               // var halftimeHomeGoals
-            }
-
-            return new Score();
         }
     }
 
@@ -188,5 +173,5 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
         public DateTime? SecondHalfStart { get; set; }
     }
 
-    
+
 }
