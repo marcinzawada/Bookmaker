@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Infrastructure.ExtensionMethods;
@@ -11,6 +12,7 @@ using Infrastructure.ExternalApis.ApiFootball.Dtos.Labels;
 using Infrastructure.ExternalApis.ApiFootball.Dtos.Odds;
 using Infrastructure.ExternalApis.ApiFootball.Dtos.Seasons;
 using Infrastructure.ExternalApis.ApiFootball.Mappers;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -58,8 +60,14 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
                 }
             }
 
-            IRestResponse response = await _restClient.ExecuteAsync(request);
-            return response;
+            var response = await _restClient.ExecuteAsync(request);
+
+            if (response.IsSuccessful) 
+                return response;
+
+            _logger.LogCritical($"ApiFootball return invalid response, endpoint: {endpoint}");
+            throw new Exception($"ApiFootball return invalid response, endpoint: {endpoint}");
+
         }
 
         public async Task<List<TDto>> DownloadAllIResources<THolder, TDto>(string resourcesUrl)
@@ -75,11 +83,11 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
             var container =
                 JsonConvert.DeserializeObject<DtoContainer<THolder>>(response.Content, serializerSettings);
 
-            if (container != null) 
+            if (container != null)
                 return container.DtoHolder.Resources;
 
             _logger.LogError("Api doesn't return data, resourceUrl: " + resourcesUrl);
-            throw new Exception("Api doesn't return data, resourceUrl: " +resourcesUrl);
+            throw new Exception("Api doesn't return data, resourceUrl: " + resourcesUrl);
         }
 
         public async Task<List<Country>> DownloadAllCountries()
@@ -120,7 +128,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
             var rounds = new List<RoundDto>();
             foreach (var roundJson in roundJsons)
             {
-                rounds.Add(new RoundDto{Name = roundJson.ToString(), ExtLeagueId = extLeagueId});   
+                rounds.Add(new RoundDto { Name = roundJson.ToString(), ExtLeagueId = extLeagueId });
             }
             return _mapper.MapRoundDtosToRounds(rounds);
         }
@@ -137,7 +145,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
 
             var holder = response.Content.Deserialize<DtoContainer<DtoHolder<OddDto>>>().DtoHolder;
 
-            var oddDtos = holder.Resources; 
+            var oddDtos = holder.Resources;
 
             if (holder.Paging.TotalPages > 1)
             {
@@ -157,6 +165,37 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
         {
             var bookieDtos = await DownloadAllIResources<DtoHolder<BookieDto>, BookieDto>("/odds/bookmakers");
             return _mapper.MapBookieDtosToBookies(bookieDtos);
+        }
+
+        public async Task<List<FixtureDto>> DownloadAllFixturesByDate(DateTime dateTime)
+        {
+            var date = dateTime.ToString("yyyy-MM-dd");
+
+            var response = await RequestAsync($"/fixtures/date/{date}");
+
+            return DeserializeObjectFromJson<FixtureDto>(response, "fixtures");
+        }
+
+        public async Task<List<FixtureDto>> DownloadAllFixturesByLeagueIdWithoutMapping(int extLeagueId)
+        {
+            var response = await RequestAsync($"/fixtures/league/{extLeagueId}");
+            return DeserializeObjectFromJson<FixtureDto>(response, "fixtures");
+        }
+
+        public List<T> DeserializeObjectFromJson<T>(IRestResponse apiResponse, string resourceName)
+        {
+            var jsonObjects = JObject.Parse(apiResponse.Content)["api"]?[resourceName]!.ToList();
+
+            var serializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+
+            var jsonArray = new JArray(jsonObjects);
+
+            var dtos = JsonConvert.DeserializeObject<List<T>>(jsonArray.ToString(), serializerSettings);
+
+            return dtos;
         }
     }
 }

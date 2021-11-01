@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Infrastructure.ExternalApis.ApiFootball.Dtos;
+using Infrastructure.ExternalApis.ApiFootball.Dtos.Fixtures;
 using RestSharp;
 
 namespace Infrastructure.ExternalApis.ApiFootball.Client
@@ -30,5 +32,9 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
         Task<List<PotentialBet>> DownloadAllBetsByLeagueId(int extLeagueId);
         
         Task<List<Bookie>> DownloadAllBookies();
+
+        Task<List<FixtureDto>> DownloadAllFixturesByDate(DateTime dateTime);
+
+        Task<List<FixtureDto>> DownloadAllFixturesByLeagueIdWithoutMapping(int extLeagueId);
     }
 }
