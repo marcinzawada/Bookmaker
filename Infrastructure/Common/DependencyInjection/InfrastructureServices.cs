@@ -4,6 +4,7 @@ using Application.Common.JWT;
 using Application.Services;
 using Domain.Entities;
 using FluentValidation;
+using Infrastructure.BackgroundJobs.ApiFootballUpdater;
 using Infrastructure.Data;
 using Infrastructure.Services;
 using MediatR;
@@ -18,6 +19,7 @@ namespace Infrastructure.Common.DependencyInjection
         {
             services.AddScoped<IDbContext>(provider => provider.GetService<AppDbContext>());
             services.AddScoped<IUserContextService, UserContextService>();
+            services.AddScoped<FixtureUpdater>();
 
             return services;
         }
