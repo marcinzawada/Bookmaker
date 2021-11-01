@@ -6,7 +6,7 @@ using Domain.Enums;
 
 namespace Domain.Entities
 {
-    public class Fixture
+    public class Fixture : IEquatable<Fixture>
     {
         [Key]
         public int Id { get; set; }
@@ -59,7 +59,45 @@ namespace Domain.Entities
 
         public DateTime? UpdatedBetsAt { get; set; }
 
-        public virtual List<PotentialBet> Bets { get; set; } = new List<PotentialBet>();
+        public virtual List<PotentialBet> Bets { get; set; } = new();
 
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime? UpdatedAt { get; set; }
+
+
+        public bool Equals(Fixture other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return ExtFixtureId == other.ExtFixtureId && LeagueId == other.LeagueId && Nullable.Equals(EventDate, other.EventDate) && Nullable.Equals(FirstHalfStart, other.FirstHalfStart) && Nullable.Equals(SecondHalfStart, other.SecondHalfStart) && RoundId == other.RoundId && Status == other.Status && StatusName == other.StatusName && Elapsed == other.Elapsed && HomeTeamId == other.HomeTeamId && AwayTeamId == other.AwayTeamId && Equals(Score, other.Score) && Nullable.Equals(UpdatedBetsAt, other.UpdatedBetsAt);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Fixture) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = new HashCode();
+            hashCode.Add(ExtFixtureId);
+            hashCode.Add(LeagueId);
+            hashCode.Add(EventDate);
+            hashCode.Add(FirstHalfStart);
+            hashCode.Add(SecondHalfStart);
+            hashCode.Add(RoundId);
+            hashCode.Add((int) Status);
+            hashCode.Add(StatusName);
+            hashCode.Add(Elapsed);
+            hashCode.Add(HomeTeamId);
+            hashCode.Add(AwayTeamId);
+            hashCode.Add(Score);
+            hashCode.Add(UpdatedBetsAt);
+            return hashCode.ToHashCode();
+        }
     }
 }
