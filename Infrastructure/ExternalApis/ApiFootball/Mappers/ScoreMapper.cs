@@ -19,13 +19,23 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
 
         public Score MapDtoToModel(FixtureDto dto)
         {
+            if (dto.GoalsAwayTeam == null || dto.GoalsHomeTeam == null || dto.Score == null)
+                return null;
+
             var matchScores = GetMatchScores(dto);
             return CreateScore(dto, matchScores);
         }
 
         public List<Score> MapDtosToModels(List<FixtureDto> dtos)
         {
-            throw new NotImplementedException();
+            var scores = new List<Score>();
+
+            foreach (var dto in dtos)
+            {
+                scores.Add(MapDtoToModel(dto));
+            }
+
+            return scores;
         }
 
         public Score CreateScore(FixtureDto dto,
@@ -33,6 +43,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
         {
             return new Score
             {
+                FixtureId = dto.FixtureId,
                 GoalsHomeTeam = dto.GoalsHomeTeam,
                 GoalsAwayTeam = dto.GoalsAwayTeam,
                 HalftimeHomeGoals = matchScores.HalfTimeScore.Home,
@@ -59,6 +70,15 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
 
         private ScoreValue ParseScore(string matchScores, int extFixtureId)
         {
+            if (matchScores == null)
+            {
+                return new ScoreValue
+                {
+                    Home = null,
+                    Away = null
+                };
+            }
+
             var splittedScores = matchScores.Split("-");
 
             var homeScoreIsCorrect =
@@ -99,9 +119,9 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
 
         public class ScoreValue
         {
-            public int Home { get; set; }
+            public int? Home { get; set; }
 
-            public int Away { get; set; }
+            public int? Away { get; set; }
         }
     }
 }
