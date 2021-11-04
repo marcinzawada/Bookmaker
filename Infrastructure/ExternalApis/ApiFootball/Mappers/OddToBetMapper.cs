@@ -10,11 +10,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.ExternalApis.ApiFootball.Mappers
 {
-    public class BetMapper : BaseMapper
+    public class OddToBetMapper : BaseMapper
     {
-        private readonly ILogger<BetMapper> _logger;
+        private readonly ILogger<OddToBetMapper> _logger;
 
-        public BetMapper(AppDbContext context, ILogger<BetMapper> logger) : base(context)
+        public OddToBetMapper(AppDbContext context, ILogger<OddToBetMapper> logger) : base(context)
         {
             _logger = logger;
         }
@@ -83,6 +83,11 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
                 var fixtureFromBase = fixturesInBase.FirstOrDefault(x =>
                     x.ExtFixtureId == dto.Fixture.FixtureId);
 
+                if (fixtureFromBase == null)
+                {
+                    
+                }
+
                 var updatedAt = DateTimeOffset.FromUnixTimeSeconds(dto.Fixture.UpdateAt).UtcDateTime;
                 fixtureFromBase.UpdatedBetsAt = updatedAt;
 
@@ -94,7 +99,8 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
                         var newBet = new PotentialBet
                         {
                             LeagueId = league.Id,
-                            Fixture = fixtureFromBase
+                            Fixture = fixtureFromBase,
+                            FixtureId = fixtureFromBase.Id
                         };
 
                         var bookieFromBase = bookiesInBase.FirstOrDefault(x =>
@@ -104,6 +110,11 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
 
                         var labelFromBase = labelsInBase.FirstOrDefault(x =>
                             x.ExtLabelId == bet.LabelId);
+
+                        if (labelFromBase?.Name != "Match Winner")
+                        {
+                            continue;
+                        }
 
                         newBet.LabelId = labelFromBase.Id;
 
@@ -126,12 +137,14 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
                                 newBet.BetValues.Add(new BetValue
                                 {
                                     Odd = parsedOdd,
-                                    Value = betValue.Value
+                                    Value = betValue.Value,
+                                    AddedAt = DateTime.UtcNow
                                 });
                             }
 
-                            newBets.Add(newBet);
                         }
+                        newBets.Add(newBet);
+
                     }
                 }
             }
