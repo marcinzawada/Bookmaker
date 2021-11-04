@@ -22,13 +22,13 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
         private readonly RoundMapper _roundMapper;
         private readonly FixturesMapper _fixtureMapper;
         private readonly IDtoToModelMapper<BookieDto, Bookie> _bookieMapper;
-        private readonly BetMapper _betMapper;
+        private readonly OddToBetMapper _betMapper;
 
 
         public ApiFootballMapper(CountryMapper countryMapper, SeasonMapper seasonMapper,
             LeagueMapper leagueMapper, TeamMapper teamMapper, LabelMapper labelMapper,
             RoundMapper roundMapper, FixturesMapper fixtureMapper,
-            IDtoToModelMapper<BookieDto, Bookie> bookieMapper, BetMapper betMapper)
+            IDtoToModelMapper<BookieDto, Bookie> bookieMapper, OddToBetMapper betMapper)
         {
             _countryMapper = countryMapper;
             _seasonMapper = seasonMapper;
