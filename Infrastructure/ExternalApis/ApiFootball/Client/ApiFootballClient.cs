@@ -62,7 +62,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
 
             var response = await _restClient.ExecuteAsync(request);
 
-            if (response.IsSuccessful) 
+            if (response.IsSuccessful)
                 return response;
 
             _logger.LogCritical($"ApiFootball return invalid response, endpoint: {endpoint}");
@@ -141,7 +141,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
 
         public async Task<List<PotentialBet>> DownloadAllBetsByLeagueId(int extLeagueId)
         {
-            var response = await RequestAsync($"/odds/league/{extLeagueId}");
+            var response = await RequestAsync($"/odds/league/{extLeagueId}/bookmaker/8");
 
             var holder = response.Content.Deserialize<DtoContainer<DtoHolder<OddDto>>>().DtoHolder;
 
@@ -151,7 +151,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
             {
                 for (var i = 2; i <= holder.Paging.TotalPages; i++)
                 {
-                    var nextOdds = await DownloadAllIResources<DtoHolder<OddDto>, OddDto>($"/odds/league/{extLeagueId}?page={i}");
+                    var nextOdds = await DownloadAllIResources<DtoHolder<OddDto>, OddDto>($"/odds/league/{extLeagueId}/bookmaker/8?page={i}");
                     oddDtos.AddRange(nextOdds);
                 }
             }
@@ -180,6 +180,39 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
         {
             var response = await RequestAsync($"/fixtures/league/{extLeagueId}");
             return DeserializeObjectFromJson<FixtureDto>(response, "fixtures");
+        }
+
+        public async Task<List<OddDto>> DownloadAllOddsByLeagueId(int extLeagueId)
+        {
+            var response = await RequestAsync($"/odds/league/{extLeagueId}/bookmaker/8");
+
+            var oddDtos = DeserializeObjectFromJson<OddDto>(response, "odds");
+
+            var totalPageJson = JObject.Parse(response.Content)["api"]?["paging"]?["total"];
+
+            var totalPageIsCorrect = int.TryParse(totalPageJson?.ToString(), out var totalPage);
+
+            if (totalPageIsCorrect && totalPage > 1)
+            {
+                var tasks = new List<Task<IRestResponse>>();
+                for (var i = 2; i <= totalPage; i++)
+                {
+                    tasks.Add(RequestAsync($"/odds/league/{extLeagueId}/bookmaker/8?page={i}"));
+                }
+
+                await Task.WhenAll(tasks);
+
+                foreach (var task in tasks)
+                {
+                    if (task.Result != null)
+                    {
+                        var dtos = DeserializeObjectFromJson<OddDto>(task.Result, "odds");
+                        oddDtos.AddRange(dtos);
+                    }
+                }
+            }
+
+            return oddDtos;
         }
 
         public List<T> DeserializeObjectFromJson<T>(IRestResponse apiResponse, string resourceName)
