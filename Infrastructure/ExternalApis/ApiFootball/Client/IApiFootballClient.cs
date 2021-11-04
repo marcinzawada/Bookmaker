@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Infrastructure.ExternalApis.ApiFootball.Dtos;
-using Infrastructure.ExternalApis.ApiFootball.Dtos.Fixtures;
+using Infrastructure.ExternalApis.ApiFootball.Dtos.Odds;
 using RestSharp;
+using FixtureDto = Infrastructure.ExternalApis.ApiFootball.Dtos.Fixtures.FixtureDto;
 
 namespace Infrastructure.ExternalApis.ApiFootball.Client
 {
@@ -36,5 +37,8 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
         Task<List<FixtureDto>> DownloadAllFixturesByDate(DateTime dateTime);
 
         Task<List<FixtureDto>> DownloadAllFixturesByLeagueIdWithoutMapping(int extLeagueId);
+
+        Task<List<OddDto>> DownloadAllOddsByLeagueId(int extLeagueId);
+
     }
 }
