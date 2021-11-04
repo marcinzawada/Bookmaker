@@ -24,7 +24,7 @@ namespace WebAPI.ExtensionMethod
             services.AddScoped<TeamMapper>();
             services.AddScoped<RoundMapper>();
             services.AddScoped<IDtoToModelMapper<BookieDto, Bookie>, BookieMapper>();
-            services.AddScoped<BetMapper>();
+            services.AddScoped<OddToBetMapper>();
 
             services.AddScoped<ApiFootballSeeder>();
             services.AddScoped<CountriesSeeder>();
