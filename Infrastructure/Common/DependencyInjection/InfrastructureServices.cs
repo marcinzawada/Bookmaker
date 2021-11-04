@@ -20,6 +20,7 @@ namespace Infrastructure.Common.DependencyInjection
             services.AddScoped<IDbContext>(provider => provider.GetService<AppDbContext>());
             services.AddScoped<IUserContextService, UserContextService>();
             services.AddScoped<FixtureUpdater>();
+            services.AddScoped<BetsUpdater>();
 
             return services;
         }
