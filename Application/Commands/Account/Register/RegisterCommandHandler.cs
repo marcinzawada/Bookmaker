@@ -35,6 +35,7 @@ namespace Application.Commands.Account.Register
             newUser.PasswordHash = hashedPassword;
 
             await _context.Users.AddAsync(newUser, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
 
             return Response.Success();
         }
