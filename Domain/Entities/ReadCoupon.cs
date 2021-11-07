@@ -18,6 +18,8 @@ namespace Domain.Entities
         [ForeignKey(nameof(CouponId))]
         public Coupon Coupon { get; set; }
 
-        public string Content { get; set; }
+        public decimal Bid { get; set; }
+
+        public List<ReadCouponItem> Items { get; set; } = new();
     }
 }
