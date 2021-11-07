@@ -11,7 +11,7 @@ namespace Domain.Entities
 
         public decimal Bid { get; set; }
 
-        public virtual List<CouponBetValue> CouponBetValues { get; set; } = new List<CouponBetValue>();
+        public virtual List<CouponBetValue> CouponBetValues { get; set; } = new();
 
         public int UserId { get; set; }
 
@@ -19,6 +19,8 @@ namespace Domain.Entities
         public virtual User User { get; set; }
 
         public decimal TotalCourse { get; set; }
+
+        public bool Completed { get; set; } = false;
 
         public int ReadCouponId { get; set; }
 
