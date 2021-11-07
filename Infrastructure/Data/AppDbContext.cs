@@ -47,6 +47,8 @@ namespace Infrastructure.Data
         public DbSet<Coupon> Coupons { get; set; }
 
         public DbSet<ReadCoupon> ReadCoupons { get; set; }
+        
+        public DbSet<ReadCouponItem> ReadCouponItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
