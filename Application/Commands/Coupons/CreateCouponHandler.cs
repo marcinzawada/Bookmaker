@@ -10,6 +10,7 @@ using Application.Common.Interfaces;
 using Application.Models;
 using Application.Services;
 using Domain.Entities;
+using Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +30,14 @@ namespace Application.Commands.Coupons
             
             var betValues = await _context.BetValues
                 .AsNoTracking()
+                .Include(x => x.Bet)
+                .ThenInclude(x => x.Fixture)
+                .ThenInclude(x => x.AwayTeam)
+                .Include(x => x.Bet)
+                .ThenInclude(x => x.Fixture)
+                .ThenInclude(x => x.HomeTeam)
+                .Include(x => x.Bet)
+                .ThenInclude(x => x.Label)
                 .Where(x => request.BetValueIds.Contains(x.Id))
                 .ToListAsync(cancellationToken);
 
@@ -38,13 +47,54 @@ namespace Application.Commands.Coupons
             if (betValues.Select(x => x.BetId).Distinct().Count() != betValues.Count)
                 return Response.Failure(Errors.InvalidBetData);
 
+            var userFromBase = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
+
+            if (userFromBase == null)
+                throw new Exception($"User with id {userId} doesn't exist in base");
+
+            if (request.Bid > userFromBase.GameTokens)
+                return Response.Failure(Errors.InvalidBetData);
+
+            userFromBase.GameTokens -= request.Bid;
+
             var coupon = new CouponBuilder()
                 .SetUserId(_userContextService.GetUserId())
                 .SetBetValues(betValues)
                 .SetBid(request.Bid)
                 .Build();
 
+            var readCoupon = new ReadCoupon();
+            var readCouponItems = new List<ReadCouponItem>();
+
+            foreach (var betValue in betValues)
+            {
+                var matchWinnerOptionIsCorrect = Enum.TryParse(betValue.Value, out MatchWinnerOption matchWinnerOption);
+                if (matchWinnerOptionIsCorrect)
+                    throw new Exception($"{betValue.Value} cannot be converted to MatchWinnerOption enum");
+
+                if(betValue.Bet.Fixture.EventDate == null)
+                    throw new Exception($"EventData for {betValue.Bet.Fixture.Id} is null");
+
+                readCouponItems.Add(new ReadCouponItem
+                {
+                    HomeTeamName = betValue.Bet.Fixture.HomeTeam.Name,
+                    AwayTeamName = betValue.Bet.Fixture.AwayTeam.Name,
+                    LabelName = betValue.Bet.Label.Name,
+                    Odd = betValue.Odd,
+                    MatchWinnerOption = matchWinnerOption,
+                    EventDate = (DateTime) betValue.Bet.Fixture.EventDate,
+                });
+
+            }
+
+            readCoupon.Items = readCouponItems;
+            readCoupon.Bid = coupon.Bid;
+
+            coupon.ReadCoupon = readCoupon;
+
             await _context.Coupons.AddAsync(coupon, cancellationToken);
+            _context.Users.Update(userFromBase);
+
             await _context.SaveChangesAsync(cancellationToken);
 
             return CreatedResponse.Create($"api/coupon/{coupon.Id}");
