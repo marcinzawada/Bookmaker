@@ -4,14 +4,16 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211104194258_AddedCompletedToCoupons")]
+    partial class AddedCompletedToCoupons
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -370,8 +372,8 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("Bid")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CouponId")
                         .HasColumnType("int");
@@ -382,59 +384,6 @@ namespace Infrastructure.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("ReadCoupons");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ReadCouponItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AwayTeamGoals")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AwayTeamGoalsExtraTime")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AwayTeamGoalsPenalty")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AwayTeamName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EventDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("HomeTeamGoals")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("HomeTeamGoalsExtraTime")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("HomeTeamGoalsPenalty")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HomeTeamName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LabelName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MatchWinnerOption")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Odd")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ReadCouponId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReadCouponId");
-
-                    b.ToTable("ReadCouponItems");
                 });
 
             modelBuilder.Entity("Domain.Entities.Room", b =>
@@ -650,9 +599,6 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<decimal>("GameTokens")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(512)
@@ -836,17 +782,6 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Coupon");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ReadCouponItem", b =>
-                {
-                    b.HasOne("Domain.Entities.ReadCoupon", "ReadCoupon")
-                        .WithMany("Items")
-                        .HasForeignKey("ReadCouponId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ReadCoupon");
-                });
-
             modelBuilder.Entity("Domain.Entities.Room", b =>
                 {
                     b.HasOne("Domain.Entities.User", "Admin")
@@ -945,11 +880,6 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Domain.Entities.PotentialBet", b =>
                 {
                     b.Navigation("BetValues");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ReadCoupon", b =>
-                {
-                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Domain.Entities.Room", b =>
