@@ -25,14 +25,14 @@ namespace Application.Queries.Coupons
 
         public async Task<Response> Handle(GetCouponQuery request, CancellationToken cancellationToken)
         {
-            var coupon = await _context.Coupons
-                .AsNoTracking()
-                .Include(x => x.CouponBetValues)
-                .ThenInclude(x => x.BetValue.Bet)
-                .ThenInclude(x => x.Label)
-                .Include(x => x.CouponBetValues)
-                .ProjectTo<CouponDto>(_mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync(cancellationToken);
+            //var coupon = await _context.Coupons
+            //    .AsNoTracking()
+            //    .Include(x => x.CouponBetValues)
+            //    .ThenInclude(x => x.BetValue.Bet)
+            //    .ThenInclude(x => x.Label)
+            //    .Include(x => x.CouponBetValues)
+            //    .ProjectTo<CouponDto>(_mapper.ConfigurationProvider)
+            //    .FirstOrDefaultAsync(cancellationToken);
            
             //var query =
             //    "SELECT " +
@@ -56,10 +56,20 @@ namespace Application.Queries.Coupons
             //    $"WHERE C.Id = {request.CouponId}";
 
 
-            if (coupon is null)
-                return Response.Failure(Errors.EntityNotFound<Coupon>());
+            //if (coupon is null)
+            //    return Response.Failure(Errors.EntityNotFound<Coupon>());
 
-            return Result<CouponDto>.Create(coupon);
+            var readCoupon = await _context.ReadCoupons
+                .AsNoTracking()
+                .Include(x => x.Items)
+                .FirstOrDefaultAsync(x => x.CouponId == request.CouponId, cancellationToken);
+
+            var readCouponDto = _mapper.Map<ReadCouponDto>(readCoupon);
+
+            if (readCoupon == null)
+                return Response.Failure(Errors.EntityNotFound<ReadCoupon>());
+
+            return Result<ReadCouponDto>.Create(readCouponDto);
         }
     }
 
