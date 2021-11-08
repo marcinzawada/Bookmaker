@@ -20,11 +20,13 @@ namespace Domain.Entities
 
         public decimal TotalCourse { get; set; }
 
-        public bool Completed { get; set; } = false;
+        public bool IsCompleted { get; set; } = false;
 
         public int ReadCouponId { get; set; }
 
         [ForeignKey(nameof(ReadCouponId))]
         public ReadCoupon ReadCoupon { get; set; }
+
+        public bool? IsCouponWinning { get; set; }
     }
 }
