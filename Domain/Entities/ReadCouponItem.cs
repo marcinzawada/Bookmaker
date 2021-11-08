@@ -40,5 +40,7 @@ namespace Domain.Entities
         public DateTime EventDate { get; set; }
 
         public string LabelName { get; set; }
+
+        public bool? IsBetWinning { get; set; }
     }
 }
