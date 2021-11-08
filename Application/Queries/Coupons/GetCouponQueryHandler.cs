@@ -25,40 +25,6 @@ namespace Application.Queries.Coupons
 
         public async Task<Response> Handle(GetCouponQuery request, CancellationToken cancellationToken)
         {
-            //var coupon = await _context.Coupons
-            //    .AsNoTracking()
-            //    .Include(x => x.CouponBetValues)
-            //    .ThenInclude(x => x.BetValue.Bet)
-            //    .ThenInclude(x => x.Label)
-            //    .Include(x => x.CouponBetValues)
-            //    .ProjectTo<CouponDto>(_mapper.ConfigurationProvider)
-            //    .FirstOrDefaultAsync(cancellationToken);
-           
-            //var query =
-            //    "SELECT " +
-            //    "C.Id AS CouponId, C.Bid, C.UserId, C.TotalCourse," +
-            //    "B.Id AS BetId, BV.Value as BetValue," +
-            //    "L.Id AS LeagueId, L.Name AS LeagueName," +
-            //    "F.Id AS FixtureId," +
-            //    "LB.Name AS LabelName," +
-            //    "HT.Id AS HomeTeamId, HT.Name AS HomeTeamName," +
-            //    "AT.Id AS AwayTeamId, AT.Name AS AwayTeamName " +
-            //    "FROM Coupons AS C " +
-            //    "JOIN CouponBetValues AS CBV ON C.Id = CBV.CouponId " +
-            //    "JOIN BetValues AS BV ON BV.Id = CBV.BetValueId " +
-            //    "JOIN Bets AS B ON B.Id = BV.BetId " +
-            //    "JOIN Labels AS LB ON B.LabelId = LB.Id " +
-            //    "JOIN Odds AS O ON B.OddId = O.Id " +
-            //    "JOIN Leagues AS L ON O.LeagueId = L.Id " +
-            //    "JOIN Fixtures AS F ON O.FixtureId = F.Id " +
-            //    "JOIN Teams AS HT ON F.HomeTeamId = HT.Id " +
-            //    "JOIN Teams AS AT ON F.AwayTeamId = AT.Id " +
-            //    $"WHERE C.Id = {request.CouponId}";
-
-
-            //if (coupon is null)
-            //    return Response.Failure(Errors.EntityNotFound<Coupon>());
-
             var readCoupon = await _context.ReadCoupons
                 .AsNoTracking()
                 .Include(x => x.Items)
