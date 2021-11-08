@@ -20,6 +20,21 @@ namespace Domain.Entities
 
         public decimal Bid { get; set; }
 
+        public bool? IsCouponWinning { get; set; }
+
+        public bool IsCompleted { get; set; } = false;
+
         public List<ReadCouponItem> Items { get; set; } = new();
+
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime? UpdatedAt { get; set; }
+
+        [ForeignKey(nameof(UserId))]
+        public User User { get; set; }
+
+        public int UserId { get; set; }
+
+        public decimal TotalCourse { get; set; }
     }
 }
