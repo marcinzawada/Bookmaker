@@ -5,6 +5,8 @@ using Application.Services;
 using Domain.Entities;
 using FluentValidation;
 using Infrastructure.BackgroundJobs.ApiFootballUpdater;
+using Infrastructure.BackgroundJobs.CouponCheckers;
+using Infrastructure.BackgroundJobs.CouponCheckers.BetTypesCheckers;
 using Infrastructure.Data;
 using Infrastructure.Services;
 using MediatR;
@@ -21,6 +23,9 @@ namespace Infrastructure.Common.DependencyInjection
             services.AddScoped<IUserContextService, UserContextService>();
             services.AddScoped<FixtureUpdater>();
             services.AddScoped<BetsUpdater>();
+            services.AddScoped<CouponChecker>();
+            services.AddScoped<BetTypeCheckerFactory>();
+
 
             return services;
         }
