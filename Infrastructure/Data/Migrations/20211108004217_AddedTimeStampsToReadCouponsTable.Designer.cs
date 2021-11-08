@@ -4,14 +4,16 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211108004217_AddedTimeStampsToReadCouponsTable")]
+    partial class AddedTimeStampsToReadCouponsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,7 +101,7 @@ namespace Infrastructure.Data.Migrations
                     b.Property<decimal>("Bid")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<bool>("IsCompleted")
+                    b.Property<bool>("Completed")
                         .HasColumnType("bit");
 
                     b.Property<bool?>("IsCouponWinning")
@@ -385,27 +387,16 @@ namespace Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
                     b.Property<bool?>("IsCouponWinning")
                         .HasColumnType("bit");
 
-                    b.Property<decimal>("TotalCourse")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CouponId")
                         .IsUnique();
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("ReadCoupons");
                 });
@@ -862,15 +853,7 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany("ReadCoupons")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("Coupon");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.ReadCouponItem", b =>
@@ -1013,8 +996,6 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Coupons");
 
                     b.Navigation("ManagedRooms");
-
-                    b.Navigation("ReadCoupons");
 
                     b.Navigation("RoomUsers");
                 });
