@@ -14,7 +14,7 @@ namespace Application.Builders
         public CouponBuilder SetBetValues(IEnumerable<BetValue> betValues)
         {
             var couponBetValues = new List<CouponBetValue>();
-            var totalCourse = 0m;
+            var totalCourse = 1m;
 
             foreach (var betValue in betValues)
             {
