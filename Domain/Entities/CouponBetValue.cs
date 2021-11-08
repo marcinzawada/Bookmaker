@@ -13,5 +13,7 @@ namespace Domain.Entities
 
         [ForeignKey("BetValueId")]
         public virtual BetValue BetValue { get; set; }
+
+        public bool? IsBetWinning { get; set; }
     }
 }
