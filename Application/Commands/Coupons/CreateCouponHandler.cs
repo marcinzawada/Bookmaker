@@ -25,9 +25,40 @@ namespace Application.Commands.Coupons
 
         public async Task<Response> Handle(CreateCouponCommand request, CancellationToken cancellationToken)
         {
-            var user = _userContextService.User;
+            var betValues = await FetchBetValues(request, cancellationToken);
+
+            if (betValues.Count != request.BetValueIds.Count)
+                return Response.Failure(Errors.EntityNotFound<BetValue>());
+
+            if (betValues.Select(x => x.BetId).Distinct().Count() != betValues.Count)
+                return Response.Failure(Errors.InvalidBetData);
+
             var userId = _userContextService.GetUserId();
-            
+
+            var user = await _context.Users
+                .FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
+
+            if (user == null)
+                throw new Exception($"User with id {userId} doesn't exist in base");
+
+            if (request.Bid > user.GameTokens)
+                return Response.Failure(Errors.InvalidBetData);
+
+            UpdateUser(request, user);
+
+            var coupon = CreateCoupon(request, betValues);
+
+            var readCoupon = CreateReadCoupon(request, betValues);
+
+            await SaveCouponAndReadCoupon(cancellationToken, coupon, readCoupon);
+
+            await UpdateReadCouponIdInCoupon(cancellationToken, coupon, readCoupon);
+
+            return CreatedResponse.Create($"api/coupon/{coupon.Id}");
+        }
+
+        private async Task<List<BetValue>> FetchBetValues(CreateCouponCommand request, CancellationToken cancellationToken)
+        {
             var betValues = await _context.BetValues
                 .AsNoTracking()
                 .Include(x => x.Bet)
@@ -40,64 +71,47 @@ namespace Application.Commands.Coupons
                 .ThenInclude(x => x.Label)
                 .Where(x => request.BetValueIds.Contains(x.Id))
                 .ToListAsync(cancellationToken);
+            return betValues;
+        }
 
-            if (betValues.Count != request.BetValueIds.Count)
-                return Response.Failure(Errors.EntityNotFound<BetValue>());
+        private void UpdateUser(CreateCouponCommand request, User user)
+        {
+            user.GameTokens -= request.Bid;
+            _context.Users.Update(user);
+        }
 
-            if (betValues.Select(x => x.BetId).Distinct().Count() != betValues.Count)
-                return Response.Failure(Errors.InvalidBetData);
-
-            var userFromBase = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
-
-            if (userFromBase == null)
-                throw new Exception($"User with id {userId} doesn't exist in base");
-
-            if (request.Bid > userFromBase.GameTokens)
-                return Response.Failure(Errors.InvalidBetData);
-
-            userFromBase.GameTokens -= request.Bid;
-
+        private Coupon CreateCoupon(CreateCouponCommand request, List<BetValue> betValues)
+        {
             var coupon = new CouponBuilder()
                 .SetUserId(_userContextService.GetUserId())
                 .SetBetValues(betValues)
                 .SetBid(request.Bid)
                 .Build();
+            return coupon;
+        }
 
-            var readCoupon = new ReadCoupon();
-            var readCouponItems = new List<ReadCouponItem>();
+        private ReadCoupon CreateReadCoupon(CreateCouponCommand request, List<BetValue> betValues)
+        {
+            var readCoupon = new ReadCouponBuilder()
+                .SetUserId(_userContextService.GetUserId())
+                .SetItems(betValues)
+                .SetBid(request.Bid)
+                .Build();
+            return readCoupon;
+        }
 
-            foreach (var betValue in betValues)
-            {
-                var matchWinnerOptionIsCorrect = Enum.TryParse(betValue.Value, out MatchWinnerOption matchWinnerOption);
-                if (matchWinnerOptionIsCorrect)
-                    throw new Exception($"{betValue.Value} cannot be converted to MatchWinnerOption enum");
-
-                if(betValue.Bet.Fixture.EventDate == null)
-                    throw new Exception($"EventData for {betValue.Bet.Fixture.Id} is null");
-
-                readCouponItems.Add(new ReadCouponItem
-                {
-                    HomeTeamName = betValue.Bet.Fixture.HomeTeam.Name,
-                    AwayTeamName = betValue.Bet.Fixture.AwayTeam.Name,
-                    LabelName = betValue.Bet.Label.Name,
-                    Odd = betValue.Odd,
-                    MatchWinnerOption = matchWinnerOption,
-                    EventDate = (DateTime) betValue.Bet.Fixture.EventDate,
-                });
-
-            }
-
-            readCoupon.Items = readCouponItems;
-            readCoupon.Bid = coupon.Bid;
-
+        private async Task SaveCouponAndReadCoupon(CancellationToken cancellationToken, Coupon coupon, ReadCoupon readCoupon)
+        {
             coupon.ReadCoupon = readCoupon;
-
             await _context.Coupons.AddAsync(coupon, cancellationToken);
-            _context.Users.Update(userFromBase);
-
             await _context.SaveChangesAsync(cancellationToken);
+        }
 
-            return CreatedResponse.Create($"api/coupon/{coupon.Id}");
+        private async Task UpdateReadCouponIdInCoupon(CancellationToken cancellationToken, Coupon coupon, ReadCoupon readCoupon)
+        {
+            coupon.ReadCouponId = readCoupon.Id;
+            _context.Coupons.Update(coupon);
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }
