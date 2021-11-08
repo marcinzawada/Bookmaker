@@ -20,10 +20,12 @@ namespace Domain.Entities
 
         public decimal GameTokens { get; set; } = 1000;
 
-        public virtual List<Coupon> Coupons { get; set; } = new List<Coupon>();
+        public virtual List<Coupon> Coupons { get; set; } = new();
 
-        public virtual List<RoomUser> RoomUsers { get; set; } = new List<RoomUser>();
+        public virtual List<RoomUser> RoomUsers { get; set; } = new();
         
-        public virtual List<Room> ManagedRooms { get; set; } = new List<Room>();
+        public virtual List<Room> ManagedRooms { get; set; } = new();
+
+        public virtual List<ReadCoupon> ReadCoupons { get; set; } = new();
     }
 }
