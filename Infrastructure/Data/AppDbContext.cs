@@ -127,6 +127,11 @@ namespace Infrastructure.Data
                 .WithOne(x => x.ReadCoupon)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<ReadCoupon>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.ReadCoupons)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
