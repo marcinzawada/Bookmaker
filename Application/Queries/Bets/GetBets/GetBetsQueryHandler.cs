@@ -8,6 +8,7 @@ using Application.Common.Constants;
 using Application.Common.Interfaces;
 using Application.Dto;
 using Application.Models;
+using Application.Services;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Domain.Entities;
@@ -19,7 +20,8 @@ namespace Application.Queries.Bets.GetBets
 {
     public class GetBetsQueryHandler : BaseQueryHandler, IRequestHandler<GetBetsQuery, Response>
     {
-        public GetBetsQueryHandler(IDbContext context, IMapper mapper) : base(context, mapper)
+        public GetBetsQueryHandler(IDbContext context, IMapper mapper, IUserContextService userCtx) 
+            : base(context, mapper, userCtx)
         {
         }
 
