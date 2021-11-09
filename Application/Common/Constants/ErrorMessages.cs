@@ -11,5 +11,7 @@ namespace Application.Common.Constants
         public const string InvalidCredentialsMessage = "Invalid email or password";
         public const string EntityNotFoundMessage = "Entity not found";
         public const string InvalidBetDataMessage = "Invalid bet data";
+        public const string Forbidden = "Forbidden";
+        public const string InvalidUserToAddToClub = "Can't invite youreslf";
     }
 }
