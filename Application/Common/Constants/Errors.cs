@@ -28,6 +28,13 @@ namespace Application.Common.Constants
             return new(ErrorCodes.EntityNotFound, ErrorMessages.EntityNotFoundMessage, HttpStatusCode.NotFound);
         }
 
+        public static Error Forbidden()
+        {
+            return new(ErrorCodes.Forbidden, ErrorMessages.Forbidden, HttpStatusCode.Forbidden);
+        }
+
         public static Error InvalidBetData => new(ErrorCodes.InvalidData, ErrorMessages.InvalidBetDataMessage);
+
+        public static Error InvalidUserToAddToClub => new(ErrorCodes.InvalidData, ErrorMessages.InvalidUserToAddToClub);
     }
 }
