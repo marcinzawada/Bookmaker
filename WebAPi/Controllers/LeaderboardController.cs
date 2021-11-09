@@ -12,6 +12,7 @@ namespace WebAPI.Controllers
     [Authorize]
     public class LeaderboardController : ApiControllerBase
     {
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
