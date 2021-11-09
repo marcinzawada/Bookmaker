@@ -37,9 +37,9 @@ namespace Application.Common.Interfaces
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<Room> Rooms { get; set; }
+        public DbSet<Club> Clubs { get; set; }
 
-        public DbSet<RoomUser> RoomUsers { get; set; }
+        public DbSet<ClubUser> ClubUsers { get; set; }
 
         public DbSet<CouponBetValue> CouponBetValues { get; set; }
 
@@ -48,6 +48,8 @@ namespace Application.Common.Interfaces
         public DbSet<Coupon> Coupons { get; set; }
 
         public DbSet<ReadCoupon> ReadCoupons { get; set; }
+
+        public DbSet<ReadCouponItem> ReadCouponItems { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
