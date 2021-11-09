@@ -18,7 +18,9 @@ namespace Domain.Entities
         [MaxLength(512)]
         public string PasswordHash { get; set; }
 
-        public decimal GameTokens { get; set; } = 1000;
+        public decimal GameTokens { get; set; } = 400;
+
+        public DateTime TimeOfLastTokensReceived { get; set; }
 
         public virtual List<Coupon> Coupons { get; set; } = new();
 
