@@ -16,19 +16,15 @@ namespace Application.Commands.Account.Register
 
     public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
     {
-        private readonly IDbContext _context;
-
-        public RegisterCommandValidator(IDbContext context)
+        public RegisterCommandValidator(IDbContext dbContext)
         {
-            _context = context;
-
             RuleFor(x => x.Email)
                 .NotEmpty()
                 .EmailAddress()
                 .CustomAsync(async (email, context, cancellationToken) =>
                 {
                     var userWithThisEmailInBase =
-                        await _context.Users.Where(x => x.Email == email.ToLower().Trim()).ToListAsync();
+                        await dbContext.Users.Where(x => x.Email == email.ToLower().Trim()).ToListAsync();
 
                     if (userWithThisEmailInBase.Any())
                     {
