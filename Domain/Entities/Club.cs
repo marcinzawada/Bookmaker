@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public class Room
+    public class Club
     {
         [Key]
         public int Id { get; set; }
@@ -21,6 +21,6 @@ namespace Domain.Entities
         [ForeignKey(nameof(AdminId))]
         public virtual User Admin { get; set; }
 
-        public virtual List<RoomUser> RoomUsers { get; set; } = new List<RoomUser>();
+        public virtual List<ClubUser> ClubUsers { get; set; } = new();
     }
 }

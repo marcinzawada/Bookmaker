@@ -6,13 +6,13 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public class RoomUser
+    public class ClubUser
     {
         [Required]
-        public int RoomId { get; set; }
+        public int ClubId { get; set; }
 
-        [ForeignKey(nameof(RoomId))]
-        public virtual Room Room { get; set; }
+        [ForeignKey(nameof(ClubId))]
+        public virtual Club Club { get; set; }
 
         [Required]
         public int UserId { get; set; }

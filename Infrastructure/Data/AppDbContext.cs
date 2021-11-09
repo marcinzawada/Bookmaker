@@ -36,9 +36,9 @@ namespace Infrastructure.Data
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<Room> Rooms { get; set; }
+        public DbSet<Club> Clubs { get; set; }
 
-        public DbSet<RoomUser> RoomUsers { get; set; }
+        public DbSet<ClubUser> ClubUsers { get; set; }
 
         public DbSet<CouponBetValue> CouponBetValues { get; set; }
 
@@ -114,12 +114,12 @@ namespace Infrastructure.Data
             modelBuilder.Entity<CouponBetValue>()
                 .HasKey(x => new { x.CouponId, x.BetValueId });
 
-            modelBuilder.Entity<RoomUser>()
-                .HasKey(x => new { x.RoomId, x.UserId });
+            modelBuilder.Entity<ClubUser>()
+                .HasKey(x => new { x.ClubId, x.UserId });
 
-            modelBuilder.Entity<RoomUser>()
+            modelBuilder.Entity<ClubUser>()
                 .HasOne(x => x.User)
-                .WithMany(x => x.RoomUsers)
+                .WithMany(x => x.ClubUser)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<ReadCoupon>()

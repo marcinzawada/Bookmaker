@@ -22,9 +22,9 @@ namespace Domain.Entities
 
         public virtual List<Coupon> Coupons { get; set; } = new();
 
-        public virtual List<RoomUser> RoomUsers { get; set; } = new();
+        public virtual List<ClubUser> ClubUser { get; set; } = new();
         
-        public virtual List<Room> ManagedRooms { get; set; } = new();
+        public virtual List<Club> ManagedClubs { get; set; } = new();
 
         public virtual List<ReadCoupon> ReadCoupons { get; set; } = new();
     }
