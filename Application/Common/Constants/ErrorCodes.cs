@@ -12,5 +12,6 @@
         public const string AuthError = "AUTHENTICATION_ERROR";
         public const string InvalidCredentials = "INVALID_CREDENTIALS";
         public const string InvalidData = "INVALID_DATA";
+        public const string Forbidden = "Forbidden";
     }
 }
