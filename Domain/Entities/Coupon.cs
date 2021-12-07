@@ -9,6 +9,7 @@ namespace Domain.Entities
         [Key]
         public int Id { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Bid { get; set; }
 
         public virtual List<CouponBetValue> CouponBetValues { get; set; } = new();
@@ -18,6 +19,7 @@ namespace Domain.Entities
         [ForeignKey(nameof(UserId))]
         public virtual User User { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal TotalCourse { get; set; }
 
         public bool IsCompleted { get; set; } = false;

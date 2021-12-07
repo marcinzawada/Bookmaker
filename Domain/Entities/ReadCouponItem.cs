@@ -35,6 +35,7 @@ namespace Domain.Entities
 
         public MatchWinnerOption MatchWinnerOption { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Odd { get; set; }
 
         public DateTime EventDate { get; set; }

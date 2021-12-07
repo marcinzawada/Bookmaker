@@ -35,6 +35,7 @@ namespace Domain.Entities
 
         public int UserId { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal TotalCourse { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace Domain.Entities
         [MaxLength(64)]
         public string Value { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Odd { get; set; }
 
         public DateTime AddedAt { get; set; }
