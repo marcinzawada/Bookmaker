@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Application.Middleware;
 using Application.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Hangfire;
 using Infrastructure.Common.DependencyInjection;
 using Infrastructure.Data;
 using Infrastructure.ExternalApis.ApiFootball.Seeders;
@@ -62,6 +64,8 @@ namespace WebAPI
             services.AddInfrastructure();
 
             services.ConfigureSwagger();
+
+            services.ConfigureHangfire(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -108,12 +112,14 @@ namespace WebAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHangfireDashboard();
             });
 
             if (context.Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
             {
                 ConfigureAsync(seeder).Wait();
             }
+
         }
 
         public async Task ConfigureAsync(ApiFootballSeeder seeder)
