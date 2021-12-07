@@ -28,5 +28,7 @@ namespace Application.Dto
 
         public TeamDto AwayTeam { get; init; }
 
+        public DateTime? EventDate { get; init; }
+
     }
 }
