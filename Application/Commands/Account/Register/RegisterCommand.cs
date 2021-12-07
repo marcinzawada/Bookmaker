@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Commands.Account.Register
 {
-    public record RegisterCommand(string Email, string Password, string ConfirmPassword) : IRequest<Response>;
+    public record RegisterCommand(string Email, string UserName, string Password, string ConfirmPassword) : IRequest<Response>;
 
     public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
     {
@@ -24,11 +24,30 @@ namespace Application.Commands.Account.Register
                 .CustomAsync(async (email, context, cancellationToken) =>
                 {
                     var userWithThisEmailInBase =
-                        await dbContext.Users.Where(x => x.Email == email.ToLower().Trim()).ToListAsync();
+                        await dbContext.Users.Where(x =>
+                                x.Email.ToLower().Trim() ==
+                                email.ToLower().Trim())
+                            .ToListAsync(cancellationToken);
 
                     if (userWithThisEmailInBase.Any())
                     {
                         context.AddFailure("Email", "That email is taken");
+                    }
+                });
+
+            RuleFor(x => x.UserName)
+                .NotEmpty()
+                .CustomAsync(async (userName, context, cancellationToken) =>
+                {
+                    var userWithThisEmailInBase =
+                        await dbContext.Users.Where(x =>
+                                x.UserName.ToLower().Trim() ==
+                                userName.ToLower().Trim())
+                            .ToListAsync(cancellationToken);
+
+                    if (userWithThisEmailInBase.Any())
+                    {
+                        context.AddFailure("UserName", "That username is taken");
                     }
                 });
 
