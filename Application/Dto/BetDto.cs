@@ -15,5 +15,9 @@ namespace Application.Dto
         public LabelDto Label { get; set; }
 
         public List<BetValueDto> BetValues { get; set; }
+
+        public FixtureDto Fixture { get; set; }
+
+        public LeagueDto League { get; set; }
     }
 }
