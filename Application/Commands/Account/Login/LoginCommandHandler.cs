@@ -44,13 +44,14 @@ namespace Application.Commands.Account.Login
 
             var token = _jwtGenerator.Generate(user);
 
-            var loginDto = new LoginDto
+            var authDto = new AuthDto
             {
                 Id = user.Id,
+                UserName = user.UserName,
                 Token = token
             };
 
-            return Result<LoginDto>.Create(loginDto);
+            return Result<AuthDto>.Create(authDto);
         }
     }
 }
