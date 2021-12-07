@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Domain.Entities
@@ -18,6 +19,11 @@ namespace Domain.Entities
         [MaxLength(512)]
         public string PasswordHash { get; set; }
 
+        [Required]
+        [MaxLength(32)]
+        public string UserName { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal GameTokens { get; set; } = 400;
 
         public DateTime TimeOfLastTokensReceived { get; set; }
