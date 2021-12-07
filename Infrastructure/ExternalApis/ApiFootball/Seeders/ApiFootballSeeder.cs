@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.ExternalApis.ApiFootball.Seeders
 {
@@ -34,7 +35,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Seeders
 
         public async Task SeedData()
         {
-            await _context.Database.EnsureCreatedAsync();
+            await _context.Database.MigrateAsync();
             await _seasonsSeeder.SeedSeasons();
             await _countriesSeeder.SeedCountries();
             await _sportSeeder.SeedSport();

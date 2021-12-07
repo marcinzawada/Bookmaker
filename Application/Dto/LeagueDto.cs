@@ -17,5 +17,7 @@ namespace Application.Dto
         public string Logo { get; init; }
 
         public string Flag { get; init; }
+
+        public CountryDto Country { get; init; }
     }
 }

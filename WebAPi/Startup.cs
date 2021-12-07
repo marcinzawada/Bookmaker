@@ -67,6 +67,13 @@ namespace WebAPI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, 
             ApiFootballSeeder seeder, AppDbContext context)
         {
+            app.UseCors(builder =>
+                builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+            );
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

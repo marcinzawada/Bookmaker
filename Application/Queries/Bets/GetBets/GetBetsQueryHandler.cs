@@ -31,6 +31,10 @@ namespace Application.Queries.Bets.GetBets
                 .AsNoTracking()
                 .Include(x => x.BetValues)
                 .Include(x => x.Label)
+                .Include(x => x.Fixture)
+                .Include(x => x.League)
+                .ThenInclude(x => x.Country)
+                .OrderBy(x => x.Fixture.EventDate)
                 .Where(x => x.LeagueId == request.LeagueId && x.BookieId == 7)
                 .ProjectTo<BetDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
