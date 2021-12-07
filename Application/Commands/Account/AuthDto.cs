@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Account.Login
 {
-    public class LoginDto
+    public class AuthDto
     {
         public int Id { get; init; }
 
         public string Token { get; init; }
+
+        public string UserName { get; init; }
     }
 }
