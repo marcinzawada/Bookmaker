@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Application.Common.DependencyInjection;
 using Application.Filters;
+using Application.Middleware;
 using Application.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -11,6 +12,7 @@ using Infrastructure.Data;
 using Infrastructure.ExternalApis.ApiFootball.Seeders;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -60,7 +62,6 @@ namespace WebAPI
             services.AddInfrastructure();
 
             services.ConfigureSwagger();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,6 +89,8 @@ namespace WebAPI
                     document.Schemes.Add(OpenApiSchema.Https);
                 };
             });
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseAuthentication();
 
