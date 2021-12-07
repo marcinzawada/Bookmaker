@@ -1,8 +1,11 @@
 ﻿using System.Reflection;
+using Application.Common.Behaviours;
 using Application.Common.JWT;
+using Application.Middleware;
 using Domain.Entities;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +24,9 @@ namespace Application.Common.DependencyInjection
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddScoped<IJwtGenerator, JwtGenerator>();
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+            services.AddTransient<ExceptionHandlingMiddleware>();
 
             return services;
         }
