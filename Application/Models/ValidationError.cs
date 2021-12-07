@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Application.Models
 {
-    public record ValidationError(string Field, string Message);
+    public record ValidationError(string Field, List<string> Messages);
 }
