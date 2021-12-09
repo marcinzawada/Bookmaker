@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.Commands;
+﻿using System.Threading.Tasks;
 using Application.Commands.Account.AddTokens;
 using Application.Commands.Account.Login;
 using Application.Commands.Account.Register;
 using Application.Extensions;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebAPI.Controllers
+namespace API.Controllers
 {
     public class AccountController : ApiControllerBase
     {

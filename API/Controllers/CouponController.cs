@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Application.Commands.Coupons;
 using Application.Extensions;
 using Application.Queries.Coupons;
 using Infrastructure.BackgroundJobs.ApiFootballUpdater;
 using Infrastructure.BackgroundJobs.CouponCheckers;
-using Infrastructure.ExternalApis.ApiFootball.Client;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using YamlDotNet.Serialization.NodeDeserializers;
 
-namespace WebAPI.Controllers
+namespace API.Controllers
 {
     public class CouponController : ApiControllerBase
     {

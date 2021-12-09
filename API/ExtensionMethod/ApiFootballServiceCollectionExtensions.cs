@@ -5,7 +5,7 @@ using Infrastructure.ExternalApis.ApiFootball.Seeders;
 using Microsoft.Extensions.DependencyInjection;
 using BookieDto = Infrastructure.ExternalApis.ApiFootball.Dtos.Bookies.BookieDto;
 
-namespace WebAPI.ExtensionMethod
+namespace API.ExtensionMethod
 {
     public static class ApiFootballServiceCollectionExtensions
     {

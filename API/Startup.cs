@@ -1,21 +1,17 @@
-using System;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using API.AppConfigs;
+using API.ExtensionMethod;
 using Application.Common.DependencyInjection;
 using Application.Filters;
 using Application.Middleware;
-using Application.Models;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Hangfire;
 using Infrastructure.BackgroundJobs;
 using Infrastructure.Common.DependencyInjection;
 using Infrastructure.Data;
 using Infrastructure.ExternalApis.ApiFootball.Seeders;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,11 +19,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSwag;
-using NSwag.Generation.Processors.Security;
-using WebAPI.AppConfigs;
-using WebAPI.ExtensionMethod;
 
-namespace WebAPI
+namespace API
 {
     public class Startup
     {

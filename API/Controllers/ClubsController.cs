@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Application.Commands.Clubs.AddUser;
 using Application.Commands.Clubs.Create;
 using Application.Commands.Clubs.Leave;
@@ -11,7 +8,7 @@ using Application.Queries.Clubs.GetAll;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebAPI.Controllers
+namespace API.Controllers
 {
     [Authorize]
     public class ClubsController : ApiControllerBase

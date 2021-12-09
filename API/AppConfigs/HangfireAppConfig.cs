@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Hangfire;
 using Hangfire.SqlServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NSwag;
-using NSwag.Generation.Processors.Security;
 
-namespace WebAPI.AppConfigs
+namespace API.AppConfigs
 {
     public static class HangfireAppConfig
     {
