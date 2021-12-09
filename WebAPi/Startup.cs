@@ -9,6 +9,7 @@ using Application.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Hangfire;
+using Infrastructure.BackgroundJobs;
 using Infrastructure.Common.DependencyInjection;
 using Infrastructure.Data;
 using Infrastructure.ExternalApis.ApiFootball.Seeders;
@@ -70,7 +71,7 @@ namespace WebAPI
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, 
-            ApiFootballSeeder seeder, AppDbContext context)
+            ApiFootballSeeder seeder, AppDbContext context, Supervisor supervisor)
         {
             app.UseCors(builder =>
                 builder
@@ -118,6 +119,7 @@ namespace WebAPI
             if (context.Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
             {
                 ConfigureAsync(seeder).Wait();
+                supervisor.Start();
             }
 
         }
