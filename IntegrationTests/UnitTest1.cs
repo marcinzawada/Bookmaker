@@ -7,7 +7,7 @@ namespace IntegrationTests
         [Fact]
         public void Test1()
         {
-
+            Assert.True(2+2 == 4);
         }
     }
 }
