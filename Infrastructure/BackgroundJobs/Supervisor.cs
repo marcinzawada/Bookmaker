@@ -16,9 +16,9 @@ namespace Infrastructure.BackgroundJobs;
 
 public class Supervisor
 {
-    private static string FixtureUpdaterId = "E4905F4D-9A88-448B-AB5B-0D7501F1D996";
-    private static string BetsUpdaterId = "4459A947-F635-43C8-B473-D1965F72B8C6";
-    private static string CouponCheckerId = "08037CC3-61D8-4E39-962A-6DB7DA835C5F";
+    private const string FixtureUpdaterId = "E4905F4D-9A88-448B-AB5B-0D7501F1D996";
+    private const string BetsUpdaterId = "4459A947-F635-43C8-B473-D1965F72B8C6";
+    private const string CouponCheckerId = "08037CC3-61D8-4E39-962A-6DB7DA835C5F";
 
     private readonly FixtureUpdater _fixtureUpdater;
     private readonly BetsUpdater _betsUpdater;
