@@ -4,6 +4,7 @@ using Application.Common.JWT;
 using Application.Services;
 using Domain.Entities;
 using FluentValidation;
+using Infrastructure.BackgroundJobs;
 using Infrastructure.BackgroundJobs.ApiFootballUpdater;
 using Infrastructure.BackgroundJobs.CouponCheckers;
 using Infrastructure.BackgroundJobs.CouponCheckers.BetTypesCheckers;
@@ -25,6 +26,7 @@ namespace Infrastructure.Common.DependencyInjection
             services.AddScoped<BetsUpdater>();
             services.AddScoped<CouponChecker>();
             services.AddScoped<BetTypeCheckerFactory>();
+            services.AddScoped<Supervisor>();
 
 
             return services;
