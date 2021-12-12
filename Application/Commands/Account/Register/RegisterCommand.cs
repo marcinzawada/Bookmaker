@@ -37,6 +37,8 @@ namespace Application.Commands.Account.Register
 
             RuleFor(x => x.UserName)
                 .NotEmpty()
+                .MinimumLength(3)
+                .MaximumLength(32)
                 .CustomAsync(async (userName, context, cancellationToken) =>
                 {
                     var userWithThisEmailInBase =
