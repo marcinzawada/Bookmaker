@@ -16,6 +16,11 @@ namespace Application.Models
             Content = content;
         }
 
+        public Result() : base(true, null)
+        {
+            
+        }
+
         public static Result<T> Create(T content, HttpStatusCode statusCode = HttpStatusCode.OK)
         {
             return new(content, true, null, statusCode);
