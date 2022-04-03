@@ -42,6 +42,16 @@ namespace Application.Queries.Bets.GetBets
             if (!betDtos.Any())
                 return Response.Failure(Errors.EntityNotFound<PotentialBet>());
 
+            foreach (var betDto in betDtos)
+            {
+                betDto.BetValues = betDto
+                    .BetValues
+                    .OrderByDescending(x => x.AddedAt)
+                    .GroupBy(x => new { x.Bet, x.Value })
+                    .Select(x => x.First())
+                    .ToList();
+            }
+
             return Result<List<BetDto>>.Create(betDtos);
         }
     }
