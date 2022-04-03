@@ -41,7 +41,7 @@ namespace Application.Commands.Coupons
             if (user == null)
                 throw new Exception($"User with id {userId} doesn't exist in base");
 
-            if (request.Bid > user.GameTokens)
+            if (request.Bid > user.GameTokens || request.Bid <= 0)
                 return Response.Failure(Errors.InvalidBetData);
 
             UpdateUser(request, user);
@@ -50,9 +50,9 @@ namespace Application.Commands.Coupons
 
             var readCoupon = CreateReadCoupon(request, betValues);
 
-            await SaveCouponAndReadCoupon(cancellationToken, coupon, readCoupon);
+            await SaveCouponAndReadCoupon(coupon, readCoupon, cancellationToken);
 
-            await UpdateReadCouponIdInCoupon(cancellationToken, coupon, readCoupon);
+            await UpdateReadCouponIdInCoupon(coupon, readCoupon, cancellationToken);
 
             return CreatedResponse.Create($"api/coupon/{coupon.Id}");
         }
@@ -100,14 +100,14 @@ namespace Application.Commands.Coupons
             return readCoupon;
         }
 
-        private async Task SaveCouponAndReadCoupon(CancellationToken cancellationToken, Coupon coupon, ReadCoupon readCoupon)
+        private async Task SaveCouponAndReadCoupon(Coupon coupon, ReadCoupon readCoupon, CancellationToken cancellationToken)
         {
             coupon.ReadCoupon = readCoupon;
-            await _context.Coupons.AddAsync(coupon, cancellationToken);
+            var xd = await _context.Coupons.AddAsync(coupon, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        private async Task UpdateReadCouponIdInCoupon(CancellationToken cancellationToken, Coupon coupon, ReadCoupon readCoupon)
+        private async Task UpdateReadCouponIdInCoupon(Coupon coupon, ReadCoupon readCoupon, CancellationToken cancellationToken)
         {
             coupon.ReadCouponId = readCoupon.Id;
             _context.Coupons.Update(coupon);
