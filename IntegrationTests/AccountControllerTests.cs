@@ -35,27 +35,27 @@ namespace IntegrationTests
         public static IEnumerable<object[]> IncorrectRegisterData =>
             new List<object[]>
             {
-                new object[] { "test@gmail.com", _faker.Person.UserName, "Pass123!", "Pass123!" },
-                new object[] { "", _faker.Person.UserName, "Pass123!", "Pass123!" },
-                new object[] { "test", _faker.Person.UserName, "Pass123!", "Pass123!" },
-                new object[] { _faker.Internet.Email(), "" , "Pass123!", "Pass123!" },
-                new object[] { _faker.Internet.Email(), _faker.Person.UserName, "", "Pass123!" },
-                new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pass123", "Pass123" },
-                new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pa1!", "Pa1!" },
-                new object[] { _faker.Internet.Email(), _faker.Person.UserName, "pass123!", "pass123!" },
-                new object[] { _faker.Internet.Email(), _faker.Person.UserName, "password!", "password!" },
-                new object[] { _faker.Internet.Email(), _faker.Person.UserName, "password123", "password123" },
-                new object[] { _faker.Internet.Email(), _faker.Person.UserName, "PASSWORD123!", "PASSWORD123!" },
-                new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pass 123!", "Pass 123!" },
-                new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pass#123!", "Pass#123!" },
-                new object[] { _faker.Internet.Email(), "username", "Pass#123!", "Pass#123!" },
-                new object[] { _faker.Internet.Email(), "a", "Pass123!", "Pass123!" },
-                new object[] { _faker.Internet.Email(), "tooooooooooooooooooo long username", "Pass123!", "Pass123!" },
+                new object[] { "test@gmail.com", _faker.Person.UserName, "Pass123!"},
+                new object[] { "", _faker.Person.UserName, "Pass123!" },
+                new object[] { "test", _faker.Person.UserName, "Pass123!"},
+                new object[] { _faker.Internet.Email(), "" , "Pass123!" },
+                new object[] { _faker.Internet.Email(), _faker.Person.UserName, "", },
+                //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pass123" },
+                //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pa1!"},
+                //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "pass123!"},
+                //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "password!"},
+                //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "password123"},
+                //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "PASSWORD123!" },
+                ////new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pass 123!"},
+                //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pass#123!" },
+                //new object[] { _faker.Internet.Email(), "username", "Pass#123!"},
+                new object[] { _faker.Internet.Email(), "a", "Pass123!"},
+                new object[] { _faker.Internet.Email(), "tooooooooooooooooooo long username", "Pass123!" },
             };
 
         [Theory]
         [MemberData(nameof(IncorrectRegisterData))]
-        public async Task Register_WithIncorrectData_ShouldReturnBadRequest(string email, string name, string password, string confirmPassword)
+        public async Task Register_WithIncorrectData_ShouldReturnBadRequest(string email, string name, string password)
         {
             //Arrange
 
