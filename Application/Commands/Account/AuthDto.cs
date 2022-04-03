@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Commands.Account.Login
+﻿namespace Application.Commands.Account
 {
     public class AuthDto
     {
@@ -13,5 +7,7 @@ namespace Application.Commands.Account.Login
         public string Token { get; init; }
 
         public string UserName { get; init; }
+
+        public decimal GameTokens { get; init; }
     }
 }
