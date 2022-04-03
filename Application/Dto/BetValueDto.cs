@@ -18,5 +18,7 @@ namespace Application.Dto
 
         public BetDto Bet { get; set; }
 
+        public DateTime AddedAt { get; set; }
+
     }
 }
