@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Application.Commands.Account.AddTokens;
 using Application.Commands.Account.Login;
 using Application.Commands.Account.Register;
 using Application.Extensions;
+using Application.Queries.Account.RefreshTokens;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,8 +27,8 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpPost("addTokens")]
-        public async Task<IActionResult> AddTokens()
+        [HttpGet("refreshGameTokens")]
+        public async Task<IActionResult> RefreshGameTokens()
         {
             var command = new AddTokensCommand();
 
