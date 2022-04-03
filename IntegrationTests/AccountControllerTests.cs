@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Application.Commands.Account;
 using Application.Commands.Account.Login;
 using Application.Commands.Account.Register;
 using Application.Models;
@@ -23,7 +24,6 @@ namespace IntegrationTests
                 new RegisterCommand(
                 _faker.Internet.Email(),
                 "TestUser",
-                "Pass123!",
                 "Pass123!"));
 
 
@@ -61,7 +61,7 @@ namespace IntegrationTests
 
             //Act
             var response = await _testClient.PostAsJsonAsync("/api/account/register",
-                new RegisterCommand(email, name, password, confirmPassword));
+                new RegisterCommand(email, name, password));
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
