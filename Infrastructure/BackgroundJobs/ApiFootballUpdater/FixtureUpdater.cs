@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Data;
 using Infrastructure.ExternalApis.ApiFootball.Client;
 using Infrastructure.ExternalApis.ApiFootball.Dtos.Fixtures;
@@ -40,7 +41,7 @@ namespace Infrastructure.BackgroundJobs.ApiFootballUpdater
 
             var fixturesFromApi = MapFixtureDtosToFixture(fixtureDtosWithOdds);
 
-            var fixturesFromApiWithScore = AddScoreToFixturesFromapi(fixtureDtosWithOdds, fixturesFromApi);
+            var fixturesFromApiWithScore = AddScoreToFixturesFromApi(fixtureDtosWithOdds, fixturesFromApi);
 
             var fixturesFromBase = await FetchFixturesFromBase(fixturesFromApiWithScore);
 
@@ -99,7 +100,8 @@ namespace Infrastructure.BackgroundJobs.ApiFootballUpdater
 
                 if (!fixtureFromApi.Equals(fixtureFromBase))
                 {
-                    if (fixtureFromApi.Score != null)
+                    if (fixtureFromApi.Score != null && fixtureFromApi.Status == MatchStatus.FT 
+                                                     && fixtureFromBase.Score == null)
                     {
                         fixtureFromBase.Score = fixtureFromApi.Score;
                         fixtureFromBase.Score.ExtFixtureId = fixtureFromApi.ExtFixtureId;
@@ -174,10 +176,11 @@ namespace Infrastructure.BackgroundJobs.ApiFootballUpdater
 
             var fixturesFromBase = await _context.Fixtures.Where(x => extFixtureIds.Contains(x.ExtFixtureId))
                 .Include(x => x.Score).ToListAsync();
+
             return fixturesFromBase;
         }
 
-        private List<Fixture> AddScoreToFixturesFromapi(List<FixtureDto> fixtureDtosWithOdds, List<Fixture> fixturesFromApi)
+        private List<Fixture> AddScoreToFixturesFromApi(List<FixtureDto> fixtureDtosWithOdds, List<Fixture> fixturesFromApi)
         {
             var scores = _scoreMapper.MapDtosToModels(fixtureDtosWithOdds);
 
