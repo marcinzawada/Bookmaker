@@ -72,9 +72,12 @@ namespace Infrastructure.BackgroundJobs.CouponCheckers
                 readCoupon.UpdatedAt = DateTime.UtcNow;
                 _context.ReadCoupons.Update(readCoupon);
 
+                await UpdateGameTokens(readCoupon);
+
                 await _context.SaveChangesAsync();
             }
         }
+
 
         private async Task<List<Coupon>> FetchCoupons()
         {
@@ -174,6 +177,20 @@ namespace Infrastructure.BackgroundJobs.CouponCheckers
         {
             readCoupon.IsCouponWinning = coupon.IsCouponWinning;
             readCoupon.IsCompleted = coupon.IsCompleted;
+        }
+
+        private async Task UpdateGameTokens(ReadCoupon readCoupon)
+        {
+            if (readCoupon.IsCompleted && readCoupon.IsCouponWinning == true)
+            {
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(x => x.Id == readCoupon.UserId);
+
+                if (user != null)
+                {
+                    user.GameTokens += readCoupon.Bid * readCoupon.TotalCourse;
+                }
+            }
         }
     }
 }
