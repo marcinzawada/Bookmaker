@@ -19,6 +19,10 @@ namespace Application.Queries.Coupons
 
         public List<ReadCouponItemDto> Items { get; set; }
 
+        public decimal TotalCourse { get; set; }
+
+        public bool? IsCouponWinning { get; set; }
+
     }
 
     public class ReadCouponItemDto : IMapFrom<ReadCouponItem>
@@ -48,5 +52,7 @@ namespace Application.Queries.Coupons
         public DateTime EventDate { get; set; }
 
         public string LabelName { get; set; }
+
+        public bool IsBetWinning { get; set; }
     }
 }
