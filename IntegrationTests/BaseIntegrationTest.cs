@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using API;
+using Application.Commands.Account;
 using Application.Commands.Account.Login;
 using Application.Models;
 using Bogus;
