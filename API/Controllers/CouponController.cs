@@ -2,6 +2,8 @@
 using Application.Commands.Coupons;
 using Application.Extensions;
 using Application.Queries.Coupons;
+using Application.Queries.Coupons.Get;
+using Application.Queries.Coupons.GetAll;
 using Infrastructure.BackgroundJobs.ApiFootballUpdater;
 using Infrastructure.BackgroundJobs.CouponCheckers;
 using Microsoft.AspNetCore.Authorization;
@@ -25,6 +27,16 @@ namespace API.Controllers
         public async Task<IActionResult> Get(int couponId)
         {
             var request = new GetCouponQuery(couponId);
+
+            var response = await Mediator.Send(request);
+
+            return this.CreateResponse(response);
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> GetAll()
+        {
+            var request = new GetAllCouponsQuery();
 
             var response = await Mediator.Send(request);
 
