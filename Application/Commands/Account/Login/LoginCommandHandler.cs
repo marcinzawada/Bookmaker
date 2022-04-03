@@ -48,7 +48,8 @@ namespace Application.Commands.Account.Login
             {
                 Id = user.Id,
                 UserName = user.UserName,
-                Token = token
+                Token = token,
+                GameTokens = user.GameTokens
             };
 
             return Result<AuthDto>.Create(authDto);
