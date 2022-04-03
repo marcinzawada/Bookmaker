@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Commands.Account.Register
 {
-    public record RegisterCommand(string Email, string UserName, string Password, string ConfirmPassword) : IRequest<Response>;
+    public record RegisterCommand(string Email, string UserName, string Password) : IRequest<Response>;
 
     public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
     {
@@ -55,17 +55,17 @@ namespace Application.Commands.Account.Register
 
             RuleFor(x => x.Password)
                 .NotEmpty()
-                .MinimumLength(8)
-                .Matches("[A-Z]").WithMessage("'{PropertyName}' must contain one or more capital letters.")
-                .Matches("[a-z]").WithMessage("'{PropertyName}' must contain one or more lowercase letters.")
-                .Matches(@"\d").WithMessage("'{PropertyName}' must contain one or more digits.")
-                .Matches(@"[][""!@$%^&*(){}:;<>,.?/+_=|'~\\-]")
-                .WithMessage("'{PropertyName}' must contain one or more special characters.")
-                .Matches("^[^# ]*$")
-                .WithMessage("'{PropertyName}' must not contain the following characters # or spaces.");
+                .MinimumLength(8);
+            //.Matches("[A-Z]").WithMessage("'{PropertyName}' must contain one or more capital letters.")
+            //.Matches("[a-z]").WithMessage("'{PropertyName}' must contain one or more lowercase letters.")
+            //.Matches(@"\d").WithMessage("'{PropertyName}' must contain one or more digits.")
+            //.Matches(@"[][""!@$%^&*(){}:;<>,.?/+_=|'~\\-]")
+            //.WithMessage("'{PropertyName}' must contain one or more special characters.")
+            //.Matches("^[^# ]*$")
+            //.WithMessage("'{PropertyName}' must not contain the following characters # or spaces.");
 
-            RuleFor(x => x.ConfirmPassword)
-                .Equal(e => e.Password).WithMessage("'{PropertyName}' must match 'Password'");
+            //RuleFor(x => x.ConfirmPassword)
+            //    .Equal(e => e.Password).WithMessage("'{PropertyName}' must match 'Password'");
         }
     }
 }

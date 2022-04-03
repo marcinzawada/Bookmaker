@@ -48,7 +48,8 @@ namespace Application.Commands.Account.Register
             {
                 Id = newUser.Id,
                 UserName = newUser.UserName,
-                Token = token
+                Token = token,
+                GameTokens = newUser.GameTokens
             };
 
             return Result<AuthDto>.Create(authDto);
