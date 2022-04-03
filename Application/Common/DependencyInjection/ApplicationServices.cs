@@ -25,7 +25,7 @@ namespace Application.Common.DependencyInjection
 
             services.AddScoped<IJwtGenerator, JwtGenerator>();
 
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             services.AddTransient<ExceptionHandlingMiddleware>();
 
             return services;
