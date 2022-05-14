@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Commands.Account.Register
 {
-    public record RegisterCommand(string Email, string UserName, string Password) : IRequest<Response>;
+    public record RegisterCommand(string Email, string UserName, string Password, string RecaptchaToken) : IRequest<Response>;
 
     public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
     {
@@ -56,6 +56,9 @@ namespace Application.Commands.Account.Register
             RuleFor(x => x.Password)
                 .NotEmpty()
                 .MinimumLength(8);
+
+            RuleFor(x => x.RecaptchaToken).NotNull();
+
             //.Matches("[A-Z]").WithMessage("'{PropertyName}' must contain one or more capital letters.")
             //.Matches("[a-z]").WithMessage("'{PropertyName}' must contain one or more lowercase letters.")
             //.Matches(@"\d").WithMessage("'{PropertyName}' must contain one or more digits.")
