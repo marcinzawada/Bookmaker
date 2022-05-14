@@ -31,6 +31,7 @@ namespace Application.Queries.Clubs.GetAll
 
             var clubs = await _context.Clubs
                 .Include(x => x.ClubUsers)
+                .ThenInclude(x => x.User)
                 .Where(x => x.ClubUsers.Any(y => y.UserId == userId))
                 .AsNoTracking()
                 .ToListAsync(cancellationToken);
@@ -42,11 +43,19 @@ namespace Application.Queries.Clubs.GetAll
 
             foreach (var club in clubs)
             {
+                var users = new List<UserDto>(_mapper.Map<List<User>, List<UserDto>>(
+                        club.ClubUsers
+                            .Select(x => x.User)
+                            .OrderByDescending( x => x.GameTokens)
+                            .ToList()));
+
                 clubDtos.Add(new ClubDto
                 {
                     Id = club.Id,
                     Name = club.Name,
-                    NumberOfMembers = club.ClubUsers.Count
+                    NumberOfMembers = club.ClubUsers.Count,
+                    Users = users,
+                    AdminId = club.AdminId
                 });
             }
 
