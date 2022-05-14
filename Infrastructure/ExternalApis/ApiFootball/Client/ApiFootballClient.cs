@@ -111,7 +111,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
         public async Task<List<Team>> DownloadTeamsByLeagueId(int extLeagueId)
         {
             var teamDtos = await DownloadAllIResources<DtoHolder<TeamDto>, TeamDto>($"/teams/league/{extLeagueId}");
-            return _mapper.MapLeagueDtosToLeagues(teamDtos, extLeagueId);
+            return _mapper.MapTeamDtosToTeam(teamDtos, extLeagueId);
         }
 
         public async Task<List<Label>> DownloadAllLabels()
@@ -146,6 +146,9 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
             var holder = response.Content.Deserialize<DtoContainer<DtoHolder<OddDto>>>().DtoHolder;
 
             var oddDtos = holder.Resources;
+
+            if (!oddDtos.Any())
+                return null;
 
             if (holder.Paging.TotalPages > 1)
             {
@@ -187,6 +190,11 @@ namespace Infrastructure.ExternalApis.ApiFootball.Client
             var response = await RequestAsync($"/odds/league/{extLeagueId}/bookmaker/8");
 
             var oddDtos = DeserializeObjectFromJson<OddDto>(response, "odds");
+
+            if (!oddDtos.Any())
+            {
+                return null;
+            }
 
             var totalPageJson = JObject.Parse(response.Content)["api"]?["paging"]?["total"];
 
