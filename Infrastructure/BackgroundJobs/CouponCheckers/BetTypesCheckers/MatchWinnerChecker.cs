@@ -21,6 +21,9 @@ namespace Infrastructure.BackgroundJobs.CouponCheckers.BetTypesCheckers
                 .ThenInclude(x => x.Score)
                 .FirstOrDefaultAsync(x => x.Id == betValue.BetId);
 
+            if (bet == null)
+                throw new Exception($"Bet with id: {betValue.BetId} is null");
+
             var betOptionText = betValue.Value;
 
             var isOptionCorrect = Enum.TryParse(betOptionText, true, out MatchWinnerOption betOption);
@@ -33,27 +36,24 @@ namespace Infrastructure.BackgroundJobs.CouponCheckers.BetTypesCheckers
 
             var fixture = bet.Fixture;
             var league = await _context.Leagues.FirstOrDefaultAsync(x => x.Id == bet.Fixture.LeagueId);
+            if (league == null)
+                throw new Exception($"League with id: {bet.Fixture.LeagueId} is null");
 
             var score = bet.Fixture.Score;
 
             if (score.GoalsHomeTeam == null || score.GoalsAwayTeam == null)
                 throw new Exception($"Score for {fixture.Id} is empty, cannot be checked");
 
-
             if (league.Type == LeagueType.LEAGUE)
-            {
                 return CheckMatchWinner((int)score.GoalsHomeTeam, (int)score.GoalsAwayTeam, betOption);
-            }
-            else
-            {
-                if (score.ExtraTimeHomeGoals == null || score.ExtraTimeAwayGoals == null )
-                        throw new Exception($"Score for {fixture.Id} doesn't has ExtraTimeHomeGoals or ExtraTimeAwayGoals, cannot be checked");
 
-                if (score.PenaltyHomeGoals == null && score.PenaltyAwayGoals == null)
-                    return CheckMatchWinner((int)score.ExtraTimeHomeGoals, (int)score.ExtraTimeAwayGoals, betOption);
-
+            if (score.PenaltyHomeGoals != null && score.PenaltyAwayGoals != null )
                 return CheckMatchWinner((int)score.PenaltyHomeGoals, (int)score.PenaltyAwayGoals, betOption);
-            }
+
+            if (score.ExtraTimeHomeGoals != null && score.ExtraTimeAwayGoals != null)
+                return CheckMatchWinner((int)score.ExtraTimeHomeGoals, (int)score.ExtraTimeHomeGoals, betOption);
+
+            return CheckMatchWinner((int)score.GoalsHomeTeam, (int)score.GoalsAwayTeam, betOption);
         }
 
         private bool CheckMatchWinner(int goalsHome, int goalsAway, MatchWinnerOption betOption)
@@ -72,6 +72,9 @@ namespace Infrastructure.BackgroundJobs.CouponCheckers.BetTypesCheckers
             var bet = await _context.PotentialBets
                 .Include(x => x.Fixture)
                 .FirstOrDefaultAsync(x => x.Id == betValue.BetId);
+
+            if (bet == null)
+                throw new Exception($"Bet with id: {betValue.BetId} is null");
 
             var fixture = bet.Fixture;
 
