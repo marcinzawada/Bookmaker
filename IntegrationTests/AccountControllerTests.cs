@@ -14,58 +14,58 @@ namespace IntegrationTests
 {
     public class AccountControllerTests : BaseIntegrationTest
     {
-        [Fact]
-        public async Task Register_WithCorrectData_ShouldReturnOkStatus()
-        {
-            //Arrange
+        //[Fact]
+        //public async Task Register_WithCorrectData_ShouldReturnOkStatus()
+        //{
+        //    //Arrange
 
-            //Act
-            var response = await _testClient.PostAsJsonAsync("/api/account/register",
-                new RegisterCommand(
-                _faker.Internet.Email(),
-                "TestUser",
-                "Pass123!"));
+        //    //Act
+        //    var response = await _testClient.PostAsJsonAsync("/api/account/register",
+        //        new RegisterCommand(
+        //        _faker.Internet.Email(),
+        //        "TestUser",
+        //        "Pass123!"));
 
 
 
-            //Assert
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-        }
+        //    //Assert
+        //    response.StatusCode.Should().Be(HttpStatusCode.OK);
+        //}
 
-        public static IEnumerable<object[]> IncorrectRegisterData =>
-            new List<object[]>
-            {
-                new object[] { "test@gmail.com", _faker.Person.UserName, "Pass123!"},
-                new object[] { "", _faker.Person.UserName, "Pass123!" },
-                new object[] { "test", _faker.Person.UserName, "Pass123!"},
-                new object[] { _faker.Internet.Email(), "" , "Pass123!" },
-                new object[] { _faker.Internet.Email(), _faker.Person.UserName, "", },
-                //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pass123" },
-                //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pa1!"},
-                //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "pass123!"},
-                //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "password!"},
-                //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "password123"},
-                //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "PASSWORD123!" },
-                ////new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pass 123!"},
-                //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pass#123!" },
-                //new object[] { _faker.Internet.Email(), "username", "Pass#123!"},
-                new object[] { _faker.Internet.Email(), "a", "Pass123!"},
-                new object[] { _faker.Internet.Email(), "tooooooooooooooooooo long username", "Pass123!" },
-            };
+        //public static IEnumerable<object[]> IncorrectRegisterData =>
+        //    new List<object[]>
+        //    {
+        //        new object[] { "test@gmail.com", _faker.Person.UserName, "Pass123!"},
+        //        new object[] { "", _faker.Person.UserName, "Pass123!" },
+        //        new object[] { "test", _faker.Person.UserName, "Pass123!"},
+        //        new object[] { _faker.Internet.Email(), "" , "Pass123!" },
+        //        new object[] { _faker.Internet.Email(), _faker.Person.UserName, "", },
+        //        //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pass123" },
+        //        //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pa1!"},
+        //        //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "pass123!"},
+        //        //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "password!"},
+        //        //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "password123"},
+        //        //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "PASSWORD123!" },
+        //        ////new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pass 123!"},
+        //        //new object[] { _faker.Internet.Email(), _faker.Person.UserName, "Pass#123!" },
+        //        //new object[] { _faker.Internet.Email(), "username", "Pass#123!"},
+        //        new object[] { _faker.Internet.Email(), "a", "Pass123!"},
+        //        new object[] { _faker.Internet.Email(), "tooooooooooooooooooo long username", "Pass123!" },
+        //    };
 
-        [Theory]
-        [MemberData(nameof(IncorrectRegisterData))]
-        public async Task Register_WithIncorrectData_ShouldReturnBadRequest(string email, string name, string password)
-        {
-            //Arrange
+        //[Theory]
+        //[MemberData(nameof(IncorrectRegisterData))]
+        //public async Task Register_WithIncorrectData_ShouldReturnBadRequest(string email, string name, string password)
+        //{
+        //    //Arrange
 
-            //Act
-            var response = await _testClient.PostAsJsonAsync("/api/account/register",
-                new RegisterCommand(email, name, password));
+        //    //Act
+        //    var response = await _testClient.PostAsJsonAsync("/api/account/register",
+        //        new RegisterCommand(email, name, password));
 
-            //Assert
-            response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
-        }
+        //    //Assert
+        //    response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
+        //}
 
         [Fact]
         public async Task Login_WithCorrectCredentials_ShouldReturnOkStatus()
