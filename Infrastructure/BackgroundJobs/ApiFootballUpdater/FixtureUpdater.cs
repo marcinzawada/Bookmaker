@@ -37,7 +37,7 @@ namespace Infrastructure.BackgroundJobs.ApiFootballUpdater
 
             var fixtureDtosFromApi = await DownloadFixturesFromApiForLeaguesFromBase();
 
-            var fixtureDtosWithOdds = await GetFixtureDtosWithOdds(fixtureDtosFromApi);
+            var fixtureDtosWithOdds = await SelectFixturesWithOdds(fixtureDtosFromApi);
 
             var fixturesFromApi = MapFixtureDtosToFixture(fixtureDtosWithOdds);
 
@@ -100,8 +100,9 @@ namespace Infrastructure.BackgroundJobs.ApiFootballUpdater
 
                 if (!fixtureFromApi.Equals(fixtureFromBase))
                 {
-                    if (fixtureFromApi.Score != null && fixtureFromApi.Status == MatchStatus.FT 
-                                                     && fixtureFromBase.Score == null)
+                    if (fixtureFromApi.Score != null 
+                        && (fixtureFromApi.Status is MatchStatus.FT or MatchStatus.AET or MatchStatus.PEN
+                                                     && fixtureFromBase.Score == null))
                     {
                         fixtureFromBase.Score = fixtureFromApi.Score;
                         fixtureFromBase.Score.ExtFixtureId = fixtureFromApi.ExtFixtureId;
@@ -136,8 +137,8 @@ namespace Infrastructure.BackgroundJobs.ApiFootballUpdater
         {
             foreach (var fixtureFromApi in fixturesFromApi)
             {
-                var fixtureFromBase =
-                    fixturesFromBase.FirstOrDefault(x => x.ExtFixtureId == fixtureFromApi.ExtFixtureId);
+                var fixtureFromBase = fixturesFromBase
+                    .FirstOrDefault(x => x.ExtFixtureId == fixtureFromApi.ExtFixtureId);
 
                 if (fixtureFromBase != null)
                 {
@@ -160,7 +161,7 @@ namespace Infrastructure.BackgroundJobs.ApiFootballUpdater
             return fixturesFromApi;
         }
 
-        private async Task<List<FixtureDto>> GetFixtureDtosWithOdds(List<FixtureDto> fixtureDtos)
+        private async Task<List<FixtureDto>> SelectFixturesWithOdds(List<FixtureDto> fixtureDtos)
         {
             var leaguesWithOdds = await _context.Leagues.ToListAsync();
 
