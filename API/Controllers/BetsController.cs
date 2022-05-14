@@ -10,8 +10,10 @@ namespace API.Controllers
     {
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]GetBetsQuery request)
-        {
+        public async Task<IActionResult> Get()
+        {   
+            var request = new GetBetsQuery();
+
             var response = await Mediator.Send(request);
 
             return this.CreateResponse(response);
