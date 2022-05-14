@@ -12,9 +12,9 @@ using MediatR;
 
 namespace Application.Commands.Clubs.Create
 {
-    public class AddUserToClubHandler : BaseCommandHandler, IRequestHandler<CreateClubCommand, Response>
+    public class CreateClubCommandHandler : BaseCommandHandler, IRequestHandler<CreateClubCommand, Response>
     {
-        public AddUserToClubHandler(IDbContext context, IUserContextService userContextService) : base(context, userContextService)
+        public CreateClubCommandHandler(IDbContext context, IUserContextService userContextService) : base(context, userContextService)
         {
         }
 
