@@ -17,7 +17,7 @@ namespace Application.Commands.Clubs.Create
         public CreateClubCommandValidator()
         {
             RuleFor(x => x.ClubName)
-                .NotNull().NotEmpty().MinimumLength(6).MaximumLength(64);
+                .NotNull().NotEmpty().MinimumLength(1).MaximumLength(64);
         }
     }
 
