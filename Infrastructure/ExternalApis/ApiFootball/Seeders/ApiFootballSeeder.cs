@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,11 +43,31 @@ namespace Infrastructure.ExternalApis.ApiFootball.Seeders
             await _leaguesSeeder.SeedLeagues();
             await _labelsSeeder.SeedLabels();
             await _bookiesSeeder.SeedBookies();
-            await _teamSeeder.SeedTeamsByExtLeagueId(3466);
-            await _roundsSeeder.SeedRoundsByExtLeagueId(3466);
-            await _fixturesSeeder.SeedFixturesByExtLeagueId(3466);
-            await _betsSeeder.SeedBetsByLeagueId(3466);
+            await _teamSeeder.SeedTeamsByExtLeagueId(new List<int> { 3466, 3513, 3456, 3431, 4266, 4137, 4254 });
+            await _roundsSeeder.SeedRoundsByExtLeagueId(new List<int> { 3466, 3513, 3456, 3431, 4266, 4137, 4254 });
+            await _fixturesSeeder.SeedFixturesByExtLeagueId(new List<int> { 3466, 3513, 3456, 3431, 4266, 4137, 4254 });
+            await _betsSeeder.SeedBetsByLeagueId(new List<int> { 3466, 3513, 3456, 3431 });
         }
+        //La Liga - 3513
+        //Premier League - 3456
+        //UEFA Champions League - 3431
+        //Bundesliga 1 - 3510
 
+        //end 2022-07
+        //Premier League Ghana - 3925
+        //NPFL Nigeria - 4006
+        //Primera Division - Apertura Paraguay - 4138
+        //A Lyga Lithuania - 4196
+
+        //end 2022-08
+        //Northern NSW NPL - Australia - 4049
+        //Victoria NPL - Australia - 4061
+        //Queensland NPL - Australia - 4101
+        //National Premier Leagues - Australia - 4137
+        //South Australia NPL - Australia - 4191
+        //Premier League - Kyrgyzstan - 4213
+        //1 Lyga - Lithuania - 4222
+        //Naisten Liiga - Finland - 4226
+        //Segunda Division - Venezuela - 4254
     }
 }
