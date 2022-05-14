@@ -12,6 +12,7 @@ using Application.Services;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Domain.Entities;
+using Domain.Enums;
 using MediatR;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
@@ -35,9 +36,11 @@ namespace Application.Queries.Bets.GetBets
                 .Include(x => x.League)
                 .ThenInclude(x => x.Country)
                 .OrderBy(x => x.Fixture.EventDate)
-                .Where(x => x.LeagueId == request.LeagueId && x.BookieId == 7)
+                .Where(x => x.Fixture.EventDate > DateTime.Now.AddMinutes(15) &&
+                            x.Fixture.Status == MatchStatus.NS)
                 .ProjectTo<BetDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
+
 
             if (!betDtos.Any())
                 return Response.Failure(Errors.EntityNotFound<PotentialBet>());
