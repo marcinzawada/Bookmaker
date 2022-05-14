@@ -10,7 +10,12 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.Commands.Clubs.AddUser
 {
 
-    public record AddUserToClubCommand(string UserEmail, int ClubId) : IRequest<Response>;
+    public class AddUserToClubCommand : IRequest<Response>
+    {
+        public string UserEmail { get; set; }
+
+        public int ClubId { get; set; }
+    }
 
     public class AddUserToClubCommandValidator : AbstractValidator<AddUserToClubCommand>
     {
