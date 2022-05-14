@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Data;
 using Infrastructure.ExternalApis.ApiFootball.Client;
@@ -15,19 +16,35 @@ namespace Infrastructure.ExternalApis.ApiFootball.Seeders
             _logger = logger;
         }
 
-        public async Task SeedRoundsByExtLeagueId(int id)
+        public async Task SeedRoundsByExtLeagueId(IEnumerable<int> leagueIds)
         {
-            var league = _context.Leagues.FirstOrDefault(x => x.ExtLeagueId == id);
-            
-            if (league == null)
-                _logger.LogError($"League not found. ExtLeagueId: {id}");
-            
-            if (!_context.Rounds.Any(x => x.LeagueId == league.Id))
+            foreach (var leagueId in leagueIds)
             {
-                var rounds = await _client.DownloadAllRoundsByLeagueId(id);
+                var league = _context.Leagues.FirstOrDefault(x => x.ExtLeagueId == leagueId);
+
+                if (league == null)
+                    _logger.LogError($"League not found. ExtLeagueId: {leagueId}");
+
+                if (_context.Rounds.Any(x => x.LeagueId == league.Id))
+                    continue;
+
+                var rounds = await _client.DownloadAllRoundsByLeagueId(leagueId);
                 await _context.Rounds.AddRangeAsync(rounds);
-                await _context.SaveChangesAsync();
             }
+            await _context.SaveChangesAsync();
+
+
+            //var league = _context.Leagues.FirstOrDefault(x => x.ExtLeagueId == id);
+
+            //if (league == null)
+            //    _logger.LogError($"League not found. ExtLeagueId: {id}");
+
+            //if (!_context.Rounds.Any(x => x.LeagueId == league.Id))
+            //{
+            //    var rounds = await _client.DownloadAllRoundsByLeagueId(id);
+            //    await _context.Rounds.AddRangeAsync(rounds);
+            //    await _context.SaveChangesAsync();
+            //}
         }
     }
 }
