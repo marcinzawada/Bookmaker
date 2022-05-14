@@ -54,7 +54,8 @@ namespace Infrastructure.Data
         {
             modelBuilder.Entity<PotentialBet>()
                 .HasMany(b => b.BetValues)
-                .WithOne(bv => bv.Bet);
+                .WithOne(bv => bv.Bet)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<PotentialBet>()
                 .HasOne(b => b.Fixture)
@@ -80,12 +81,13 @@ namespace Infrastructure.Data
 
             modelBuilder.Entity<League>()
                 .HasMany(l => l.Rounds)
-                .WithOne(r => r.League);
+                .WithOne(r => r.League)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<League>()
                 .HasMany(l => l.Teams)
                 .WithOne(t => t.League)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Team>()
                 .HasMany(t => t.Leagues)
