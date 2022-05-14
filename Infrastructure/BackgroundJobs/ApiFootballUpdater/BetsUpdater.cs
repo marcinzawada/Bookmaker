@@ -104,6 +104,13 @@ namespace Infrastructure.BackgroundJobs.ApiFootballUpdater
         {
             var newBetsToAdd = betsFromApi.Except(betsFromBase).ToList();
 
+            _logger.LogInformation($"Added {newBetsToAdd.Count} new bets");
+            var groupedBets = newBetsToAdd.GroupBy(x => x.League.ExtLeagueId);
+            foreach (var kvp in groupedBets)
+            {
+                _logger.LogInformation($"Added {kvp.Count()} new bets from ExtLeagueId: {kvp.Key}");
+            }
+
             await _context.PotentialBets.AddRangeAsync(newBetsToAdd);
             return newBetsToAdd;
         }
@@ -137,6 +144,9 @@ namespace Infrastructure.BackgroundJobs.ApiFootballUpdater
                 }
 
                 betsFromBase.Remove(betFromBase);
+
+                //bet.UpdatedAt = DateTime.UtcNow;
+                _context.PotentialBets.Update(bet);
             }
 
             await _context.BetValues.AddRangeAsync(newBetValuesToAdd);
