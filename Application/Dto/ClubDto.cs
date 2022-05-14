@@ -13,5 +13,7 @@ namespace Application.Dto
         public int NumberOfMembers { get; set; }
 
         public List<UserDto> Users { get; set; }
+
+        public int AdminId { get; set; }
     }
 }
