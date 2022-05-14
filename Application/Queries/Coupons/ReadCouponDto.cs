@@ -53,6 +53,6 @@ namespace Application.Queries.Coupons
 
         public string LabelName { get; set; }
 
-        public bool IsBetWinning { get; set; }
+        public bool? IsBetWinning { get; set; }
     }
 }
