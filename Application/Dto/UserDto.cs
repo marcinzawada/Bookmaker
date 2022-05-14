@@ -15,5 +15,7 @@ namespace Application.Dto
         public string Email { get; set; }
 
         public decimal GameTokens { get; set; }
+
+        public string UserName { get; set; }
     }
 }
