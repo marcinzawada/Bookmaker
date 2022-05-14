@@ -28,6 +28,8 @@ namespace Domain.Entities
 
         public DateTime TimeOfLastTokensReceived { get; set; }
 
+        public string ResetPasswordToken { get; set; }
+
         public virtual List<Coupon> Coupons { get; set; } = new();
 
         public virtual List<ClubUser> ClubUser { get; set; } = new();
