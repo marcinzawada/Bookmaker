@@ -21,16 +21,23 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
 
         public List<PotentialBet> MapOddDtosToBets(List<OddDto> dtos)
         {
-            var leagueIdFromDto = dtos.First().Fixture.LeagueId;
-            var league = _context.Leagues.FirstOrDefault(x => x.ExtLeagueId == leagueIdFromDto);
-            if (league == null)
-                throw new EntityNotFoundException($"League not found. ExtLeagueId: {leagueIdFromDto}");
+            var leagueIdsFromDto = dtos.Select(x => x.Fixture.LeagueId).Distinct().ToList();
+            var leaguesFromBase = _context
+                .Leagues
+                .Where(x => leagueIdsFromDto.Contains(x.ExtLeagueId))
+                .ToList();
 
-            var fixtureIds = dtos.Select(x => x.Fixture.FixtureId).Distinct();
-            var fixturesInBase = _context.Fixtures.Where(x => fixtureIds.Contains(x.ExtFixtureId)).ToList();
-            if (fixtureIds.Count() != fixturesInBase.Count())
+            if (leagueIdsFromDto.Count != leaguesFromBase.Count)
             {
-                var missingFixtureIds = fixtureIds.Except(fixturesInBase.Select(x => x.ExtFixtureId));
+                var missingLeagueIds = leagueIdsFromDto.Except(leaguesFromBase.Select(x => x.ExtLeagueId));
+                throw new EntityNotFoundException($"League not found. ExtLeagueIds: " + string.Join(", ", missingLeagueIds));
+            }
+
+            var fixtureIds = dtos.Select(x => x.Fixture.FixtureId).Distinct().ToList();
+            var fixturesFromBase = _context.Fixtures.Where(x => fixtureIds.Contains(x.ExtFixtureId)).ToList();
+            if (fixtureIds.Count != fixturesFromBase.Count())
+            {
+                var missingFixtureIds = fixtureIds.Except(fixturesFromBase.Select(x => x.ExtFixtureId));
                 throw new EntityNotFoundException($"Fixtures not found. ExtFixtureIds: " + string.Join(", ", missingFixtureIds));
             }
 
@@ -80,13 +87,17 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
 
             foreach (var dto in dtos)
             {
-                var fixtureFromBase = fixturesInBase.FirstOrDefault(x =>
+                var fixtureFromBase = fixturesFromBase.FirstOrDefault(x =>
                     x.ExtFixtureId == dto.Fixture.FixtureId);
 
                 if (fixtureFromBase == null)
-                {
-                    
-                }
+                    throw new Exception($"Fixture from base not found. FixtureId: {dto.Fixture.FixtureId}");
+
+                var leagueFromBase = leaguesFromBase
+                    .FirstOrDefault(x => x.ExtLeagueId == dto.Fixture.LeagueId);
+
+                if (leagueFromBase == null)
+                    throw new Exception($"League from base not found. LeagueId: {dto.Fixture.LeagueId}");
 
                 var updatedAt = DateTimeOffset.FromUnixTimeSeconds(dto.Fixture.UpdateAt).UtcDateTime;
                 fixtureFromBase.UpdatedBetsAt = updatedAt;
@@ -98,13 +109,17 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
                     {
                         var newBet = new PotentialBet
                         {
-                            LeagueId = league.Id,
+                            LeagueId = leagueFromBase.Id,
+                            League = leagueFromBase,
                             Fixture = fixtureFromBase,
                             FixtureId = fixtureFromBase.Id
                         };
 
                         var bookieFromBase = bookiesInBase.FirstOrDefault(x =>
                             x.ExtBookmakerId == bookie.BookieId);
+
+                        if (bookieFromBase == null)
+                            throw new Exception($"Bookie from base not found. BookieId: {bookie.BookieId}");
 
                         newBet.BookieId = bookieFromBase.Id;
 
@@ -117,7 +132,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
                         }
 
                         newBet.LabelId = labelFromBase.Id;
-
+                        //newBet.CreatedAt = DateTime.UtcNow;
 
                         foreach (var betValue in bet.BetValues)
                         {
