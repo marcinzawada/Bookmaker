@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Data;
 using Infrastructure.ExternalApis.ApiFootball.Client;
@@ -12,16 +13,29 @@ namespace Infrastructure.ExternalApis.ApiFootball.Seeders
         {
         }
 
-        public async Task SeedTeamsByExtLeagueId(int id)
+        public async Task SeedTeamsByExtLeagueId(IEnumerable<int> leagueIds)
         {
-            var league = await _context.Leagues.FirstOrDefaultAsync(x => x.ExtLeagueId == id);
-
-            if (_context.Teams.Count(x => x.Leagues.Any(y => y.LeagueId == league.Id)) == 0)
+            foreach (var leagueId in leagueIds)
             {
-                var teams = await _client.DownloadTeamsByLeagueId(id);
+                var league = await _context.Leagues.FirstOrDefaultAsync(x => x.ExtLeagueId == leagueId);
+
+                if (_context.Teams.Any(x => x.Leagues.Any(y => y.LeagueId == league.Id))) 
+                    continue;
+
+                var teams = await _client.DownloadTeamsByLeagueId(leagueId);
                 await _context.Teams.AddRangeAsync(teams);
-                await _context.SaveChangesAsync();
             }
+
+            await _context.SaveChangesAsync();
+
+            //var league = await _context.Leagues.FirstOrDefaultAsync(x => x.ExtLeagueId == id);
+
+            //if (_context.Teams.Count(x => x.Leagues.Any(y => y.LeagueId == league.Id)) == 0)
+            //{
+            //    var teams = await _client.DownloadTeamsByLeagueId(id);
+            //    await _context.Teams.AddRangeAsync(teams);
+            //    await _context.SaveChangesAsync();
+            //}
         }
     }
 }
