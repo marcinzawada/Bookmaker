@@ -21,9 +21,10 @@ namespace API.Controllers
             return this.CreateResponse(response);
         }
 
-        [HttpPost("addUser")]
-        public async Task<IActionResult> AddUser([FromBody] AddUserToClubCommand request)
+        [HttpPost("{clubId:int}/user")]
+        public async Task<IActionResult> AddUser([FromBody] AddUserToClubCommand request, int clubId)
         {
+            request.ClubId = clubId;
             var response = await Mediator.Send(request);
 
             return this.CreateResponse(response);
