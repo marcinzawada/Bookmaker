@@ -65,7 +65,7 @@ namespace Infrastructure.ExternalApis.ApiFootball.Mappers
             return _teamMapper.MapDtoToModel(dto);
         }
 
-        public List<Team> MapLeagueDtosToLeagues(List<TeamDto> dtos, int extLeagueId)
+        public List<Team> MapTeamDtosToTeam(List<TeamDto> dtos, int extLeagueId)
         {
             foreach (var teamDto in dtos)
             {
