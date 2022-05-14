@@ -22,6 +22,8 @@ namespace Infrastructure.Common.DependencyInjection
         {
             services.AddScoped<IDbContext>(provider => provider.GetService<AppDbContext>());
             services.AddScoped<IUserContextService, UserContextService>();
+            services.AddScoped<IEmailSenderService, EmailSenderService>();
+            services.AddScoped<ICaptchaVerificationService, CaptchaVerificationService>();
             services.AddScoped<FixtureUpdater>();
             services.AddScoped<BetsUpdater>();
             services.AddScoped<CouponChecker>();
