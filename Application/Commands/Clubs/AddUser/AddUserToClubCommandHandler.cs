@@ -28,6 +28,11 @@ namespace Application.Commands.Clubs.AddUser
                 return Response.Failure(Errors.EntityNotFound<Club>());
 
             var userId = _userContextService.GetUserId();
+            var user = await _context.Users
+                .FirstAsync(x => x.Id == userId, cancellationToken);
+            
+            if (string.Equals(user.Email.Trim(), request.UserEmail.Trim(), StringComparison.OrdinalIgnoreCase))
+                return Response.Failure(Errors.Forbidden());
 
             if (club.AdminId != userId)
                 return Response.Failure(Errors.Forbidden());
