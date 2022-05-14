@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Data;
 using Infrastructure.ExternalApis.ApiFootball.Client;
@@ -12,16 +13,30 @@ namespace Infrastructure.ExternalApis.ApiFootball.Seeders
         {
         }
 
-        public async Task SeedFixturesByExtLeagueId(int id)
+        public async Task SeedFixturesByExtLeagueId(IEnumerable<int> leagueIds)
         {
-            var league = await _context.Leagues.FirstOrDefaultAsync(x => x.ExtLeagueId == id);
-
-            if (!_context.Fixtures.Any(x => x.LeagueId == league.Id))
+            foreach (var leagueId in leagueIds)
             {
-                var fixtures = await _client.DownloadAllFixturesByLeagueId(id);
+
+                var league = await _context.Leagues.FirstOrDefaultAsync(x => x.ExtLeagueId == leagueId);
+
+                if (_context.Fixtures.Any(x => x.LeagueId == league.Id))
+                    continue;
+
+                var fixtures = await _client.DownloadAllFixturesByLeagueId(leagueId);
                 await _context.Fixtures.AddRangeAsync(fixtures);
-                await _context.SaveChangesAsync();
             }
+            await _context.SaveChangesAsync();
+
+
+            //var league = await _context.Leagues.FirstOrDefaultAsync(x => x.ExtLeagueId == id);
+
+            //if (!_context.Fixtures.Any(x => x.LeagueId == league.Id))
+            //{
+            //    var fixtures = await _client.DownloadAllFixturesByLeagueId(id);
+            //    await _context.Fixtures.AddRangeAsync(fixtures);
+            //    await _context.SaveChangesAsync();
+            //}
         }
     }
 }
