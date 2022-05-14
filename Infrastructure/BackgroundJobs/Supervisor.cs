@@ -36,23 +36,23 @@ public class Supervisor
     {
         var jobs = new List<Job>
         {
-            new Job(FixtureUpdaterId, "0 * * * *", () => _fixtureUpdater.Update()),
-            new Job(BetsUpdaterId, "5 * * * *", () => _betsUpdater.Update()),
-            new Job(CouponCheckerId, "10 * * * *", () => _couponChecker.Check()),
+            new Job(FixtureUpdaterId, "15 */8 * * *", () => _fixtureUpdater.Update()),
+            new Job(BetsUpdaterId, "30 */8 * * *", () => _betsUpdater.Update()),
+            new Job(CouponCheckerId, "* */4 * * *", () => _couponChecker.Check()),
         };
 
-        var recurringJobsIds = JobStorage.Current
-            .GetConnection().GetRecurringJobs().Select(x => x.Id);
+        //var recurringJobsIds = JobStorage.Current
+        //    .GetConnection().GetRecurringJobs().Select(x => x.Id);
 
-        var jobsToAdd = jobs
-            .Where(x => !recurringJobsIds
-                .Contains(x.Id))
-            .ToList();
+        //var jobsToAdd = jobs
+        //    .Where(x => !recurringJobsIds
+        //        .Contains(x.Id))
+        //    .ToList();
 
-        if (!jobsToAdd.Any()) 
-            return;
+        //if (!jobsToAdd.Any()) 
+        //    return;
 
-        foreach (var job in jobsToAdd)
+        foreach (var job in jobs)
         {
             RecurringJob.AddOrUpdate(job.Id, job.Task, job.Cron);
         }
