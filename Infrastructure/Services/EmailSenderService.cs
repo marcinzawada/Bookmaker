@@ -17,7 +17,6 @@ public class EmailSenderService : IEmailSenderService
     private readonly EmailAddress _emailFrom;
 
     public EmailSenderService(IConfiguration configuration)
-
     {
         var apiKey = configuration.GetSection("SendGridApiKey").Value;
         _mailClient = new SendGridClient(apiKey);
