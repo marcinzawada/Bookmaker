@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Channels;
-using System.Threading.Tasks;
-using Hangfire;
-using Hangfire.Common;
-using Hangfire.Storage;
+﻿using Hangfire;
 using Infrastructure.BackgroundJobs.ApiFootballUpdater;
 using Infrastructure.BackgroundJobs.CouponCheckers;
-using Microsoft.CodeAnalysis;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Infrastructure.BackgroundJobs;
 
@@ -36,8 +30,8 @@ public class Supervisor
     {
         var jobs = new List<Job>
         {
-            new Job(FixtureUpdaterId, "15 */8 * * *", () => _fixtureUpdater.Update()),
-            new Job(BetsUpdaterId, "30 */8 * * *", () => _betsUpdater.Update()),
+            new Job(FixtureUpdaterId, "15 */23 * * *", () => _fixtureUpdater.Update()),
+            new Job(BetsUpdaterId, "30 */23 * * *", () => _betsUpdater.Update()),
             new Job(CouponCheckerId, "* */4 * * *", () => _couponChecker.Check()),
         };
 
