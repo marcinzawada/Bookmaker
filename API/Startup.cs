@@ -1,5 +1,3 @@
-using System.Reflection;
-using System.Threading.Tasks;
 using API.AppConfigs;
 using API.ExtensionMethod;
 using Application.Common.DependencyInjection;
@@ -19,6 +17,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSwag;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace API
 {
@@ -37,7 +37,7 @@ namespace API
             services.AddControllers(opt =>
             {
                 opt.Filters.Add(new ModelValidatorFilter());
-            }).AddFluentValidation(opt => 
+            }).AddFluentValidation(opt =>
                 opt.RegisterValidatorsFromAssembly(Assembly.Load("Application")));
 
             services.AddAuthentication(Configuration);
@@ -49,7 +49,7 @@ namespace API
             services.AddScoped<ModelValidatorFilter>();
 
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SQLExpress")));
+                options.UseSqlServer(Configuration.GetConnectionString("SQL")));
 
 
             services.AddApiFootballServices();
@@ -63,7 +63,7 @@ namespace API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, 
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
             ApiFootballSeeder seeder, AppDbContext context, Supervisor supervisor)
         {
             app.UseCors(builder =>
